@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cusco-stats · Districts of Cusco in data</title>
+  <meta name="description" content="Interactive trends and maps for the 116 districts of Cusco, Peru: canon transfers, municipal budgets, schools, jobs, services and census indicators, 2001-2025.">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="vendor/d3.v7.9.0.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#explorer" data-i18n="skip">Skip to the explorer</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="3" y="18" width="5" height="11" rx="1.5"/><rect x="10.5" y="11" width="5" height="18" rx="1.5"/>
+          <rect x="18" y="14" width="5" height="15" rx="1.5"/><rect x="25.5" y="5" width="5" height="24" rx="1.5"/>
+        </svg>
+        <div>
+          <p class="brand-name">Cusco-stats</p>
+          <p class="brand-tag" data-i18n="tagline">The 116 districts of Cusco, Peru, in data</p>
+        </div>
+      </div>
+      <nav class="site-nav" aria-label="Sections">
+        <a href="#story" class="nav-link is-soon" aria-disabled="true" data-i18n="navStory">Story</a>
+        <a href="#explorer" class="nav-link is-active" aria-current="page" data-i18n="navExplorer">Explorer</a>
+        <a href="#methods" class="nav-link is-soon" aria-disabled="true" data-i18n="navMethods">Methods &amp; data</a>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Language / Idioma">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="explorer" class="wrap" tabindex="-1">
+    <section class="intro">
+      <h1 data-i18n="explorerTitle">Explorer</h1>
+      <p data-i18n="explorerIntro">Choose an indicator, then add provinces or districts to compare them with Cusco as a whole. Click a district on the map to add it to the chart.</p>
+    </section>
+
+    <section class="controls" aria-label="Filters">
+      <div class="control">
+        <label for="sel-indicator" data-i18n="indicator">Indicator</label>
+        <select id="sel-indicator"></select>
+      </div>
+      <div class="control">
+        <label for="sel-measure" data-i18n="measure">Measure</label>
+        <select id="sel-measure"></select>
+      </div>
+      <div class="control" id="ctl-units" hidden>
+        <span class="control-label" id="units-label" data-i18n="units">Soles</span>
+        <div class="segmented" role="group" aria-labelledby="units-label">
+          <button type="button" data-units="real" aria-pressed="true" data-i18n="unitsReal">Constant 2024</button>
+          <button type="button" data-units="nominal" aria-pressed="false" data-i18n="unitsNominal">Current</button>
+        </div>
+      </div>
+      <div class="control control-grow">
+        <label for="inp-place" data-i18n="addPlace">Add a province or district</label>
+        <input id="inp-place" type="text" list="place-list" autocomplete="off" data-i18n-placeholder="addPlaceHint" placeholder="Type a name…">
+        <datalist id="place-list"></datalist>
+      </div>
+    </section>
+
+    <div class="chips" id="chips" aria-label="Places in the chart"></div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <div class="grid">
+      <section class="card card-chart" aria-labelledby="chart-title">
+        <header class="card-head">
+          <div>
+            <h2 id="chart-title" class="card-title"></h2>
+            <p id="chart-subtitle" class="card-subtitle"></p>
+          </div>
+          <div class="card-tools">
+            <button type="button" class="btn-ghost" id="btn-table" aria-expanded="false" data-i18n="showTable">Show table</button>
+            <button type="button" class="btn-ghost" id="btn-csv" data-i18n="downloadCsv">Download CSV</button>
+          </div>
+        </header>
+        <div class="legend" id="chart-legend"></div>
+        <div class="chart" id="chart"></div>
+        <div class="table-wrap" id="chart-table" hidden></div>
+      </section>
+
+      <section class="card card-map" id="map-card" aria-labelledby="map-title">
+        <header class="card-head">
+          <div>
+            <h2 id="map-title" class="card-title"></h2>
+            <p id="map-subtitle" class="card-subtitle"></p>
+          </div>
+        </header>
+        <div class="map-year" id="map-year-wrap">
+          <label for="rng-year"><span data-i18n="year">Year</span> <output id="out-year"></output></label>
+          <input id="rng-year" type="range" min="2000" max="2025" step="1">
+        </div>
+        <div class="map" id="map"></div>
+        <div class="map-legend" id="map-legend"></div>
+      </section>
+
+      <section class="card card-notes" aria-labelledby="notes-title">
+        <h2 id="notes-title" class="card-title" data-i18n="aboutIndicator">About this indicator</h2>
+        <div id="notes" class="notes"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p id="footer-data"></p>
+      <p><span data-i18n="footerBy">Built by</span> <a href="https://pvillaparo.github.io/">Paola Villa Paro</a> · <a href="https://github.com/pvillaparo/cusco-data" data-i18n="footerRepo">Data and code on GitHub</a></p>
+    </div>
+  </footer>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  <noscript><p class="wrap">This page needs JavaScript to draw its charts and maps.</p></noscript>
+</body>
+</html>
