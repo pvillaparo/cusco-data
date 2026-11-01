@@ -14,8 +14,8 @@ This plan describes how the harmonized data in `../harmonized/` becomes the **Cu
 The site is a Jekyll *academicpages* theme on GitHub Pages. Its "Miscellaneous" tab reads its cards from `_data/miscellaneous.yml`, which already holds a commented-out "Cusco Stats" entry at `/cusco-stats/`. Following the Quechua pattern (landing page `/quechua/` → app `/rimay/`), there are three pieces:
 
 1. **Card and landing page** in `pvillaparo.github.io`: uncomment the card, and add `_pages/cusco-stats.md` with a two-paragraph description, a preview image, the data sources and an "Open the explorer" button.
-2. **The app** in a new repository, for example `pvillaparo/cusco-data`, served at `pvillaparo.github.io/cusco-data/`. It is a static site: plain HTML, CSS and JavaScript, with no build step and no server. The theme cannot constrain its layout, and it cannot break the academic site.
-3. **The data** stays in `data_cusco`. An export script (`website/export_site_data.py`, to be written) produces the small files the app reads, and those are copied into the app repository at each update.
+2. **The app** in this repository's `docs/` folder, published by GitHub Pages at `pvillaparo.github.io/cusco-data/` (the repository is renamed from `data_cusco` to `cusco-data`). It is a static site: plain HTML, CSS and JavaScript, with no build step and no server. The theme cannot constrain its layout, and it cannot break the academic site.
+3. **The data** is exported by `website/export_site_data.py` straight into `docs/data/`, so a yearly update is one rebuild with no copying between repositories.
 
 **Libraries.** I recommend [Observable Plot](https://observablehq.com/plot/), which builds on d3, for both line charts and maps. Its defaults are clean, it handles missing years as true gaps, and it draws maps from GeoJSON without tile servers. That suits 116 districts, works offline, and avoids the usage terms of commercial map tiles. Everything else is plain JavaScript.
 

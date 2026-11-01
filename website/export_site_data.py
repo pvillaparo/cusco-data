@@ -5,8 +5,8 @@ Export the harmonized Cusco-stats data as compact JSON for the website app (/cus
 
 Inputs : harmonized/cusco_stats_long.csv, harmonized/cusco_stats_dictionary.csv,
          website/place_names.csv, panels/canon_spending_district_year.csv (district flags),
-         website/site_data/geo/*.geojson (from build_boundaries.py)
-Output : website/site_data/
+         docs/data/geo/*.geojson (from build_boundaries.py)
+Output : docs/data/  (served with the app by GitHub Pages)
            meta.json          data vintage, build date, data_cusco commit, CPI base year
            dictionary.json    every variable x measure, labels/units/caveats in en and es
            places.json        department, provinces and districts with display names and flags
@@ -27,7 +27,7 @@ import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-OUT = HERE / "site_data"
+OUT = ROOT / "docs" / "data"   # published by GitHub Pages with the app in docs/
 LONG = ROOT / "harmonized" / "cusco_stats_long.csv"
 DICT = ROOT / "harmonized" / "cusco_stats_dictionary.csv"
 PLACES = HERE / "place_names.csv"
@@ -159,7 +159,7 @@ def main():
         "title": {"en": "Cusco-stats", "es": "Cusco-stats"},
         "data_vintage": "INEI SIRTOD download of 2026-09-22",
         "built": dt.date.today().isoformat(),
-        "data_repository": "https://github.com/pvillaparo/data_cusco",
+        "data_repository": "https://github.com/pvillaparo/cusco-data",
         "data_commit": commit,
         "real_base_year": 2024,
         "deflator": {"en": "Cusco city CPI (INEI), annual average", "es": "IPC de la ciudad de Cusco (INEI), promedio anual"},

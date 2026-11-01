@@ -5,7 +5,7 @@ District and province boundaries of Cusco for the Cusco-stats maps.
     python website/build_boundaries.py --refresh             # re-download it (needs geosmarthosting.undp.org)
     python website/build_boundaries.py --source pe-atlas     # older interim source, 112 districts
 
-Output: website/site_data/geo/districts.geojson and provinces.geojson
+Output: docs/data/geo/districts.geojson and provinces.geojson
 (WGS84, coordinates rounded to 4 decimals, about 10 m).
 
 Sources
@@ -28,7 +28,7 @@ import urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE / "site_data" / "geo"
+OUT = HERE.parent / "docs" / "data" / "geo"
 PE_ATLAS_URL = "https://registry.npmjs.org/pe-atlas/-/pe-atlas-0.0.1.tgz"
 PE_ATLAS_CACHE = HERE / "inputs" / "pe-atlas-0.0.1"
 INEI_LAYER = ("https://geosmarthosting.undp.org/arcgis/rest/services/Hosted/"

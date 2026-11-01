@@ -1,6 +1,6 @@
 # Cusco-stats story: first draft
 
-*Draft for Paola to edit. Every figure was computed from the exported site data (`website/site_data/`, built 2026-11-01) and should be rechecked whenever the data are rebuilt. Money is in constant 2024 soles unless stated otherwise. The English version comes first, then the Spanish one.*
+*Draft for Paola to edit. Every figure was computed from the exported site data (`docs/data/`, built 2026-11-01) and should be rechecked whenever the data are rebuilt. Money is in constant 2024 soles unless stated otherwise. The English version comes first, then the Spanish one.*
 
 ---
 
