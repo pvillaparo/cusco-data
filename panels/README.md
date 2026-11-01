@@ -99,3 +99,60 @@ Running both and showing that they agree over the common period is the natural r
 - Echarate is the producing district, and its canon per capita is an order of magnitude above everyone else's. It sits in its own tier and leaves the sample in 2016, when Megantoni is carved out. Megantoni has no base share and is not in `iv_sample`. Results should not hinge on Echarate.
 - `gas_iv_prod` uses production volumes only, so it has no price or tax variation. Its year-on-year growth correlates 0.76 with the pool's. With year fixed effects it identifies off the same base shares, so it differs from `gas_iv` only in how the years are weighted.
 - Gas canon is not the only canon. Mining canon is large in Espinar and Chumbivilcas and follows a similar formula, so consider controlling for it or instrumenting it the same way.
+
+---
+
+# Formula-based instrument for mining canon
+
+`mining_canon_instrument_district_year.csv` / `.dta` has one row per `ubigeo` × `year` and merges one-to-one with the panel and the gas instrument. Rebuild it with `python panels/build_mining_canon_instrument.py`.
+
+## Why it is built by source
+
+Gas canon has a single source, so one frozen share times one pool is enough. Mining canon has two sources that switch on at different times. The Espinar mines (Tintaya, then Antapaccay) generate all the local-tier mining money in the base period. Constancia in Chumbivilcas starts generating canon in 2013 and, above all, in 2018–2020 and 2022–2024, when Chumbivilcas's share of the pool jumps from about 5% to 13–21%. A single frozen 2007–09 share would hand Constancia's money to Espinar. The instrument therefore freezes the formula shares *separately for each source and tier* and lets each source's pool move on its own.
+
+## What the data says about the formula
+
+Municipalities receive 75% of mining canon: 40% through a department tier shared by every municipality according to a population and poverty index, 25% through the producing province's municipalities, and 10% to the producing district(s). Three facts make it possible to split each year's money by source:
+
+1. **The department index is the same for gas and mining.** Outside La Convención, Espinar and Chumbivilcas, base-period mining shares are proportional to gas shares (correlation 0.994), and that group's mining-to-gas share ratio is ≈1.0 every year from 2005 to 2024. So a district's department-tier mining receipt is its gas share times the mining pool. La Convención, which gets gas local tiers, is assumed to receive only department-tier mining money.
+2. **The local money is always 35/75 of the pool**, as the 10% + 25% tiers predict (0.45–0.48 every year), and it shows up only in Espinar and Chumbivilcas. The residual for other provinces is at most 2.7% of the pool (`pool_local_other`).
+3. **Constancia's 10% producing share goes to Velille, Livitaca and Chamaca.** These are the only Chumbivilcas districts whose receipts clearly exceed what the 25% provincial tier predicts. The other districts receive close to (25/35) × their department weight, which supports using department weights for the provincial tier.
+
+## Construction
+
+Shifts (yearly pools): `pool_dept` (department tier), `pool_local_espinar`, `pool_local_chumbivilcas`.
+Exposures (frozen shares):
+
+- `w_dept_base`: the district's share of the department tier in 2007–09.
+- `l_espinar_base`: its share of Espinar's local money in 2007–09, observed directly.
+- `l_chumb_base`: its formula share of Constancia's local money, (25/35) × its share of Chumbivilcas's department weights + (10/35) × its producing split. The split is Velille 0.56, Livitaca 0.23, Chamaca 0.22, the average excess receipts over 2018–2024.
+
+`mining_iv = w_dept_base × pool_dept + l_espinar_base × pool_local_espinar + l_chumb_base × pool_local_chumbivilcas`
+
+`mining_iv_rebased` uses the same construction with 2021–23 shares from 2020 onward, the analogue of the gas version. `mining_iv_naive` (single base share × total pool) is included only for comparison. Per-capita versions (`_pc`) and outcomes (`_pcb`) use 2007–09 population. `source_exposure` labels each district `espinar`, `chumbivilcas`, `constancia_producing` or `department_only`. `iv_sample` is defined as for gas.
+
+## First stage
+
+`canon_mining_pcb` regressed on each instrument, with district and year fixed effects, standard errors clustered by district, `iv_sample == 1`, and base years dropped:
+
+| Sample | Naive single pool | By source (`mining_iv_pc`) | Rebased |
+|---|---|---|---|
+| 2010–19, all (108) | 0.89 (0.04), F = 608 | 1.00 (0.05), F = 332 | same |
+| 2010–19, excluding Espinar province (100) | 1.00 (0.13), F = 56 | 1.00 (0.09), F = 128 | same |
+| 2010–24, all | 0.76 (0.10), F = 63 | 0.92 (0.11), F = 73 | 0.98 (0.03), F = 1,404 |
+| 2010–24, department-only districts (92) | 0.49 (0.17), F = 8 | 0.32 (0.16), F = 4 | 0.90 (0.03), F = 829 |
+| 2010–24, Chumbivilcas (8) | 1.48 (4.51), F ≈ 0 | 0.62 (0.17), F = 13 | 1.00 (0.31), F = 10 |
+
+Up to 2019 the source-based instrument has a coefficient of exactly 1.00, as the formula predicts, while the naive one is attenuated (0.89) because it misplaces Constancia's money. Within Chumbivilcas the naive instrument has no power at all, while the source-based one does. After 2019 the same MEF re-indexing seen for gas weakens the frozen department weights, and the rebased version restores the first stage, under the same stronger assumption explained in the gas section.
+
+## Using both instruments together
+
+After removing district and year effects, `gas_iv_pc` and `mining_iv_pc` are almost uncorrelated (−0.003 for 2010–19; 0.07 for the rebased versions over 2010–24). In a joint first stage, each instrument predicts its own canon with a coefficient ≈ 1 and the other's with ≈ 0. Gas and mining canon can therefore enter the same 2SLS as separate endogenous variables. That is useful if you suspect that different revenue sources have different effects, for instance because canon from a mine inside the district comes with conflict, migration or company-financed projects that gas money from far away does not.
+
+## Caveats
+
+- **Espinar and Coporaque dominate the Espinar pool**, and Espinar district alone receives about half of it. Results should survive dropping Espinar province (row 2 of the table).
+- **The Constancia producing split is estimated from post-2017 receipts.** It reflects where the mine sits, not anything the districts chose, but it is the one exposure not fixed in the base period. Replacing it with an equal three-way split is an easy robustness check.
+- **Chumbivilcas has only 8 districts**, so inference on Constancia-specific effects rests on very few clusters. Wild-cluster bootstrap or randomization inference is advisable.
+- **The 2013 Chumbivilcas money is small (S/ 2M) and lands mostly in Llusco and Quiñota**, not in the Constancia districts, probably from smaller operations. It is absorbed into the Chumbivilcas pool.
+- **Mining data before 2005 is unusable** (eight districts in 2004), so the pools are set to missing before 2005.
