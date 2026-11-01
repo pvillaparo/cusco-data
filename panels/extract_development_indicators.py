@@ -1,20 +1,30 @@
 """
-Extract the shortlisted district development indicators into a wide
-district-year file, so the shortlist in development_indicators_shortlist.md
-can be turned into data once it is approved.
+Build the district development panel for Cusco from SIRTOD.
+
+By default this writes the approved core panel (CORE below) plus a
+time-invariant baseline file; --set full extracts the whole shortlist in
+development_indicators_shortlist.md instead.
 
 Source: the SIRTOD district workbooks in ../SIRTOD (04a-04d), downloaded from
 INEI SIRTOD on 2026-09-22. Run from the repository root or from this folder:
 
-    python panels/extract_development_indicators.py                 # shortlist only
-    python panels/extract_development_indicators.py --out my.csv    # other output path
+    python panels/extract_development_indicators.py                 # approved core panel
+    python panels/extract_development_indicators.py --set full      # whole shortlist
+    python panels/extract_development_indicators.py --set full --only education,crime
     python panels/extract_development_indicators.py --extra 516459,122103
-    python panels/extract_development_indicators.py --only education,crime
-    python panels/extract_development_indicators.py --no-fill       # raw SIRTOD values
+    python panels/extract_development_indicators.py --no-fill --keep-suspect   # as published
 
-Reading the four workbooks takes about two minutes. The output is written next
-to this script by default (development_indicators_district_year.csv) and can be
-merged one-to-one with canon_spending_district_year.csv on (ubigeo, year).
+Reading the four workbooks takes about two minutes. Outputs, written next to
+this script (CSV, plus Stata .dta with variable labels unless --no-dta):
+
+  core:  development_core_district_year       one row per district x year,
+                                              2003-2025; merge 1:1 with
+                                              canon_spending_district_year on
+                                              (ubigeo, year)
+         development_core_baseline_district   one row per district: 2007 and
+                                              2017 Census shares (c07_*, c17_*)
+                                              and the 2013 poverty map (pov13_*)
+  full:  development_indicators_district_year
 
 How missing values are treated (the --no-fill switch turns all of this off):
 
@@ -39,7 +49,9 @@ Suspect cells are blanked by default (use --keep-suspect to keep them):
 MINEM 2025 production (an exact copy of 2024 for every producer), the 2015
 MTPE firm count (level break: the median falls from 42 to 6 in 2016) and
 RENIEC registered deaths in 2020-2022 (regional totals collapse from about
-6,800 to 2,600 during COVID, so registration, not mortality, changed).
+6,800 to 2,600 during COVID, so registration, not mortality, changed), and the
+share of school premises with all three services in 2019-2022 (questionnaire
+break in 2019; the series is kept as 2011-2018).
 
 For every filled variable a companion flag `<var>_filled` (1 = value was set
 by a rule above) is written, so the fill can always be undone.
@@ -139,7 +151,59 @@ SUSPECT = {
     "261580": [2025],
     "517302": [2015],
     "262239": [2020, 2021, 2022],
+    "420006": [2019, 2020, 2021, 2022],
 }
+
+# ---------------------------------------------------------------------------
+# Approved core set (decision of November 2026): one or two series per
+# dimension, chosen to be informative and not redundant. See the section
+# "The approved core panel" in development_indicators_shortlist.md.
+# ---------------------------------------------------------------------------
+CORE = [
+    "413856", "417647",            # public pupil-teacher ratio
+    "261276",                      # school premises on the grid
+    "420006",                      # school premises with all three services (2011-2018)
+    "420549", "420553",            # ECE satisfactory, reading and math
+    "262226", "262211",            # late-birth-registration share
+    "424497",                      # DNI holders (alternative denominator)
+    "516485",                      # Vaso de Leche beneficiaries 0-6
+    "517303",                      # formal private employment
+    "389746",                      # caja municipal credit (presence)
+    "121951", "121953",            # municipal staff and professionals
+    "121992",                      # computers
+    "121981",                      # dump trucks
+    "122093",                      # serenazgo
+    "122146", "122148",            # frost, heavy rain
+    "262234",                      # projected population (denominator)
+]
+
+# Derived ratios added whenever their inputs are in the output:
+# variable -> (numerator, denominator, scale, label)
+DERIVED = {
+    "edu_ptr_pub": ("edu_enrol_ebr_pub", "edu_teach_ebr_pub", 1, "Pupil-teacher ratio, public EBR"),
+    "vit_late_birth_share": ("vit_births_late", "vit_births_reg", 100, "% of registered births registered late"),
+    "mun_prof_share": ("mun_staff_prof", "mun_staff_total", 100, "% of municipal staff who are professionals"),
+}
+
+# Time-invariant baselines from the 2007 and 2017 Censuses and the 2013
+# poverty map. Census items are counts; each share is numerator/denominator.
+DWELL = ["407243", "407244"]                       # dwellings with occupants present
+HH = ["407235", "407236", "407237", "407238", "407239", "407240", "407241", "407242"]  # households (by cooking fuel)
+LANG = ["516749", "516750", "516751", "516752"]    # population by mother tongue
+BASELINE = {
+    # name: (numerator codes, denominator codes, label)
+    "water_in": (["407209"], DWELL, "% dwellings with piped water inside"),
+    "sewer_in": (["407217"], DWELL, "% dwellings with sewer connection inside"),
+    "electric": (["407243"], DWELL, "% dwellings with public electricity"),
+    "earth_floor": (["407201"], DWELL, "% dwellings with earthen floor"),
+    "cook_biomass": (["407239", "407240"], HH, "% households cooking with firewood or dung"),
+    "internet": (["516775"], HH, "% households with internet"),
+    "mobile": (["516777"], HH, "% households with a mobile phone"),
+    "quechua": (["516750"], LANG, "% population with Quechua mother tongue"),
+    "rural": (["262221"], ["262215"], "% population rural"),
+}
+CENSUS_POP = "262215"
+POVERTY_MAP = "427594"
 
 
 def read_sirtod(codes):
@@ -156,32 +220,21 @@ def read_sirtod(codes):
     return raw
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("--out", default=str(DEFAULT_OUT))
-    ap.add_argument("--extra", default="", help="comma-separated extra SIRTOD codes (named v<code>, no fill)")
-    ap.add_argument("--only", default="", help="comma-separated dimensions to keep")
-    ap.add_argument("--no-fill", action="store_true", help="keep SIRTOD values exactly as published")
-    ap.add_argument("--keep-suspect", action="store_true", help="keep the cells listed in SUSPECT")
-    ap.add_argument("--first-year", type=int, default=2003)
-    ap.add_argument("--last-year", type=int, default=2025)
-    args = ap.parse_args()
+def read_ubigeo():
+    ub = pd.read_excel(SIRTOD / "01_SIRTOD_Cusco_guia.xlsx", sheet_name="UBIGEO",
+                       header=4, dtype=str)
+    ub = ub[ub["UBIGEO"].str.match(r"^08\d{4}$", na=False) & (ub["UBIGEO"] != "080199")]
+    return ub.set_index("UBIGEO")[["Provincia", "Distrito"]]
 
-    spec = dict(SHORTLIST)
-    if args.only:
-        keep = set(args.only.split(",")) | {"denominator"}
-        spec = {k: v for k, v in spec.items() if v[1] in keep}
-    for c in filter(None, args.extra.split(",")):
-        spec.setdefault(c.strip(), (f"v{c.strip()}", "extra", NONE, "extra code"))
 
-    raw = read_sirtod(set(spec) | set(RENAMU_UNIVERSE_CODES))
-    raw = raw[(raw["Año"] >= args.first_year) & (raw["Año"] <= args.last_year)]
+def build_panel(raw, spec, names, first_year, last_year, fill=True, keep_suspect=False):
+    """Wide district-year panel for the codes in `spec`, with the fill rules."""
+    raw = raw[(raw["Año"] >= first_year) & (raw["Año"] <= last_year)]
     raw = raw.dropna(subset=["Valor numérico"])
     dup = raw.duplicated(["Código indicador", "UBIGEO", "Año"]).sum()
     if dup:
         raise SystemExit(f"{dup} duplicated code-district-year rows; inspect before pivoting")
-
-    if not args.keep_suspect:
+    if not keep_suspect:
         bad = pd.Series(False, index=raw.index)
         for code, years in SUSPECT.items():
             bad |= (raw["Código indicador"] == code) & raw["Año"].isin(years)
@@ -191,53 +244,155 @@ def main():
                            values="Valor numérico", aggfunc="first")
 
     # Skeleton: every district from its first year in any pulled series.
-    ub = pd.read_excel(SIRTOD / "01_SIRTOD_Cusco_guia.xlsx", sheet_name="UBIGEO",
-                       header=4, dtype=str)
-    ub = ub[ub["UBIGEO"].str.match(r"^08\d{4}$", na=False) & (ub["UBIGEO"] != "080199")]
-    first = raw.groupby("UBIGEO")["Año"].min()
-    rows = [(u, y) for u in ub["UBIGEO"] for y in range(args.first_year, args.last_year + 1)
+    in_spec = raw[raw["Código indicador"].isin(spec)]
+    first = in_spec.groupby("UBIGEO")["Año"].min()
+    rows = [(u, y) for u in names.index for y in range(first_year, last_year + 1)
             if u in first.index and y >= first[u]]
-    idx = pd.MultiIndex.from_tuples(rows, names=["UBIGEO", "Año"])
-    wide = wide.reindex(idx)
+    wide = wide.reindex(pd.MultiIndex.from_tuples(rows, names=["UBIGEO", "Año"]))
 
-    renamu_universe = wide[[c for c in RENAMU_UNIVERSE_CODES if c in wide]].notna().any(axis=1)
+    renamu_universe = wide.reindex(columns=RENAMU_UNIVERSE_CODES).notna().any(axis=1)
+    # all ECE levels are used for the fill, even those not in the output
+    ece_all = [c for c, v in SHORTLIST.items() if v[2] == ECE]
 
     out = pd.DataFrame(index=wide.index)
-    ece_codes = [c for c, v in spec.items() if v[2] == ECE]
     for code, (var, _dim, rule, _lab) in spec.items():
         s = wide[code] if code in wide else pd.Series(np.nan, index=wide.index)
-        filled = pd.Series(False, index=wide.index)
-        if not args.no_fill and rule is not None:
+        if fill and rule is not None:
             # years in which SIRTOD publishes this indicator for some district;
             # outside them the question was not asked and nothing is filled
             published = s.notna().groupby(level="Año").transform("any")
             if rule == RENAMU:
                 filled = s.isna() & renamu_universe & published
             elif rule == ECE:
-                subj = [c for c in ece_codes if spec[c][0].split("_")[1] == var.split("_")[1]]
-                any_level = wide.reindex(columns=subj).notna().any(axis=1)
-                filled = s.isna() & any_level
-            elif rule == STRUCT:
+                subject = var.split("_")[1]
+                subj = [c for c in ece_all if SHORTLIST[c][0].split("_")[1] == subject]
+                filled = s.isna() & wide.reindex(columns=subj).notna().any(axis=1)
+            else:  # STRUCT
                 filled = s.isna() & published
-            s = s.where(~filled, 0.0)
+            out[var] = s.where(~filled, 0.0)
             out[var + "_filled"] = filled.astype(int)
-        out[var] = s
-    # put each value next to its flag
-    order = []
-    for code, (var, *_r) in spec.items():
-        order.append(var)
-        if var + "_filled" in out:
-            order.append(var + "_filled")
-    out = out[order]
+        else:
+            out[var] = s
 
     out["renamu_respondent"] = renamu_universe.astype(int)
     out = out.reset_index().rename(columns={"UBIGEO": "ubigeo", "Año": "year"})
-    names = ub.set_index("UBIGEO")[["Provincia", "Distrito"]]
     out.insert(1, "province", out["ubigeo"].map(names["Provincia"]))
     out.insert(2, "district", out["ubigeo"].map(names["Distrito"]))
-    out.to_csv(args.out, index=False, encoding="utf-8")
-    print(f"wrote {args.out}: {len(out)} rows, {out['ubigeo'].nunique()} districts, "
-          f"{len(spec)} indicators")
+    return out
+
+
+def add_derived(out, labels):
+    for var, (num, den, scale, lab) in DERIVED.items():
+        if num in out and den in out:
+            d = out[den].where(out[den] > 0)
+            out[var] = scale * out[num] / d
+            labels[var] = lab
+    if "fin_cmac_credit" in out:
+        out["fin_cmac_present"] = (out["fin_cmac_credit"] > 0).astype(float).where(
+            out["fin_cmac_credit"].notna())
+        labels["fin_cmac_present"] = "A caja municipal reports credit in the district (0/1)"
+    return out
+
+
+def build_baseline(raw, names):
+    """One row per district: 2007 and 2017 Census shares and the 2013 poverty map."""
+    v = raw.dropna(subset=["Valor numérico"]).pivot_table(
+        index=["UBIGEO", "Año"], columns="Código indicador",
+        values="Valor numérico", aggfunc="first")
+    base = pd.DataFrame(index=names.index)
+    labels = {}
+    for year in (2007, 2017):
+        if year not in v.index.get_level_values("Año"):
+            continue
+        vy = v.xs(year, level="Año")
+        for name, (num, den, lab) in BASELINE.items():
+            n = vy.reindex(columns=num).sum(axis=1, min_count=1)
+            d = vy.reindex(columns=den).sum(axis=1, min_count=1)
+            # a category absent for a district with a denominator is a zero
+            n = n.where(n.notna() | d.isna(), 0.0)
+            col = f"c{year % 100:02d}_{name}"
+            base[col] = (100 * n / d.where(d > 0)).reindex(base.index)
+            labels[col] = f"{lab}, Census {year}"
+        col = f"c{year % 100:02d}_pop"
+        base[col] = vy.reindex(columns=[CENSUS_POP]).iloc[:, 0].reindex(base.index)
+        labels[col] = f"Census population {year}"
+    # 2013 poverty map: text intervals such as "43,4 - 57,2"
+    pm = raw[raw["Código indicador"] == POVERTY_MAP][["UBIGEO", "Valor original"]].dropna()
+    parts = pm["Valor original"].str.replace(",", ".").str.split("-", expand=True)
+    lo = pd.to_numeric(parts[0].str.strip(), errors="coerce").set_axis(pm["UBIGEO"])
+    hi = pd.to_numeric(parts[1].str.strip(), errors="coerce").set_axis(pm["UBIGEO"])
+    base["pov13_lo"], base["pov13_hi"] = lo.reindex(base.index), hi.reindex(base.index)
+    base["pov13_mid"] = (base["pov13_lo"] + base["pov13_hi"]) / 2
+    labels.update(pov13_lo="Poverty 2013 (% poor), lower bound of interval",
+                  pov13_hi="Poverty 2013 (% poor), upper bound of interval",
+                  pov13_mid="Poverty 2013 (% poor), interval midpoint")
+    base = base.reset_index().rename(columns={"UBIGEO": "ubigeo"})
+    base.insert(1, "province", base["ubigeo"].map(names["Provincia"]))
+    base.insert(2, "district", base["ubigeo"].map(names["Distrito"]))
+    return base, labels
+
+
+def write(df, stem, labels, dta):
+    df.to_csv(f"{stem}.csv", index=False, encoding="utf-8")
+    msg = f"wrote {stem}.csv"
+    if dta:
+        lab = {k: v[:80] for k, v in labels.items() if k in df}
+        lab.update({k: "1 = value set by a zero-fill rule" for k in df if k.endswith("_filled")})
+        df.to_stata(f"{stem}.dta", write_index=False, version=118, variable_labels=lab)
+        msg += " and .dta"
+    print(f"{msg}: {len(df)} rows, {df['ubigeo'].nunique()} districts")
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--set", choices=["core", "full"], default="core",
+                    help="core = approved core panel (default); full = whole shortlist")
+    ap.add_argument("--out", default=None, help="output path stem (no extension)")
+    ap.add_argument("--extra", default="", help="comma-separated extra SIRTOD codes (named v<code>, no fill)")
+    ap.add_argument("--only", default="", help="comma-separated dimensions to keep (full set only)")
+    ap.add_argument("--no-fill", action="store_true", help="do not apply the zero-fill rules")
+    ap.add_argument("--keep-suspect", action="store_true", help="keep the cells listed in SUSPECT")
+    ap.add_argument("--no-dta", action="store_true", help="write CSV only")
+    ap.add_argument("--first-year", type=int, default=2003)
+    ap.add_argument("--last-year", type=int, default=2025)
+    args = ap.parse_args()
+
+    if args.set == "core":
+        spec = {c: SHORTLIST[c] for c in CORE}
+        stem = Path(args.out) if args.out else HERE / "development_core_district_year"
+    else:
+        spec = dict(SHORTLIST)
+        if args.only:
+            keep = set(args.only.split(",")) | {"denominator"}
+            spec = {k: v for k, v in spec.items() if v[1] in keep}
+        stem = Path(args.out) if args.out else DEFAULT_OUT.with_suffix("")
+    for c in filter(None, args.extra.split(",")):
+        spec.setdefault(c.strip(), (f"v{c.strip()}", "extra", NONE, f"SIRTOD code {c.strip()}"))
+
+    baseline_codes = {c for num, den, _ in BASELINE.values() for c in num + den}
+    baseline_codes |= {CENSUS_POP, POVERTY_MAP}
+    ece_all = {c for c, v in SHORTLIST.items() if v[2] == ECE}
+    need = set(spec) | set(RENAMU_UNIVERSE_CODES) | ece_all
+    if args.set == "core":
+        need |= baseline_codes
+    raw = read_sirtod(need)
+    names = read_ubigeo()
+
+    labels = {v[0]: v[3] for v in spec.values()}
+    labels.update(ubigeo="INEI UBIGEO district code (text)", year="Year",
+                  province="Province", district="District",
+                  renamu_respondent="Municipality answered RENAMU this year (reports staff or computers)")
+    out = build_panel(raw, spec, names, args.first_year, args.last_year,
+                      fill=not args.no_fill, keep_suspect=args.keep_suspect)
+    out = add_derived(out, labels)
+    write(out, str(stem), labels, dta=not args.no_dta)
+
+    if args.set == "core":
+        base, blabels = build_baseline(raw, names)
+        blabels.update(ubigeo="INEI UBIGEO district code (text)", province="Province",
+                       district="District")
+        bstem = stem.parent / "development_core_baseline_district"
+        write(base, str(bstem), blabels, dta=not args.no_dta)
 
 
 if __name__ == "__main__":

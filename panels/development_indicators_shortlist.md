@@ -1,8 +1,8 @@
 # District development indicators for Cusco: a shortlist from SIRTOD
 
-This note is a proposal, not a finished panel yet. It asks which district-level series in the SIRTOD download (22 September 2026) can describe how developed Cusco's 116 districts are and how they change over time, and which of them could serve as outcomes or controls next to the canon and municipal finance panel in `canon_spending_district_year.csv`. The goal is that you can approve, cut or extend the list before anything is built. Once you have decided, `extract_development_indicators.py` turns the list into a wide district-year file with one command.
+This note began as a proposal and now also documents the decision taken on it. It asks which district-level series in the SIRTOD download (22 September 2026) can describe how developed Cusco's 116 districts are and how they change over time, and which of them could serve as outcomes or controls next to the canon and municipal finance panel in `canon_spending_district_year.csv`. In November 2026 the **core set, with SIRTOD data only**, was approved and built. The section "The approved core panel" near the end describes the resulting files. The rest of the note keeps the full shortlist, so that any series can be added later.
 
-Three files come with this note. `development_indicators_coverage.csv` has coverage statistics for all 1,132 annual district indicators. `development_indicators_coverage.py` rebuilds that table. `extract_development_indicators.py` extracts the shortlist, and it can also extract any other codes you add.
+The files are as follows. `development_core_district_year` (CSV and Stata) is the core panel, and `development_core_baseline_district` (CSV and Stata) holds its time-invariant baselines. `extract_development_indicators.py` builds both, and with `--set full` it extracts the whole shortlist instead. `development_indicators_coverage.csv` has coverage statistics for all 1,132 annual district indicators, and `development_indicators_coverage.py` rebuilds that table.
 
 ## The short version
 
@@ -159,37 +159,53 @@ Since the welfare side is thin, it is worth naming the sources that fill the mai
 
 A few issues cut across all dimensions and are worth keeping in view when you choose. **Per-capita variables** inherit the 2018 population rebase. DNI holders give a denominator free of that break that you can use as a robustness check, and fixed-year (2017 Census) population is the other option. **Counts in the four parent districts** fall mechanically when the new districts split off. **Many RENAMU and MTPE series have breaks** at municipal term starts (2011, 2015, 2019, 2023), which coincide with political turnover and with questionnaire revisions, and which year effects only partly absorb if the change interacts with municipal size. And **most of the long, well-covered series are outcomes of municipal spending**, so they belong on the left-hand side. For controls, prefer the 2007 Census baseline, the 2013 poverty map, centrally provided inputs (public-school teachers) and exogenous shocks.
 
-## A possible core set
+## The approved core panel
 
-If you want a lean first panel, here is a proposal of about 15 series that cover each dimension without much redundancy:
-
-1. the public pupil–teacher ratio (413856/417647)
-2. the share of school premises on the electricity grid (261276)
-3. the share of school premises with all three services up to 2018 (420006)
-4. ECE reading and math satisfactory (420549, 420553)
-5. the late-birth-registration share (262226/262211)
-6. DNI holders (424497) as an alternative denominator
-7. Vaso de Leche beneficiaries 0–6 (516485)
-8. formal private employment (517303)
-9. the presence of a *caja municipal* (389746 > 0)
-10. municipal staff and professional share (121951, 121953)
-11. computers (121992)
-12. dump trucks (121981)
-13. serenazgo (122093)
-14. frost and heavy-rain shocks (122146, 122148)
-
-Add the 2007 and 2017 Census variables and the 2013 poverty map as time-invariant baselines.
-
-## How to extract the shortlist
+The core set keeps one or two series per dimension, chosen to be informative without much redundancy, and it uses SIRTOD only. It is built by
 
 ```bash
-python panels/extract_development_indicators.py                        # everything above
-python panels/extract_development_indicators.py --only education,economy
+python panels/extract_development_indicators.py
+```
+
+which reads the four district workbooks (about two minutes) and writes two pairs of files, each as CSV and as Stata `.dta` with variable labels.
+
+**`development_core_district_year`** has one row per district and year from 2003 to 2025, which makes 2,547 rows for 116 districts. Each district enters in its first year in the data. It merges one-to-one with the canon panel on `ubigeo` and `year`. The canon panel also covers 2001–2002 and 2026, which the core panel does not. In the other direction, two core rows (Villa Kintiarina 2015 and Megantoni 2016) precede the canon panel because RENIEC reports DNI holders there one year before the districts enter the fiscal data. All other values in those two rows are empty or filled zeros. The panel contains the following variables.
+
+| Dimension | Variable | SIRTOD code | Years | Notes |
+|---|---|---|---|---|
+| Education | `edu_ptr_pub` (from `edu_enrol_ebr_pub`, `edu_teach_ebr_pub`) | 413856 / 417647 | 2008–2025 | Median 24.3 → 10.7. |
+| Education | `sch_electric` | 261276 | 2011–2022 | % public school premises on the grid. |
+| Education | `edu_sch_3services` | 420006 | 2011–2018 | 2019–2022 blanked (questionnaire break). |
+| Education | `ece_read_satis`, `ece_math_satis` | 420549, 420553 | 2007–2016 | Zero filled when another level is published; 31–107 districts. |
+| Health / registration | `vit_late_birth_share` (from `vit_births_late`, `vit_births_reg`) | 262226 / 262211 | 2005–2024 | % of registered births registered late. |
+| Health / registration | `id_dni_total` | 424497 | 2012–2025 | Alternative denominator without the 2018 break. |
+| Health / nutrition | `vdl_benef_0_6` | 516485 | 2010–2024 | Vaso de Leche beneficiaries aged 0–6. |
+| Economy | `lab_private_workers` | 517303 | 2015–2025 | Formal private jobs; missing likely zero but not filled. |
+| Economy | `fin_cmac_present` (from `fin_cmac_credit`) | 389746 | 2003–2025 | 1 if a *caja municipal* books credit in the district. |
+| Municipal capacity | `mun_staff_total`, `mun_staff_prof`, `mun_prof_share` | 121951, 121953 | 2004–2024 | Breaks at the term starts of 2011, 2019 and 2023. |
+| Municipal capacity | `mun_computers` | 121992 | 2004–2025 | |
+| Municipal capacity | `mun_dump_trucks` | 121981 | 2003–2025 | Zero filled for RENAMU respondents from 2004. |
+| Municipal services | `sec_serenazgo` | 122093 | 2004–2024 | 0/1, zero filled. |
+| Shocks | `env_frost`, `env_heavy_rain` | 122146, 122148 | 2005–2018; 2004–2018 | 0/1, zero filled; self-reported. |
+| Denominator | `pop_proj` | 262234 | 2003–2025 | Same series as the canon panel, without its 2016–2017 interpolation. |
+
+Every zero-filled variable has a companion `<variable>_filled` flag, and `renamu_respondent` marks municipalities that answered RENAMU in a year, so any fill can be undone. The input counts behind each ratio are kept, so you can rebuild the ratios with other conventions. For example, `edu_ptr_pub`, `vit_late_birth_share` and `mun_prof_share` are left missing when their denominator is zero or missing.
+
+**`development_core_baseline_district`** has one row per district. It holds 2007 and 2017 Census shares, with prefixes `c07_` and `c17_`, for piped water inside the dwelling, sewer connection inside the dwelling, public electricity, earthen floor, cooking with firewood or dung, household internet and mobile phone, Quechua mother tongue and rural population, plus census population (`c07_pop`, `c17_pop`). It also holds the 2013 poverty map as interval bounds and midpoint (`pov13_lo`, `pov13_hi`, `pov13_mid`). Dwelling shares are taken over dwellings with occupants present, because the electricity categories add up exactly to that total. Household shares are taken over the sum of the cooking-fuel categories. Language shares are taken over the sum of the four mother-tongue categories, which is about 94% of the census population because children under three are not asked. Three caveats matter here. First, the eight new districts have no 2007 values, and the four created in 2021 have no 2017 values either. Second, kerosene cooking is not reported in 2017, so the 2017 household total is slightly smaller. Third, and most important, **the rural share is not comparable between the two censuses**. No district is fully rural in 2007, but 64 are in 2017, because the 2007 Census classified every district capital as urban regardless of its size. The aggregate rural share falls (from 45% to 39%) while the unweighted district mean rises (from 63% to 74%). So use `c07_rural` or `c17_rural` as a level, but do not difference them.
+
+**What is still open.** I have not checked against the RENAMU questionnaires whether each module refers to the survey year or to the previous year. Until that is settled, treat the timing of the RENAMU variables relative to canon as uncertain by up to one year, and check that results survive a one-year shift. The zero-fill rules described above are applied by default, and `--no-fill` turns them off.
+
+## How to extract the shortlist or other variables
+
+```bash
+python panels/extract_development_indicators.py                        # approved core panel + baseline
+python panels/extract_development_indicators.py --set full             # whole shortlist above
+python panels/extract_development_indicators.py --set full --only education,economy
 python panels/extract_development_indicators.py --extra 398450,426742  # add any SIRTOD codes
 python panels/extract_development_indicators.py --no-fill              # no zero-fill
 python panels/extract_development_indicators.py --keep-suspect         # keep the cells blanked below
 ```
 
-By default the script blanks three groups of cells that this note judges unusable: MINEM production in 2025 (a copy of 2024), the 2015 MTPE firm count, and RENIEC registered deaths in 2020–2022. To get the values exactly as SIRTOD publishes them, use both `--no-fill` and `--keep-suspect`.
+By default the script blanks four groups of cells that this note judges unusable: MINEM production in 2025 (a copy of 2024), the 2015 MTPE firm count, RENIEC registered deaths in 2020–2022, and the three-services school share in 2019–2022. To get the values exactly as SIRTOD publishes them, use both `--no-fill` and `--keep-suspect`.
 
-The script reads the four district workbooks (about two minutes) and writes `panels/development_indicators_district_year.csv`. This has one row per district and year from 2003 to 2025, starting in each district's first year in the data, with district and province names. It can be merged one-to-one with the canon panel on `ubigeo` and `year`. Every value set by a zero-fill rule carries a companion flag `<variable>_filled`, and `renamu_respondent` marks the RENAMU universe, so each fill can be undone. Projected population (`pop_proj`) is included as a denominator and is the same series as in the canon panel. To change the shortlist, edit the `SHORTLIST` dictionary at the top of the script. Each entry is a SIRTOD code with a variable name, a dimension, a fill rule and a label.
+With `--set full`, the script writes `panels/development_indicators_district_year` with the same structure as the core panel, but with all 57 shortlisted series. To change either set, edit the `CORE` list or the `SHORTLIST` dictionary at the top of the script. Each `SHORTLIST` entry is a SIRTOD code with a variable name, a dimension, a fill rule and a label.
