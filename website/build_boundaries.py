@@ -1,20 +1,24 @@
 """
 District and province boundaries of Cusco for the Cusco-stats maps.
 
-    python website/build_boundaries.py                 # interim source (pe-atlas)
-    python website/build_boundaries.py --source inei   # official INEI IDE 2024 layer (needs network access)
+    python website/build_boundaries.py                       # INEI IDE 2024 layer (cached copy in inputs/)
+    python website/build_boundaries.py --refresh             # re-download it (needs geosmarthosting.undp.org)
+    python website/build_boundaries.py --source pe-atlas     # older interim source, 112 districts
 
 Output: website/site_data/geo/districts.geojson and provinces.geojson
 (WGS84, coordinates rounded to 4 decimals, about 10 m).
 
 Sources
+  * DEFAULT. INEI district boundaries, IDE 2024 edition ("Distritos_INEI_2025_IDE_2024"),
+    as served by UNDP's ArcGIS hosting: all 116 Cusco districts, including the four created
+    in 2021. Downloaded on 2026-11-01 and cached in inputs/inei_ide2024_cusco_districts.geojson.
+    The full-resolution polygons are simplified locally with shared borders preserved
+    (python package topojson), and province outlines are the union of their districts
+    (shapely), so the two layers line up exactly. Needs: pip install topojson shapely.
+    Laguna Langui-Layo (Canas) is outside every district polygon, so it shows as a gap.
   * pe-atlas 0.0.1 (MIT licence; https://www.npmjs.com/package/pe-atlas), a TopoJSON
     redistribution of the geogpsperu.com 2022 edition of INEI's boundaries. It has 112
-    Cusco districts: the four created in 2021 (Kumpirushiato, Cielo Punco, Manitea,
-    Unión Asháninka) are still inside their parent districts. INTERIM.
-  * INEI district boundaries, IDE 2024 edition ("Distritos_INEI_2025_IDE_2024"), as
-    served by UNDP's ArcGIS hosting. Includes the 2021 districts. Requires
-    geosmarthosting.undp.org to be allowed in the session's network settings.
+    Cusco districts: the four created in 2021 are still inside their parent districts.
 """
 
 import argparse
@@ -29,7 +33,9 @@ PE_ATLAS_URL = "https://registry.npmjs.org/pe-atlas/-/pe-atlas-0.0.1.tgz"
 PE_ATLAS_CACHE = HERE / "inputs" / "pe-atlas-0.0.1"
 INEI_LAYER = ("https://geosmarthosting.undp.org/arcgis/rest/services/Hosted/"
               "Distritos_INEI_2025_IDE_2024/FeatureServer/0/query")
+INEI_CACHE = HERE / "inputs" / "inei_ide2024_cusco_districts.geojson"
 DIGITS = 4
+SIMPLIFY = 0.0005    # degrees, about 55 m; topology-preserving
 
 
 def topo_to_features(topo, obj):
@@ -89,28 +95,70 @@ def from_pe_atlas():
     return districts, provinces, note
 
 
-def from_inei():
-    params = {"where": "ubigeo LIKE '08%'", "outFields": "*", "f": "geojson", "outSR": "4326",
-              "geometryPrecision": str(DIGITS), "maxAllowableOffset": "0.0005"}
+def from_inei(refresh=False):
+    if INEI_CACHE.exists() and not refresh:
+        return parse_inei(json.loads(INEI_CACHE.read_text(encoding="utf-8")))
+    import time
+    # full resolution: simplification is done locally, preserving shared borders
+    params = {"where": "ubigeo LIKE '08%'", "outFields": "ubigeo,distrito,provincia", "f": "geojson",
+              "outSR": "4326", "geometryPrecision": "6"}
     url = INEI_LAYER + "?" + urllib.parse.urlencode(params)
-    gj = json.loads(urllib.request.urlopen(url, timeout=120).read())
-    districts = []
+    for wait in (0, 2, 4, 8, 16):          # the connection is occasionally reset; retry with backoff
+        time.sleep(wait)
+        try:
+            gj = json.loads(urllib.request.urlopen(url, timeout=120).read())
+            break
+        except OSError as e:
+            print(f"retrying after error: {e}")
+    else:
+        raise SystemExit("could not reach the INEI layer")
+    if "error" in gj:
+        raise SystemExit(f"service error: {gj['error']}")
+    INEI_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    INEI_CACHE.write_text(json.dumps(gj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return parse_inei(gj)
+
+
+def parse_inei(gj):
+    """Simplify with shared borders preserved (topojson), then dissolve provinces from the result."""
+    import topojson as tp
     for f in gj["features"]:
         props = {k.lower(): v for k, v in f["properties"].items()}
-        f["id"] = str(props.get("ubigeo"))
-        f["properties"] = {"name": props.get("nombdist") or props.get("distrito") or ""}
+        f["properties"] = {"ubigeo": str(props.get("ubigeo")), "name": props.get("distrito") or ""}
+    topo = tp.Topology(gj, prequantize=False, topology=True, toposimplify=SIMPLIFY, prevent_oversimplify=True)
+    simple = json.loads(topo.to_geojson())
+    districts = []
+    for f in simple["features"]:
+        f["id"] = f["properties"]["ubigeo"]
         districts.append(f)
-    # Province outlines did not change with the 2021 districts; take them from pe-atlas.
-    _, provinces, _ = from_pe_atlas()
-    note = "INEI district boundaries, IDE 2024 edition (Distritos_INEI_2025_IDE_2024, UNDP-hosted service)"
+    provinces = dissolve_provinces(districts)
+    note = ("INEI district boundaries, IDE 2024 edition (Distritos_INEI_2025_IDE_2024, UNDP-hosted service, "
+            "downloaded 2026-11-01); province outlines dissolved from the districts")
     return districts, provinces, note
+
+
+def dissolve_provinces(districts):
+    """Province outlines as the union of their districts, so both layers share the same edges."""
+    from shapely.geometry import mapping, shape
+    from shapely.ops import unary_union
+    groups = {}
+    for f in districts:
+        groups.setdefault(str(f["id"])[:4], []).append(shape(f["geometry"]).buffer(0))
+    out = []
+    for code, geoms in sorted(groups.items()):
+        merged = unary_union(geoms)        # borders are shared exactly, so no slivers
+        out.append({"type": "Feature", "id": code, "properties": {}, "geometry": mapping(merged)})
+    for f in out:
+        f["geometry"] = json.loads(json.dumps(f["geometry"]))   # tuples -> lists
+    return out
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--source", choices=["pe-atlas", "inei"], default="pe-atlas")
+    ap.add_argument("--source", choices=["inei", "pe-atlas"], default="inei")
+    ap.add_argument("--refresh", action="store_true", help="re-download the INEI layer instead of using the cache")
     args = ap.parse_args()
-    districts, provinces, note = from_pe_atlas() if args.source == "pe-atlas" else from_inei()
+    districts, provinces, note = from_pe_atlas() if args.source == "pe-atlas" else from_inei(args.refresh)
     OUT.mkdir(parents=True, exist_ok=True)
     for name, feats in [("districts", districts), ("provinces", provinces)]:
         for f in feats:

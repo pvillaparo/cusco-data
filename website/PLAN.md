@@ -34,7 +34,7 @@ The site is a Jekyll *academicpages* theme on GitHub Pages. Its "Miscellaneous" 
 **Two inputs are still missing.**
 
 - **Accented place names.** SIRTOD writes names in capitals without accents ("SAN JERONIMO"). The export needs a small hand-checked table of display names for the 116 districts and 13 provinces (San Jerónimo, Unión Asháninka, Quiñota and so on).
-- **District boundaries that include the districts created in 2021.** Public GeoJSON collections often predate them, so the source must be checked: INEI's or the national geoportal's current boundaries are the safest. Its licence must also allow redistribution. Until that is resolved, the four 2021 districts can be drawn inside their parents and labelled as such.
+- **District boundaries that include the districts created in 2021.** Resolved: INEI's IDE 2024 district layer (served by UNDP), with all 116 districts, simplified with shared borders preserved; see `README.md`.
 
 ## 3. What the visitor sees
 
