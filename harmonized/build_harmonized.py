@@ -17,9 +17,13 @@ Harmonization rules (see harmonized/README.md):
     the spliced population of the districts that report); for ratios, the ratio
     of sums (e.g. accrued / PIM across districts), never an average of ratios.
   * Coverage: an aggregate is displayed only if the reporting districts hold at
-    least 95% of the population of the districts that exist that year.
-  * Years: each variable has a display window (canon from 2004, SIAF from 2008,
-    RENAMU from 2004, without the broken RENAMU year 2023); 2026 is dropped for
+    least 95% of the population AND at least 98% of the money (estimated from
+    each missing district's nearest observed year) of the districts that exist
+    that year. A district in its first year whose parent still reports is
+    treated as covered by the parent (its budget was still the parent's).
+  * Years: each variable has a display window (canon from 2005, SIAF from 2008,
+    municipal accounts from 2004 without the broken year 2023, FONCOMUN without
+    the scrambled year 2016); 2026 is dropped for
     now (partial year). Rows outside the window are kept with display = 0.
   * Money is in current soles. If inputs/cpi_annual.csv exists, real values in
     soles of REAL_BASE_YEAR are added as extra measures.
@@ -45,31 +49,35 @@ CAT = {
     "canon": ("Canon", "Canon transfers"),
     "transfers": ("Transferencias", "Transfers"),
     "budget": ("Presupuesto municipal (MEF-SIAF)", "Municipal budget (MEF-SIAF)"),
-    "finance": ("Finanzas municipales (RENAMU)", "Municipal finances (RENAMU)"),
+    "finance": ("Finanzas municipales (MEF, contabilidad pública)", "Municipal finances (MEF public accounts)"),
 }
 
 SRC = {
     "pop": ("INEI, proyecciones de población (SIRTOD 262234)",
             "INEI population projections (SIRTOD 262234)"),
-    "canon": ("MEF, transferencias de canon a municipalidades (SIRTOD)",
-              "MEF canon transfers to municipalities (SIRTOD)"),
-    "siaf": ("MEF, Consulta Amigable / SIAF, gobiernos locales (SIRTOD)",
-             "MEF SIAF budget execution, local governments (SIRTOD)"),
-    "renamu": ("INEI, Registro Nacional de Municipalidades - RENAMU (SIRTOD)",
-               "INEI National Registry of Municipalities - RENAMU (SIRTOD)"),
+    "canon": ("MEF, transferencias de canon a municipalidades (vía INEI SIRTOD)",
+              "MEF canon transfers to municipalities (via INEI SIRTOD)"),
+    "foncomun": ("MEF, Dirección Nacional de Contabilidad Pública: FONCOMUN transferido (vía INEI SIRTOD)",
+                 "MEF Public Accounting Directorate: FONCOMUN transfers (via INEI SIRTOD)"),
+    "canon_siaf": ("MEF: transferencias de canon y ejecución presupuestal SIAF (vía INEI SIRTOD)",
+                   "MEF canon transfers and SIAF budget execution (via INEI SIRTOD)"),
+    "siaf": ("MEF, Consulta Amigable / SIAF, gobiernos locales (vía INEI SIRTOD)",
+             "MEF SIAF budget execution, local governments (via INEI SIRTOD)"),
+    "munfin": ("MEF, Dirección Nacional de Contabilidad Pública: finanzas municipales (vía INEI SIRTOD)",
+               "MEF Public Accounting Directorate: municipal finances (via INEI SIRTOD)"),
 }
 
-CAVEAT_CANON = ("Desde 2004: antes de la reforma de 2004 la cobertura y los montos no son comparables. "
-                "El canon de 2025 aún no está disponible en SIRTOD.",
-                "From 2004: before the 2004 reform coverage and amounts are not comparable. "
-                "2025 canon is not yet available in SIRTOD.")
+CAVEAT_CANON = ("Desde 2005: 2004 es un año de arranque con cobertura incompleta, y antes de la reforma de 2004 "
+                "los montos no son comparables. El canon de 2025 aún no está disponible en SIRTOD.",
+                "From 2005: 2004 is a start-up year with incomplete coverage, and before the 2004 reform amounts "
+                "are not comparable. 2025 canon is not yet available in SIRTOD.")
 CAVEAT_SIAF = ("Desde 2008: en 2007 SIAF cubre solo 40 de 108 distritos.",
                "From 2008: in 2007 SIAF covers only 40 of 108 districts.")
-CAVEAT_RENAMU = ("Se excluye 2023: ese año RENAMU es inconsistente en casi todos los distritos (gasto ~23% sobre SIAF, "
-                 "ingresos ~2,4 veces los de 2022 y 2024).",
-                 "2023 is excluded: that year RENAMU is inconsistent in almost every district (spending ~23% above SIAF, "
-                 "revenue ~2.4 times its 2022 and 2024 levels).")
-RENAMU_BAD_YEARS = [2023]
+CAVEAT_MUNFIN = ("Se excluye 2023: ese año los datos distritales son inconsistentes en casi todos los distritos "
+                 "(gasto ~23% sobre el devengado de SIAF; ingresos ~2 veces el promedio de 2022 y 2024).",
+                 "2023 is excluded: that year the district data are inconsistent in almost every district "
+                 "(spending ~23% above SIAF accrued spending; revenue about twice the 2022-2024 average).")
+MUNFIN_BAD_YEARS = [2023]
 
 # id, kind, source column(s), category, display window, per-capita?, map?, source, codes, labels, description, caveat
 VARS = [
@@ -82,13 +90,15 @@ VARS = [
                  "2016-2017 interpolado a nivel distrital.",
                  "Before 2016 (department) and 2018 (districts) the old series is rescaled to the level of the new one; "
                  "2016-2017 interpolated at district level.")),
-    dict(id="canon_total", kind="sum", col="canon_total", cat="canon", years=(2004, 2024),
+    dict(id="canon_total", kind="sum", col="canon_total", cat="canon", years=(2005, 2024),
          pc=True, map=True, src="canon", codes="407245",
          label=("Canon transferido a municipalidades", "Canon transferred to municipalities"),
-         desc=("Suma de todos los tipos de canon (minero, gasífero, hidroenergético, forestal, petrolero, pesquero) transferidos a la municipalidad.",
-               "Sum of all canon types (mining, gas, hydropower, forestry, oil, fishing) transferred to the municipality."),
+         desc=("Suma de todos los tipos de canon transferidos a la municipalidad: minero, gasífero, hidroenergético, forestal, petrolero, pesquero y sobrecanon petrolero. "
+               "El canon es la participación de los gobiernos locales y regionales en los ingresos y rentas que el Estado obtiene por la explotación de recursos naturales.",
+               "Sum of all canon types transferred to the municipality: mining, gas, hydropower, forestry, oil, fishing and oil sobrecanon. "
+               "Canon is the share of the revenue the State obtains from the exploitation of natural resources that is passed on to local and regional governments."),
          caveat=CAVEAT_CANON),
-    dict(id="canon_gas", kind="sum", col="canon_gas", cat="canon", years=(2004, 2024),
+    dict(id="canon_gas", kind="sum", col="canon_gas", cat="canon", years=(2005, 2024),
          pc=True, map=True, src="canon", codes="407247",
          label=("Canon gasífero", "Gas canon"),
          desc=("Canon gasífero (Camisea) transferido a la municipalidad.",
@@ -99,32 +109,27 @@ VARS = [
          label=("Canon minero", "Mining canon"),
          desc=("Canon minero transferido a la municipalidad.",
                "Mining canon transferred to the municipality."),
-         caveat=("Desde 2005: en 2003-2004 casi ningún distrito registra canon minero. "
-                 "El canon de 2025 aún no está disponible en SIRTOD.",
-                 "From 2005: in 2003-2004 almost no district records mining canon. "
-                 "2025 canon is not yet available in SIRTOD.")),
+         caveat=CAVEAT_CANON),
     dict(id="canon_hydro", kind="sum", col="canon_hydro", cat="canon", years=(2005, 2024),
          pc=True, map=False, src="canon", codes="407248",
          label=("Canon hidroenergético", "Hydropower canon"),
          desc=("Canon hidroenergético transferido a la municipalidad.",
                "Hydropower canon transferred to the municipality."),
          caveat=CAVEAT_CANON),
-    dict(id="canon_forest", kind="sum", col="canon_forest", cat="canon", years=(2004, 2024),
-         pc=True, map=False, src="canon", codes="407246",
-         label=("Canon forestal", "Forestry canon"),
-         desc=("Canon forestal transferido a la municipalidad. Montos muy pequeños.",
-               "Forestry canon transferred to the municipality. Very small amounts."),
-         caveat=CAVEAT_CANON),
     dict(id="foncomun", kind="sum", col="foncomun", cat="transfers", years=(2009, LAST_YEAR),
-         pc=True, map=True, src="canon", codes="414062",
+         pc=True, map=True, src="foncomun", codes="414062", exclude=[2016],
          label=("Fondo de Compensación Municipal (FONCOMUN)", "Municipal Compensation Fund (FONCOMUN)"),
-         desc=("Transferencia del FONCOMUN a la municipalidad.",
-               "FONCOMUN transfer to the municipality."),
-         caveat=("SIRTOD lo rotula en miles de soles, pero los valores ya están en soles.",
+         desc=("Transferencia del FONCOMUN a la municipalidad. El FONCOMUN es un fondo establecido en la Constitución que redistribuye recursos "
+               "(principalmente el Impuesto de Promoción Municipal) entre todas las municipalidades del país.",
+               "FONCOMUN transfer to the municipality. FONCOMUN is a constitutional fund that redistributes resources "
+               "(mainly the Municipal Promotion Tax) across all municipalities in the country."),
+         caveat=("Se excluye 2016: en SIRTOD los valores distritales de ese año están desordenados entre distritos. "
+                 "SIRTOD lo rotula en miles de soles, pero los valores ya están en soles.",
+                 "2016 is excluded: in SIRTOD that year's district values are scrambled across districts. "
                  "SIRTOD labels it in thousands of soles, but the values are already in soles.")),
     dict(id="siaf_pia", kind="sum", col="siaf_pia", cat="budget", years=(2008, LAST_YEAR),
          pc=True, map=False, src="siaf", codes="516869",
-         label=("Presupuesto Institucional de Apertura (PIA)", "Initial approved budget (PIA)"),
+         label=("Presupuesto Institucional de Apertura (PIA)", "Initial budget (PIA)"),
          desc=("Presupuesto aprobado al inicio del año.", "Budget approved at the start of the year."),
          caveat=CAVEAT_SIAF),
     dict(id="siaf_pim", kind="sum", col="siaf_pim", cat="budget", years=(2008, LAST_YEAR),
@@ -135,57 +140,61 @@ VARS = [
          caveat=CAVEAT_SIAF),
     dict(id="siaf_accrued", kind="sum", col="siaf_accrued", cat="budget", years=(2008, LAST_YEAR),
          pc=True, map=True, src="siaf", codes="516872",
-         label=("Gasto ejecutado (devengado)", "Spending executed (accrued)"),
+         label=("Gasto ejecutado (devengado)", "Accrued expenditure (devengado)"),
          desc=("Gasto devengado: obligaciones de pago reconocidas en el año.",
-               "Accrued spending: payment obligations recognised during the year."),
+               "Accrued expenditure: payment obligations recognised during the year."),
          caveat=CAVEAT_SIAF),
     dict(id="siaf_exec_rate", kind="ratio", num="siaf_accrued", den="siaf_pim", cat="budget",
          years=(2008, LAST_YEAR), pc=False, map=True, src="siaf", codes="516872 / 516870",
          label=("Avance de ejecución presupuestal", "Budget execution rate"),
          desc=("Gasto devengado como porcentaje del PIM. En agregados es devengado total / PIM total.",
-               "Accrued spending as a percentage of the modified budget (PIM). Aggregates are total accrued / total PIM."),
+               "Accrued expenditure as a percentage of the modified budget (PIM). Aggregates are total accrued / total PIM."),
          caveat=CAVEAT_SIAF),
-    dict(id="renamu_rev_total", kind="sum", col="renamu_rev_total", cat="finance", years=(2004, LAST_YEAR),
-         pc=True, map=False, src="renamu", codes="122042", exclude=RENAMU_BAD_YEARS,
-         label=("Ingresos recaudados", "Revenue collected"),
-         desc=("Ingreso total recaudado por la municipalidad (corrientes, de capital, financiamiento y transferencias).",
-               "Total revenue collected by the municipality (current, capital, financing and transfers)."),
-         caveat=CAVEAT_RENAMU),
-    dict(id="renamu_rev_transfers", kind="sum", col="renamu_rev_transfers", cat="finance", years=(2004, LAST_YEAR),
-         pc=True, map=False, src="renamu", codes="122046", exclude=RENAMU_BAD_YEARS,
+    dict(id="munfin_rev_total", kind="sum", col="munfin_rev_total", cat="finance", years=(2004, LAST_YEAR),
+         pc=True, map=False, src="munfin", codes="122042", exclude=MUNFIN_BAD_YEARS,
+         label=("Ingresos totales (incluye saldos de balance y endeudamiento)", "Total revenue (incl. carry-over balances and borrowing)"),
+         desc=("Ingreso total recaudado por la municipalidad: ingresos corrientes, de capital, transferencias y financiamiento "
+               "(este último incluye los saldos de balance de años anteriores y el endeudamiento).",
+               "Total revenue collected by the municipality: current revenue, capital revenue, transfers and financing "
+               "(the latter includes balances carried over from previous years and borrowing)."),
+         caveat=CAVEAT_MUNFIN),
+    dict(id="munfin_rev_transfers", kind="sum", col="munfin_rev_transfers", cat="finance", years=(2004, LAST_YEAR),
+         pc=True, map=False, src="munfin", codes="122046", exclude=MUNFIN_BAD_YEARS,
          label=("Ingresos por transferencias", "Transfer revenue"),
          desc=("Ingresos de la municipalidad provenientes de transferencias (canon, FONCOMUN, otros).",
                "Municipal revenue from transfers (canon, FONCOMUN, others)."),
-         caveat=CAVEAT_RENAMU),
-    dict(id="renamu_exp_current", kind="sum", col="renamu_exp_current", cat="finance", years=(2004, LAST_YEAR),
-         pc=True, map=False, src="renamu", codes="122048", exclude=RENAMU_BAD_YEARS,
-         label=("Gasto corriente", "Current spending"),
-         desc=("Gasto corriente ejecutado: personal, bienes y servicios, otros gastos corrientes.",
-               "Current spending executed: staff, goods and services, other current spending."),
-         caveat=CAVEAT_RENAMU),
-    dict(id="renamu_exp_capital", kind="sum", col="renamu_exp_capital", cat="finance", years=(2004, LAST_YEAR),
-         pc=True, map=True, src="renamu", codes="122049", exclude=RENAMU_BAD_YEARS,
-         label=("Gasto de capital", "Capital spending"),
+         caveat=CAVEAT_MUNFIN),
+    dict(id="munfin_exp_current", kind="sum", col="munfin_exp_current", cat="finance", years=(2004, LAST_YEAR),
+         pc=True, map=False, src="munfin", codes="122048", exclude=MUNFIN_BAD_YEARS,
+         label=("Gasto corriente", "Current expenditure"),
+         desc=("Gasto corriente ejecutado: personal, bienes y servicios y otros gastos corrientes.",
+               "Current expenditure executed: staff, goods and services, and other current expenditure."),
+         caveat=CAVEAT_MUNFIN),
+    dict(id="munfin_exp_capital", kind="sum", col="munfin_exp_capital", cat="finance", years=(2004, LAST_YEAR),
+         pc=True, map=True, src="munfin", codes="122049", exclude=MUNFIN_BAD_YEARS,
+         label=("Gasto de capital", "Capital expenditure"),
          desc=("Gasto de capital ejecutado, principalmente inversión pública (obras).",
-               "Capital spending executed, mainly public investment (works)."),
-         caveat=CAVEAT_RENAMU),
-    dict(id="capital_share", kind="ratio", num="renamu_exp_capital", den="renamu_exp_total", cat="finance",
-         years=(2004, LAST_YEAR), pc=False, map=True, src="renamu", codes="122049 / 122047", exclude=RENAMU_BAD_YEARS,
-         label=("Participación del gasto de capital", "Capital share of spending"),
+               "Capital expenditure executed, mainly public investment (works)."),
+         caveat=CAVEAT_MUNFIN),
+    dict(id="capital_share", kind="ratio", num="munfin_exp_capital", den="munfin_exp_total", cat="finance",
+         years=(2004, LAST_YEAR), pc=False, map=True, src="munfin", codes="122049 / 122047", exclude=MUNFIN_BAD_YEARS,
+         label=("Participación del gasto de capital", "Capital share of expenditure"),
          desc=("Gasto de capital como porcentaje del gasto total ejecutado.",
-               "Capital spending as a percentage of total spending executed."),
-         caveat=CAVEAT_RENAMU),
-    dict(id="transfers_share", kind="ratio", num="renamu_rev_transfers", den="renamu_rev_total", cat="finance",
-         years=(2004, LAST_YEAR), pc=False, map=True, src="renamu", codes="122046 / 122042", exclude=RENAMU_BAD_YEARS,
+               "Capital expenditure as a percentage of total expenditure executed."),
+         caveat=CAVEAT_MUNFIN),
+    dict(id="transfers_share", kind="ratio", num="munfin_rev_transfers", den="munfin_rev_nonfin", cat="finance",
+         years=(2004, LAST_YEAR), pc=False, map=True, src="munfin", codes="122046 / (122042 - 122045)", exclude=MUNFIN_BAD_YEARS,
          label=("Dependencia de transferencias", "Dependence on transfers"),
-         desc=("Ingresos por transferencias como porcentaje del ingreso total recaudado.",
-               "Transfer revenue as a percentage of total revenue collected."),
-         caveat=CAVEAT_RENAMU),
+         desc=("Ingresos por transferencias como porcentaje de los ingresos del año sin financiamiento "
+               "(ingresos totales menos saldos de balance y endeudamiento).",
+               "Transfer revenue as a percentage of the year's revenue excluding financing "
+               "(total revenue minus carry-over balances and borrowing)."),
+         caveat=CAVEAT_MUNFIN),
     dict(id="canon_dependence", kind="ratio", num="canon_total", den="siaf_accrued", cat="canon",
-         years=(2008, 2024), pc=False, map=True, src="canon", codes="407245 / 516872",
-         label=("Canon como porcentaje del gasto", "Canon as a share of spending"),
+         years=(2008, 2024), pc=False, map=True, src="canon_siaf", codes="407245 / 516872",
+         label=("Canon como porcentaje del gasto", "Canon as a share of expenditure"),
          desc=("Canon transferido en el año como porcentaje del gasto devengado del mismo año.",
-               "Canon transferred in the year as a percentage of accrued spending in the same year."),
+               "Canon transferred in the year as a percentage of accrued expenditure in the same year."),
          caveat=("Puede superar 100%: el canon de un año suele gastarse en años posteriores.",
                  "Can exceed 100%: canon received in one year is often spent in later years.")),
 ]
@@ -214,26 +223,66 @@ def load_cpi():
     return cpi[REAL_BASE_YEAR] / cpi
 
 
+# Districts created before 2018 and their parents (see panels/build_canon_spending_panel.py).
+SPLIT_PARENT = {"080914": "080902", "080911": "080909", "080912": "080909", "080913": "080907"}
+VALUE_COVERAGE_MIN = 0.98   # share of the money held by reporting districts
+PROXY_WINDOW = 3            # years searched for a missing district's size proxy
+
+
+def coverage_inputs(df, col):
+    """Per district-year: does it report `col`, is it covered by its parent, and its size proxy.
+
+    A district in its first year whose own value is missing while its parent
+    reports is 'covered by parent': its budget was still part of the parent's.
+    The size proxy is the district's own value, or for a missing year its value
+    the average of its values in the nearest observed years before and after
+    (up to PROXY_WINDOW years away).
+    """
+    val = df.set_index(["ubigeo", "year"])[col]
+    rep = df["exists"] & df[col].notna()
+    parent = df.ubigeo.map(SPLIT_PARENT)
+    parent_val = pd.Series([val.get((pu, y), np.nan) if isinstance(pu, str) else np.nan
+                            for pu, y in zip(parent, df.year)], index=df.index)
+    cbp = (df["exists"] & df[col].isna() & parent.notna()
+           & (df.year == df.first_year_in_data) & parent_val.notna())
+    w = df.pivot(index="ubigeo", columns="year", values=col)
+    prox = w.copy()
+    for k in range(1, PROXY_WINDOW + 1):
+        # average of the observed values k years before and after (either one if only one exists)
+        around = pd.concat([w.shift(k, axis=1), w.shift(-k, axis=1)]).groupby(level=0).mean()
+        prox = prox.fillna(around)
+    proxy = pd.Series([prox.at[u, y] if y in prox.columns else np.nan for u, y in zip(df.ubigeo, df.year)],
+                      index=df.index)
+    return rep, cbp, proxy.abs()
+
+
 def aggregate(df, keys, v):
     """Aggregate one variable from districts to the groups in `keys`."""
     pop = df["pop_spliced"].fillna(0)
     exists = df["exists"]
     if v["kind"] == "sum":
-        rep = exists & df[v["col"]].notna()
-        g = df.assign(_v=df[v["col"]].where(rep), _rep=rep, _ex=exists,
-                      _prep=pop.where(rep, 0), _pex=pop.where(exists, 0))
-        out = g.groupby(keys).agg(total=("_v", lambda s: s.sum(min_count=1)), n_reporting=("_rep", "sum"),
-                                  n_districts=("_ex", "sum"), pop_rep=("_prep", "sum"), pop_ex=("_pex", "sum"))
+        rep, cbp, proxy = coverage_inputs(df, v["col"])
+        g = df.assign(_v=df[v["col"]].where(rep))
+    else:
+        rep_n = exists & df[v["num"]].notna()
+        rep, cbp, proxy = coverage_inputs(df, v["den"])
+        rep = rep & rep_n
+        g = df.assign(_n=df[v["num"]].where(rep), _d=df[v["den"]].where(rep))
+    counted = exists & ~cbp
+    g = g.assign(_rep=rep, _ex=exists,
+                 _prep=pop.where(rep | cbp, 0), _pex=pop.where(exists, 0),
+                 _xrep=proxy.where(rep, 0).fillna(0), _xex=proxy.where(counted, 0).fillna(0))
+    spec = dict(n_reporting=("_rep", "sum"), n_districts=("_ex", "sum"), pop_rep=("_prep", "sum"),
+                pop_ex=("_pex", "sum"), x_rep=("_xrep", "sum"), x_ex=("_xex", "sum"))
+    if v["kind"] == "sum":
+        out = g.groupby(keys).agg(total=("_v", lambda s: s.sum(min_count=1)), **spec)
         out["per_capita"] = out.total / out.pop_rep.replace(0, np.nan)
     else:
-        rep = exists & df[v["num"]].notna() & df[v["den"]].notna()
-        g = df.assign(_n=df[v["num"]].where(rep), _d=df[v["den"]].where(rep), _rep=rep, _ex=exists,
-                      _prep=pop.where(rep, 0), _pex=pop.where(exists, 0))
-        out = g.groupby(keys).agg(num=("_n", lambda s: s.sum(min_count=1)), den=("_d", lambda s: s.sum(min_count=1)),
-                                  n_reporting=("_rep", "sum"), n_districts=("_ex", "sum"),
-                                  pop_rep=("_prep", "sum"), pop_ex=("_pex", "sum"))
+        out = g.groupby(keys).agg(num=("_n", lambda s: s.sum(min_count=1)),
+                                  den=("_d", lambda s: s.sum(min_count=1)), **spec)
         out["pct"] = 100 * out.num / out.den.replace(0, np.nan)
     out["pop_coverage"] = out.pop_rep / out.pop_ex.replace(0, np.nan)
+    out["value_coverage"] = (out.x_rep / out.x_ex.replace(0, np.nan)).fillna(1.0)
     return out.reset_index()
 
 
@@ -243,6 +292,8 @@ def main() -> None:
     p["prov_code"] = p.ubigeo.str[:4]
     p["dept_code"] = "08"
     p["exists"] = p.year >= p.first_year_in_data
+    # SIRTOD stores no zeros, so missing financing with total revenue reported means zero financing
+    p["munfin_rev_nonfin"] = p.munfin_rev_total - p.munfin_rev_financing.fillna(0)
     deflator = load_cpi()
 
     rows = []
@@ -255,15 +306,17 @@ def main() -> None:
         if v["kind"] == "sum":
             d["total"] = d[v["col"]]
             d["per_capita"] = d[v["col"]] / d["pop_spliced"]
-            # per-capita values for the La Convencion split block in 2015-2017 are unreliable
+            # split families in 2015-2017: population is allocated only approximately
             d.loc[d.pop_boundary_mismatch == 1, "per_capita"] = np.nan
+            if v["id"] == "pop":
+                d.loc[d.pop_boundary_mismatch == 1, "total"] = np.nan
             ok = d[v["col"]].notna()
         else:
             d["pct"] = 100 * d[v["num"]] / d[v["den"]].replace(0, np.nan)
             ok = d["pct"].notna()
         d = d[ok]
         d = d.assign(level="district", geo_code=d.ubigeo, geo_name=d.district,
-                     n_reporting=1, n_districts=1, pop_coverage=1.0)
+                     n_reporting=1, n_districts=1, pop_coverage=1.0, value_coverage=1.0)
         frames = [d]
 
         # Province and department levels
@@ -282,11 +335,12 @@ def main() -> None:
                 if m not in f:
                     continue
                 part = f[["level", "geo_code", "geo_name", "province", "year",
-                          "n_reporting", "n_districts", "pop_coverage"]].copy()
+                          "n_reporting", "n_districts", "pop_coverage", "value_coverage"]].copy()
                 part["variable"], part["measure"], part["value"] = v["id"], m, f[m].values
                 part = part[part.value.notna()]
                 in_window = part.year.between(y0, y1) & ~part.year.isin(v.get("exclude", []))
-                covered = (part.pop_coverage >= COVERAGE_MIN) | (part.level == "district")
+                covered = (((part.pop_coverage >= COVERAGE_MIN) & (part.value_coverage >= VALUE_COVERAGE_MIN))
+                           | (part.level == "district"))
                 part["display"] = (in_window & covered).astype(int)
                 rows.append(part)
                 if deflator is not None and v["kind"] == "sum" and v["id"] != "pop":
@@ -302,10 +356,11 @@ def main() -> None:
                             key=lambda s: s.map(var_order) if s.name == "variable"
                             else s.map(level_order) if s.name == "level" else s)
     long["pop_coverage"] = long.pop_coverage.round(4)
+    long["value_coverage"] = long.value_coverage.round(4)
     long["value"] = np.where(long.measure.isin(["total", "total_real"]) & (long.variable != "pop"),
                              long.value.round(0), long.value.round(4))
     cols = ["level", "geo_code", "geo_name", "province", "year", "variable", "measure",
-            "value", "n_reporting", "n_districts", "pop_coverage", "display"]
+            "value", "n_reporting", "n_districts", "pop_coverage", "value_coverage", "display"]
     long[cols].to_csv(OUT_LONG, index=False, encoding="utf-8")
 
     # Dictionary: one row per variable x measure

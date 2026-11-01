@@ -61,7 +61,7 @@ CONSTANCIA_DISTRICTS = {"080705": "LIVITACA", "080703": "CHAMACA", "080708": "VE
 BOUNDARY_PARENTS = {"080902": 2016, "080909": 2015, "080907": 2016, "080910": 2016}
 
 PC_OUTCOMES = ["canon_total", "canon_mining", "canon_gas", "siaf_accrued",
-               "siaf_pim", "renamu_exp_current", "renamu_exp_capital"]
+               "siaf_pim", "munfin_exp_current", "munfin_exp_capital"]
 
 
 def main() -> None:

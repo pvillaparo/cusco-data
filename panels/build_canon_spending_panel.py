@@ -18,9 +18,12 @@ Design choices (see panels/README.md for the reasoning):
     Cusco district (adds the Regional Government's canon) and Santa Ana
     (adds what looks like the provincial-municipality share). Kept as
     canon_total_alt with a flag.
-  * Spending: MEF-SIAF budget cycle (516869-516874) and RENAMU revenues and
-    spending by economic category (122042-122050). FONCOMUN (414062).
-  * All money in nominal soles. RENAMU is reported in thousands and is
+  * Spending: MEF-SIAF budget cycle (516869-516874) and MEF public-accounts
+    (DNCP) municipal revenues and spending by economic category (122042-122050,
+    variables munfin_*). FONCOMUN (414062).
+  * Inputs: the district workbooks 04a-04d, the UBIGEO sheet of the guide (01)
+    and the department workbook (02, population only).
+  * All money in nominal soles. munfin_* is reported in thousands and is
     multiplied by 1,000; FONCOMUN is labelled thousands in SIRTOD but its values
     are already in soles. Per-capita versions divide by `pop_spliced`, which
     joins INEI's 2007-Census and 2017-Census projection vintages (see
@@ -53,6 +56,14 @@ SERIES = {
     "417639": ("sobrecanon_oil", 1, "Sobrecanon petrolero transferred (S/)"),
     # Canon, alternative series (soles)
     "414080": ("canon_total_alt", 1, "Canon total, alt. series 414080 (S/)"),
+    # Alternative-series components, used only to fill gaps in the main series
+    "414081": ("_alt_canon_forest", 1, ""),
+    "414082": ("_alt_canon_gas", 1, ""),
+    "414083": ("_alt_canon_hydro", 1, ""),
+    "414084": ("_alt_canon_mining", 1, ""),
+    "414085": ("_alt_canon_fishing", 1, ""),
+    "414087": ("_alt_canon_oil", 1, ""),
+    "414088": ("_alt_sobrecanon_oil", 1, ""),
     # Other transfers
     "414062": ("foncomun", 1, "FONCOMUN transferred (S/)"),  # labelled thousands, values in soles
     # MEF-SIAF budget cycle (soles)
@@ -62,16 +73,16 @@ SERIES = {
     "516872": ("siaf_accrued", 1, "SIAF accrued spending, devengado (S/)"),
     "516873": ("siaf_paid", 1, "SIAF paid spending, girado (S/)"),
     "516874": ("siaf_exec_rate", 1, "SIAF execution rate, devengado/PIM (%)"),
-    # RENAMU municipal finances (thousands of soles -> soles)
-    "122042": ("renamu_rev_total", 1000, "RENAMU revenue collected, total (S/)"),
-    "122043": ("renamu_rev_current", 1000, "RENAMU current revenue (S/)"),
-    "122044": ("renamu_rev_capital", 1000, "RENAMU capital revenue (S/)"),
-    "122045": ("renamu_rev_financing", 1000, "RENAMU financing revenue (S/)"),
-    "122046": ("renamu_rev_transfers", 1000, "RENAMU transfer revenue (S/)"),
-    "122047": ("renamu_exp_total", 1000, "RENAMU spending executed, total (S/)"),
-    "122048": ("renamu_exp_current", 1000, "RENAMU current spending (S/)"),
-    "122049": ("renamu_exp_capital", 1000, "RENAMU capital spending (S/)"),
-    "122050": ("renamu_exp_debt", 1000, "RENAMU debt service (S/)"),
+    # Municipal finances, MEF public accounts (DNCP) (thousands of soles -> soles)
+    "122042": ("munfin_rev_total", 1000, "Municipal revenue collected, total (S/)"),
+    "122043": ("munfin_rev_current", 1000, "Municipal current revenue (S/)"),
+    "122044": ("munfin_rev_capital", 1000, "Municipal capital revenue (S/)"),
+    "122045": ("munfin_rev_financing", 1000, "Municipal financing revenue (S/)"),
+    "122046": ("munfin_rev_transfers", 1000, "Municipal transfer revenue (S/)"),
+    "122047": ("munfin_exp_total", 1000, "Municipal spending executed, total (S/)"),
+    "122048": ("munfin_exp_current", 1000, "Municipal current spending (S/)"),
+    "122049": ("munfin_exp_capital", 1000, "Municipal capital spending (S/)"),
+    "122050": ("munfin_exp_debt", 1000, "Municipal debt service (S/)"),
     # Population
     "262234": ("pop_proj", 1, "INEI projected population (persons)"),
 }
@@ -83,8 +94,8 @@ CANON_COMPONENTS = [
 
 PER_CAPITA = [
     "canon_total", "canon_mining", "canon_gas", "canon_hydro", "foncomun",
-    "siaf_pim", "siaf_accrued", "renamu_rev_transfers",
-    "renamu_exp_total", "renamu_exp_current", "renamu_exp_capital",
+    "siaf_pim", "siaf_accrued", "munfin_rev_transfers",
+    "munfin_exp_total", "munfin_exp_current", "munfin_exp_capital",
 ]
 
 # Districts whose territory shrank when new districts were created. Inferred
@@ -105,10 +116,18 @@ CAPITALS_ALT_DIFFERS = {"080101", "080901"}  # Cusco, Santa Ana
 # run to 2015; those based on the 2017 Census start in 2018 at district level
 # (2016-2017 are missing in SIRTOD) and in 2016 at department level.
 OLD_LAST, NEW_FIRST_DEPT, NEW_FIRST_DIST, TREND_FROM = 2015, 2016, 2018, 2010
-# La Convencion districts involved in the 2015-2021 splits: parents + new districts.
-# Their spliced population is handled as one block so the territory adds up.
-LC_SPLIT_BLOCK = {"080902", "080907", "080909", "080910", "080911", "080912",
-                  "080913", "080914", "080915", "080916", "080917", "080918"}
+# Districts created in La Convencion before 2018 and the parents whose territory
+# they came from. Each parent is spliced together with its children, because
+# the old-vintage parent population covered the children's territory too.
+# Megantoni <- Echarate is documented (2016 law); the other links are inferred
+# from population drops that coincide with each new district's entry.
+SPLIT_FAMILIES = {
+    "080902": ["080914"],             # Echarate -> Megantoni (2017)
+    "080909": ["080911", "080912"],   # Vilcabamba -> Inkawasi, Villa Virgen (2015)
+    "080907": ["080913"],             # Kimbiri -> Villa Kintiarina (2016), inferred
+}
+FAMILY_OF = {u: p for p, kids in SPLIT_FAMILIES.items() for u in [p] + kids}
+SPLIT_CHILDREN = {u for kids in SPLIT_FAMILIES.values() for u in kids}
 
 
 def load_district_data() -> pd.DataFrame:
@@ -149,13 +168,17 @@ def splice_population(panel: pd.DataFrame, dept: pd.Series) -> pd.DataFrame:
     growth rate, it meets the new vintage's first year. Year-to-year changes of
     the old series are preserved; only its level moves.
       1. Department: old 1995-2015 rescaled to meet new 2016.
-      2. Districts: old 2001-2015 rescaled to meet new 2018 (one factor per
-         district; one shared factor for the La Convencion split block, whose
-         parents covered the new districts' territory before the splits).
+      2. Districts: old 2001-2015 rescaled to meet new 2018, one factor per
+         district; a parent that lost territory to a district created before
+         2018 is matched against the 2018 total of parent + children.
       3. 2016-2017 at district level: geometric interpolation between the
-         spliced 2015 and published 2018 values (block: interpolate the block
-         total, allocate by 2018 shares among districts that already exist).
+         spliced 2015 and published 2018 values. For split families the family
+         total is interpolated and allocated by 2018 shares; a child that does
+         not exist yet leaves its share with the parent.
       4. Every year, districts are rescaled to add up to the spliced department.
+         Because the department is anchored in 2016 and districts in 2018, this
+         common factor (0.98-0.99 before 2018) adds ~0.8 pp to district growth
+         in 2017-2018.
     """
     years = sorted(panel.year.unique())
     first_year = panel.groupby("ubigeo")["first_year_in_data"].first()
@@ -168,7 +191,7 @@ def splice_population(panel: pd.DataFrame, dept: pd.Series) -> pd.DataFrame:
 
     # 2. Districts, old vintage
     pop = panel.pivot(index="ubigeo", columns="year", values="pop_proj").reindex(columns=years)
-    group = pd.Series(np.where(pop.index.isin(LC_SPLIT_BLOCK), "LC_BLOCK", pop.index), index=pop.index)
+    group = pd.Series([FAMILY_OF.get(u, u) for u in pop.index], index=pop.index)
     gsum = pop.groupby(group).sum(min_count=1)
     g = (gsum[OLD_LAST] / gsum[TREND_FROM]) ** (1 / (OLD_LAST - TREND_FROM))
     f = gsum[NEW_FIRST_DIST] / (gsum[OLD_LAST] * g ** (NEW_FIRST_DIST - OLD_LAST))
@@ -179,18 +202,22 @@ def splice_population(panel: pd.DataFrame, dept: pd.Series) -> pd.DataFrame:
     # 3. 2016-2017
     gap_years = [y for y in years if OLD_LAST < y < NEW_FIRST_DIST]
     span = NEW_FIRST_DIST - OLD_LAST
-    outside = ~pop.index.isin(LC_SPLIT_BLOCK)
+    single = ~pop.index.isin(FAMILY_OF)
     for y in gap_years:
         w = (y - OLD_LAST) / span
-        sp.loc[outside, y] = sp.loc[outside, OLD_LAST] * (
-            pop.loc[outside, NEW_FIRST_DIST] / sp.loc[outside, OLD_LAST]) ** w
-        blk = pop.index.isin(LC_SPLIT_BLOCK)
-        t0, t1 = sp.loc[blk, OLD_LAST].sum(), pop.loc[blk, NEW_FIRST_DIST].sum()
-        total = t0 * (t1 / t0) ** w
-        members = [u for u in pop.index[blk] if first_year.get(u, 9999) <= y
-                   and pd.notna(pop.loc[u, NEW_FIRST_DIST])]
-        shares = pop.loc[members, NEW_FIRST_DIST] / pop.loc[members, NEW_FIRST_DIST].sum()
-        sp.loc[members, y] = total * shares
+        sp.loc[single, y] = sp.loc[single, OLD_LAST] * (
+            pop.loc[single, NEW_FIRST_DIST] / sp.loc[single, OLD_LAST]) ** w
+        for parent, kids in SPLIT_FAMILIES.items():
+            members = [parent] + kids
+            t0 = sp.loc[members, OLD_LAST].sum()
+            t1 = pop.loc[members, NEW_FIRST_DIST].sum()
+            total = t0 * (t1 / t0) ** w
+            shares = pop.loc[members, NEW_FIRST_DIST].copy()
+            for k in kids:
+                if first_year.get(k, 9999) > y:      # child not created yet
+                    shares[parent] += shares[k]
+                    shares[k] = np.nan
+            sp.loc[members, y] = total * shares / shares.sum()
 
     # 4. Rake to the spliced department total
     for y in years:
@@ -199,10 +226,11 @@ def splice_population(panel: pd.DataFrame, dept: pd.Series) -> pd.DataFrame:
             sp[y] *= dept_sp[y] / s
 
     out = sp.stack().rename("pop_spliced").reset_index()
-    out["pop_spliced"] = out.pop_spliced.round()
-    out["pop_backcast"] = (out.year <= OLD_LAST).astype(int)
-    out["pop_interpolated"] = out.year.isin(gap_years).astype(int)
-    out["pop_boundary_mismatch"] = (out.ubigeo.isin(LC_SPLIT_BLOCK)
+    out["pop_spliced"] = out.pop_spliced.round(1)
+    has = out.pop_spliced.notna()
+    out["pop_backcast"] = ((out.year <= OLD_LAST) & has).astype(int)
+    out["pop_interpolated"] = (out.year.isin(gap_years) & has).astype(int)
+    out["pop_boundary_mismatch"] = (out.ubigeo.isin(FAMILY_OF)
                                     & out.year.between(OLD_LAST, NEW_FIRST_DIST - 1)).astype(int)
     return out
 
@@ -232,12 +260,32 @@ def main() -> None:
         if v not in panel:
             panel[v] = np.nan
 
+    # Fill gaps in the main canon series from the alternative series, which is
+    # identical to it outside the two capitals (e.g. the four districts created
+    # in 2021 have no 407245 values in 2021-2022 but do have 414080).
+    fill = (panel["canon_total"].isna() & panel["canon_total_alt"].notna()
+            & ~panel.ubigeo.isin(CAPITALS_ALT_DIFFERS))
+    panel["canon_filled_from_alt"] = fill.astype(int)
+    panel.loc[fill, "canon_total"] = panel.loc[fill, "canon_total_alt"]
+    for c in CANON_COMPONENTS + ["sobrecanon_oil"]:
+        panel.loc[fill, c] = panel.loc[fill, f"_alt_{c}"]
+    # 414084 (mining) is blank in those rows; the residual matches the
+    # department-tier mining share, so mining is taken as total minus the rest.
+    others = [c for c in CANON_COMPONENTS + ["sobrecanon_oil"] if c != "canon_mining"]
+    resid = panel["canon_total"] - panel[others].fillna(0).sum(axis=1)
+    miss_min = fill & panel["canon_mining"].isna()
+    panel.loc[miss_min, "canon_mining"] = resid[miss_min]
+    if fill.any():
+        print(f"note: canon filled from alternative series in {fill.sum()} rows (flagged)")
+    panel = panel.drop(columns=[c for c in panel if c.startswith("_alt_")])
+    names = {k: v for k, v in names.items() if not v.startswith("_alt_")}
+
     # Canon components: total = sum of components exactly, so missing -> 0
     has_total = panel["canon_total"].notna()
     for c in CANON_COMPONENTS + ["sobrecanon_oil"]:
         panel.loc[has_total & panel[c].isna(), c] = 0.0
-    gap = panel["canon_total"] - panel[CANON_COMPONENTS].sum(axis=1, min_count=1)
-    bad = has_total & (gap.abs() > 1)
+    gap = panel["canon_total"] - panel[CANON_COMPONENTS + ["sobrecanon_oil"]].sum(axis=1, min_count=1)
+    bad = has_total & (gap.abs() > 5)  # tolerance for 1-2 sol rounding
     panel["canon_components_incomplete"] = np.where(has_total, bad.astype(float), np.nan)
     if bad.any():
         print(f"note: canon total != sum of components in {bad.sum()} rows (flagged)")
@@ -252,9 +300,9 @@ def main() -> None:
     panel["canon_pre2004"] = (panel.year < 2004).astype(int)
     panel["partial_year"] = (panel.year >= 2026).astype(int)
 
-    # RENAMU vs SIAF consistency flag (both measure accrued spending)
-    ratio = panel["renamu_exp_total"] / panel["siaf_accrued"]
-    panel["renamu_siaf_gap"] = np.where(ratio.notna(), ((ratio - 1).abs() > 0.05).astype(float), np.nan)
+    # Public-accounts vs SIAF consistency flag (both measure accrued spending)
+    ratio = panel["munfin_exp_total"] / panel["siaf_accrued"]
+    panel["munfin_siaf_gap"] = np.where(ratio.notna(), ((ratio - 1).abs() > 0.05).astype(float), np.nan)
 
     # Population: splice INEI's two projection vintages into one series
     panel = panel.sort_values(["ubigeo", "year"]).reset_index(drop=True)
@@ -268,9 +316,9 @@ def main() -> None:
 
     id_cols = ["ubigeo", "province", "district", "year"]
     flag_cols = ["first_year_in_data", "new_district", "boundary_change_parent",
-                 "capital_district", "canon_alt_differs", "canon_pre2004",
-                 "canon_components_incomplete",
-                 "partial_year", "renamu_siaf_gap", "pop_backcast",
+                 "capital_district", "canon_alt_differs", "canon_filled_from_alt",
+                 "canon_pre2004", "canon_components_incomplete",
+                 "partial_year", "munfin_siaf_gap", "pop_backcast",
                  "pop_interpolated", "pop_boundary_mismatch"]
     money = [v for v in names.values() if v != "pop_proj"]
     pc = [f"{v}_pc" for v in PER_CAPITA]
@@ -295,12 +343,13 @@ def main() -> None:
         "canon_alt_differs": "canon_total_alt includes other entities (=1)",
         "canon_pre2004": "Year before 2004 canon regime (=1)",
         "canon_components_incomplete": "Canon components do not sum to total (=1)",
+        "canon_filled_from_alt": "Canon taken from alternative series 414080 (=1)",
         "partial_year": "Partial year, 2026 (=1)",
-        "renamu_siaf_gap": "RENAMU total spending differs from SIAF by >5% (=1)",
+        "munfin_siaf_gap": "munfin total spending differs from SIAF by >5% (=1)",
         "pop_spliced": "Population, INEI vintages spliced (persons)",
         "pop_backcast": "pop_spliced is old vintage rescaled, year<=2015 (=1)",
         "pop_interpolated": "pop_spliced interpolated, 2016-2017 (=1)",
-        "pop_boundary_mismatch": "La Convencion split block, 2015-2017 (=1)",
+        "pop_boundary_mismatch": "Split family, 2015-2017: population allocated approx. (=1)",
     })
     dta = panel.copy()
     for c in ["ubigeo", "province", "district"]:

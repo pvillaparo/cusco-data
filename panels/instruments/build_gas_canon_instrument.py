@@ -58,7 +58,7 @@ BOUNDARY_PARENTS = {"080902", "080909", "080907", "080910"}
 SPLIT_YEAR = {"080902": 2016, "080909": 2015, "080907": 2016, "080910": 2016}
 
 PC_OUTCOMES = ["canon_total", "canon_gas", "canon_mining", "siaf_accrued",
-               "siaf_pim", "renamu_exp_current", "renamu_exp_capital"]
+               "siaf_pim", "munfin_exp_current", "munfin_exp_capital"]
 
 
 def load_gas_production() -> pd.DataFrame:

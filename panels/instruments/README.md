@@ -1,5 +1,7 @@
 # Formula-based instruments for canon (research extension)
 
+> Note: the first-stage tables below were computed before canon for the four districts created in 2021 was filled in for 2021–2022 (see `../README.md`). The instruments have been rebuilt since; rerun the first stages before using the numbers.
+
 These files are **not needed for the descriptive panel or the Cusco-stats plots**. They build shift-share instruments for gas and mining canon, for anyone who later wants to estimate causal effects of canon on municipal outcomes. Both merge one-to-one on `ubigeo` × `year` with `../canon_spending_district_year.csv`, and both scripts must be run after `../build_canon_spending_panel.py`:
 
 ```bash
@@ -88,7 +90,7 @@ Exposures (frozen shares):
 
 - `w_dept_base`: the district's share of the department tier in 2007–09.
 - `l_espinar_base`: its share of Espinar's local money in 2007–09, observed directly.
-- `l_chumb_base`: its formula share of Constancia's local money, (25/35) × its share of Chumbivilcas's department weights + (10/35) × its producing split. The split is Velille 0.56, Livitaca 0.23, Chamaca 0.22, the average excess receipts over 2018–2024.
+- `l_chumb_base`: its formula share of Constancia's local money, (25/35) × its share of Chumbivilcas's department weights + (10/35) × its producing split. The split is Velille 0.56, Livitaca 0.23, Chamaca 0.21, the average excess receipts over 2018–2024.
 
 `mining_iv = w_dept_base × pool_dept + l_espinar_base × pool_local_espinar + l_chumb_base × pool_local_chumbivilcas`
 
