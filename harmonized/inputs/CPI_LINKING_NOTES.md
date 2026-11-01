@@ -1,6 +1,6 @@
 # Cusco CPI: verification before linking
 
-`cusco_cpi_monthly_sirtod.xlsx` is the export of the two monthly SIRTOD CPI series for Cusco, with original values and no linking or averaging (exported 2026-11-01). **No linked series has been built yet.** This note records what the data itself shows and what still needs official confirmation from INEI.
+`cusco_cpi_monthly_sirtod.xlsx` is the export of the two monthly SIRTOD CPI series for Cusco, with original values and no linking or averaging (exported 2026-11-01). This note records what the data itself shows, the decisions confirmed by the project owner, and what remains open. The linked annual CPI is built by `../build_cpi.py` and saved as `cpi_annual.csv`.
 
 ## What the data confirms
 
@@ -26,3 +26,18 @@ Neither link assumes that January equals December, so no month's inflation is er
 ## Annual averages
 
 Annual deflators should be the average of the 12 monthly values. 2026 has only January–August, so any 2026 average must be labelled partial (the harmonized dataset drops 2026 for now anyway).
+
+## Decisions confirmed by the project owner (2026-11-01)
+
+| Question | Answer | Consequence |
+|---|---|---|
+| Does 516913 have December 2021 = 100 for the Cusco index? | **Yes** | Link applied: 516913 × 1.5396 (= 262483's December 2021 value / 100). January 2022 shows +0.41%, and December 2021 keeps its own +0.52%. |
+| How should 1996–2009 be linked to base 2009? | **Unresolved.** INEI reports January 2010 inflation for Cusco of **+0.45%**, which neither candidate reproduces (2009-average rescaling gives −0.26%, December-2009 rescaling gives +1.08%). | Months before January 2010 are left out. Constant-soles values start in 2010. |
+| Same urban area under both methodologies? | **Unresolved.** INEI identifies it as a Cusco **city** CPI, but whether the footprint is identical in both periods is not documented. | Documented as an open caveat. Applying the city index to all districts is stated as an analytical assumption. |
+| Reporting year for real values | **Constant 2024 soles**, using annual-average CPI | Real value = nominal × (2024 average CPI / year's average CPI), labelled "Cusco city CPI". |
+
+For reference only, not applied: a factor of 101.08 / (231.43 × 1.0045) = 0.434807 would reproduce INEI's reported +0.45% for January 2010. It is backed out of a single reported monthly change, though, not an official link factor or overlapping index values, so it does not meet the validation standard set for this project.
+
+## Still needed to extend real values before 2010
+
+An official INEI link factor (*factor de empalme*) for Cusco between the old base and base 2009, or Cusco index values on both bases for at least one overlapping period, plus documentation of the urban area covered in each period.

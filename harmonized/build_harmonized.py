@@ -25,8 +25,9 @@ Harmonization rules (see harmonized/README.md):
     municipal accounts from 2004 without the broken year 2023, FONCOMUN without
     the scrambled year 2016); 2026 is dropped for
     now (partial year). Rows outside the window are kept with display = 0.
-  * Money is in current soles. If inputs/cpi_annual.csv exists, real values in
-    soles of REAL_BASE_YEAR are added as extra measures.
+  * Money is in current soles, plus constant-soles measures (total_real,
+    per_capita_real) in soles of REAL_BASE_YEAR when inputs/cpi_annual.csv exists
+    (built by build_cpi.py from the Cusco city CPI; available from 2010 only).
 """
 
 from pathlib import Path
@@ -202,24 +203,41 @@ VARS = [
 UNITS = {
     ("money", "total"): ("Soles corrientes", "Current soles"),
     ("money", "per_capita"): ("Soles corrientes por habitante", "Current soles per person"),
-    ("money", "total_real"): (f"Soles de {REAL_BASE_YEAR}", f"{REAL_BASE_YEAR} soles"),
-    ("money", "per_capita_real"): (f"Soles de {REAL_BASE_YEAR} por habitante", f"{REAL_BASE_YEAR} soles per person"),
+    ("money", "total_real"): (f"Soles constantes de {REAL_BASE_YEAR} (IPC de la ciudad de Cusco)",
+                              f"Constant {REAL_BASE_YEAR} soles (Cusco city CPI)"),
+    ("money", "per_capita_real"): (f"Soles constantes de {REAL_BASE_YEAR} por habitante (IPC de la ciudad de Cusco)",
+                                   f"Constant {REAL_BASE_YEAR} soles per person (Cusco city CPI)"),
     ("people", "total"): ("Personas", "People"),
     ("ratio", "pct"): ("Porcentaje (%)", "Percent (%)"),
 }
 MEASURE_LABEL = {
     "total": ("Total", "Total"),
     "per_capita": ("Por habitante", "Per person"),
-    "total_real": ("Total, en términos reales", "Total, real terms"),
-    "per_capita_real": ("Por habitante, en términos reales", "Per person, real terms"),
+    "total_real": ("Total, en soles constantes", "Total, constant soles"),
+    "per_capita_real": ("Por habitante, en soles constantes", "Per person, constant soles"),
     "pct": ("Porcentaje", "Percent"),
+}
+REAL_NOTE = {
+    "es": (f"Valores reales = valor nominal × (IPC promedio de {REAL_BASE_YEAR} / IPC promedio del año), con el IPC de la "
+           "ciudad de Cusco (INEI). Aplicar un índice de precios de la ciudad a todos los distritos es un supuesto "
+           "analítico: no hay índices de precios distritales. Disponible desde 2010: el empalme del IPC de Cusco "
+           "anterior a 2010 aún no está validado."),
+    "en": (f"Real values = nominal value × ({REAL_BASE_YEAR} average CPI / the year's average CPI), using INEI's Cusco "
+           "city CPI. Applying a city price index to all districts is an analytical assumption: there are no "
+           "district price indices. Available from 2010: the link of the Cusco CPI before 2010 is not yet validated."),
 }
 
 
 def load_cpi():
+    """Deflator to soles of REAL_BASE_YEAR from inputs/cpi_annual.csv (built by build_cpi.py).
+
+    Partial years (fewer than 12 months) are not used. Years without a CPI
+    (before 2010, where the Cusco CPI rebasing break is unresolved) get no real values.
+    """
     if not CPI_FILE.exists():
         return None
-    cpi = pd.read_csv(CPI_FILE).set_index("year")["cpi"]
+    cpi = pd.read_csv(CPI_FILE)
+    cpi = cpi[cpi.partial == 0].set_index("year")["cpi"] if "partial" in cpi else cpi.set_index("year")["cpi"]
     return cpi[REAL_BASE_YEAR] / cpi
 
 
@@ -380,7 +398,8 @@ def main() -> None:
                 "measure_es": MEASURE_LABEL[m][0], "measure_en": MEASURE_LABEL[m][1],
                 "unit_es": UNITS[(kind, m)][0], "unit_en": UNITS[(kind, m)][1],
                 "description_es": v["desc"][0], "description_en": v["desc"][1],
-                "caveat_es": v["caveat"][0], "caveat_en": v["caveat"][1],
+                "caveat_es": " ".join(x for x in [v["caveat"][0], REAL_NOTE["es"] if m.endswith("_real") else ""] if x),
+                "caveat_en": " ".join(x for x in [v["caveat"][1], REAL_NOTE["en"] if m.endswith("_real") else ""] if x),
                 "source_es": SRC[v["src"]][0], "source_en": SRC[v["src"]][1],
                 "sirtod_codes": v["codes"],
                 "aggregation": "ratio_of_sums" if kind == "ratio" else ("sum_over_population" if m.startswith("per_capita") else "sum"),

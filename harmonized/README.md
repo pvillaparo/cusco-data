@@ -10,6 +10,7 @@ Rebuild everything with:
 
 ```bash
 python panels/build_canon_spending_panel.py
+python harmonized/build_cpi.py
 python harmonized/build_harmonized.py
 ```
 
@@ -55,7 +56,7 @@ python harmonized/build_harmonized.py
 
 2026 is dropped for now, because it is a partial year; revisit this at the next update. Values outside the windows stay in the file with `display = 0`, so nothing is lost.
 
-**Money is in current soles for now.** Twenty years of inflation make nominal lines rise even when real resources do not, so real values should replace them in the plots as soon as a price index is available. The build script is ready for that: put an annual CPI in `harmonized/inputs/cpi_annual.csv` (columns `year,cpi`) and rerun it. It then adds `total_real` and `per_capita_real` measures in soles of 2024 (`REAL_BASE_YEAR` in the script), with matching dictionary entries.
+**Money in current and constant soles.** Every amount comes in current soles (`total`, `per_capita`) and, from 2010, in **constant 2024 soles** (`total_real`, `per_capita_real`): nominal value × (2024 average CPI / the year's average CPI). The deflator is INEI's **Cusco city CPI**, built by `build_cpi.py` from the two SIRTOD series in `inputs/` and saved as `inputs/cpi_annual.csv`. Two limits are worth stating wherever real values are shown. First, applying a city price index to every district is an analytical assumption, because there are no district price indices. Second, real values start in 2010, because the Cusco CPI has a rebasing break in January 2010 that is not yet resolved: neither simple rescaling reproduces INEI's reported January 2010 inflation for Cusco (+0.45%). Earlier years therefore stay in current soles only. The plots should use constant soles wherever they are available. Details and open questions are in `inputs/CPI_LINKING_NOTES.md`.
 
 ## Variables currently included
 
