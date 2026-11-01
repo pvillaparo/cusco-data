@@ -30,8 +30,10 @@ How missing values are treated (the --no-fill switch turns all of this off):
 
   * RENAMU yes/no indicators ("Municipalidades que ...") are stored in SIRTOD
     only as 1s; a "no" answer is simply absent. They are set to 0 when the
-    municipality answered RENAMU that year, which we take to mean it reports
-    total staff (121951) or computers (121992) that year. Districts outside
+    municipality answered RENAMU for that date: for items about year Y
+    ("ref", see RENAMU_TIMING) when it reports staff at 31 December Y
+    (121951); for items dated at the survey ("survey") when it reports
+    computers (121992) that year; otherwise when it reports either. Districts outside
     that universe stay missing, and so do years in which SIRTOD publishes the
     indicator for no district at all (the question was not asked).
   * RENAMU counts of things the municipality may not have (dump trucks,
@@ -52,6 +54,11 @@ RENIEC registered deaths in 2020-2022 (regional totals collapse from about
 6,800 to 2,600 during COVID, so registration, not mortality, changed), and the
 share of school premises with all three services in 2019-2022 (questionnaire
 break in 2019; the series is kept as 2011-2018).
+
+RENAMU timing: SIRTOD dates items about year Y as Y and items recorded at the
+survey (collected in Y+1) as Y+1. --align-renamu re-dates the survey items to
+Y so that all RENAMU variables in a row refer to the same year; by default the
+SIRTOD dates are kept.
 
 For every filled variable a companion flag `<var>_filled` (1 = value was set
 by a rule above) is written, so the fill can always be undone.
@@ -145,6 +152,28 @@ SHORTLIST = {
 
 RENAMU_UNIVERSE_CODES = ["121951", "121992"]
 
+# RENAMU timing (see "When RENAMU variables are dated" in the shortlist note).
+# One RENAMU round, collected in the first half of year Y+1, yields two kinds
+# of items, and SIRTOD dates each by its own reference date:
+#   "ref"    activity during calendar year Y or a stock at 31 December Y
+#            (staff, services provided, programmes, waste collected); dated Y.
+#   "survey" what the municipality has when it answers in year Y+1
+#            (equipment, vehicles, plans, perceived problems); dated Y+1.
+# Evidence: in every module, "ref" items end in 2024 and "survey" items in
+# 2025, and new districts report staff one year before equipment. Items that
+# stop before 2019 cannot be classified this way and are marked "unknown".
+RENAMU_TIMING = {
+    "121951": "ref", "121953": "ref", "122093": "ref", "122156": "ref",
+    "122051": "ref", "516459": "ref", "516462": "ref", "516484": "ref",
+    "516485": "ref", "516513": "ref", "121997": "ref",
+    "121992": "survey", "121981": "survey", "122155": "survey", "516435": "survey",
+    "122136": "survey", "122137": "survey", "122138": "survey", "516382": "survey",
+    "122085": "unknown", "122091": "unknown", "122089": "unknown",
+    "516558": "unknown", "122146": "unknown", "122148": "unknown",
+}
+# respondent universe used for the zero-fill, by timing class
+TIMING_UNIVERSE = {"ref": ["121951"], "survey": ["121992"], "unknown": RENAMU_UNIVERSE_CODES}
+
 # code -> years blanked by default (see module docstring)
 SUSPECT = {
     "261461": [2025],
@@ -227,8 +256,16 @@ def read_ubigeo():
     return ub.set_index("UBIGEO")[["Provincia", "Distrito"]]
 
 
-def build_panel(raw, spec, names, first_year, last_year, fill=True, keep_suspect=False):
+def build_panel(raw, spec, names, first_year, last_year, fill=True, keep_suspect=False,
+                align_renamu=False):
     """Wide district-year panel for the codes in `spec`, with the fill rules."""
+    if align_renamu:
+        # "survey" items dated Y+1 describe the municipality at about the end
+        # of Y; re-date them to Y so every RENAMU item refers to year Y.
+        # The computers series used for the survey universe moves with them.
+        raw = raw.copy()
+        survey = raw["Código indicador"].map(RENAMU_TIMING).eq("survey")
+        raw.loc[survey, "Año"] -= 1
     raw = raw[(raw["Año"] >= first_year) & (raw["Año"] <= last_year)]
     raw = raw.dropna(subset=["Valor numérico"])
     dup = raw.duplicated(["Código indicador", "UBIGEO", "Año"]).sum()
@@ -251,6 +288,7 @@ def build_panel(raw, spec, names, first_year, last_year, fill=True, keep_suspect
     wide = wide.reindex(pd.MultiIndex.from_tuples(rows, names=["UBIGEO", "Año"]))
 
     renamu_universe = wide.reindex(columns=RENAMU_UNIVERSE_CODES).notna().any(axis=1)
+    universe = {k: wide.reindex(columns=v).notna().any(axis=1) for k, v in TIMING_UNIVERSE.items()}
     # all ECE levels are used for the fill, even those not in the output
     ece_all = [c for c, v in SHORTLIST.items() if v[2] == ECE]
 
@@ -262,7 +300,8 @@ def build_panel(raw, spec, names, first_year, last_year, fill=True, keep_suspect
             # outside them the question was not asked and nothing is filled
             published = s.notna().groupby(level="Año").transform("any")
             if rule == RENAMU:
-                filled = s.isna() & renamu_universe & published
+                u = universe[RENAMU_TIMING.get(code, "unknown")]
+                filled = s.isna() & u & published
             elif rule == ECE:
                 subject = var.split("_")[1]
                 subj = [c for c in ece_all if SHORTLIST[c][0].split("_")[1] == subject]
@@ -275,6 +314,8 @@ def build_panel(raw, spec, names, first_year, last_year, fill=True, keep_suspect
             out[var] = s
 
     out["renamu_respondent"] = renamu_universe.astype(int)
+    out["renamu_resp_ref"] = universe["ref"].astype(int)
+    out["renamu_resp_survey"] = universe["survey"].astype(int)
     out = out.reset_index().rename(columns={"UBIGEO": "ubigeo", "Año": "year"})
     out.insert(1, "province", out["ubigeo"].map(names["Provincia"]))
     out.insert(2, "district", out["ubigeo"].map(names["Distrito"]))
@@ -352,6 +393,8 @@ def main():
     ap.add_argument("--only", default="", help="comma-separated dimensions to keep (full set only)")
     ap.add_argument("--no-fill", action="store_true", help="do not apply the zero-fill rules")
     ap.add_argument("--keep-suspect", action="store_true", help="keep the cells listed in SUSPECT")
+    ap.add_argument("--align-renamu", action="store_true",
+                    help="re-date RENAMU survey-date stocks from Y+1 to Y (end of year Y)")
     ap.add_argument("--no-dta", action="store_true", help="write CSV only")
     ap.add_argument("--first-year", type=int, default=2003)
     ap.add_argument("--last-year", type=int, default=2025)
@@ -381,9 +424,12 @@ def main():
     labels = {v[0]: v[3] for v in spec.values()}
     labels.update(ubigeo="INEI UBIGEO district code (text)", year="Year",
                   province="Province", district="District",
-                  renamu_respondent="Municipality answered RENAMU this year (reports staff or computers)")
+                  renamu_respondent="Municipality answered RENAMU this year (reports staff or computers)",
+                  renamu_resp_ref="Reports staff at 31 Dec of this year (universe for year-Y items)",
+                  renamu_resp_survey="Reports computers dated this year (universe for survey-date items)")
     out = build_panel(raw, spec, names, args.first_year, args.last_year,
-                      fill=not args.no_fill, keep_suspect=args.keep_suspect)
+                      fill=not args.no_fill, keep_suspect=args.keep_suspect,
+                      align_renamu=args.align_renamu)
     out = add_derived(out, labels)
     write(out, str(stem), labels, dta=not args.no_dta)
 
