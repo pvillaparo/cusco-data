@@ -233,63 +233,87 @@ VARS = [
          measures=["ratio"], cat="education", years=(2008, LAST_YEAR), map=True, src="escale", codes="413856 / 417647",
          unit=("Alumnos por docente", "Pupils per teacher"),
          label=("Alumnos por docente en la educación básica regular pública", "Pupils per teacher in public regular basic education"),
-         desc=("Matrícula pública en educación básica regular (inicial, primaria y secundaria) dividida entre el número de docentes. "
-               "En agregados: matrícula total / docentes totales.",
-               "Public enrolment in regular basic education (pre-school, primary and secondary) divided by the number of teachers. "
-               "Aggregates: total enrolment / total teachers."),
-         caveat=("Baja tanto por más docentes como por menos alumnos (menos niños y migración). Los docentes los paga el gobierno central.",
-                 "Falls both with more teachers and with fewer pupils (fewer children and out-migration). Teachers are paid by the central government.")),
+         desc=("Matrícula pública en educación básica regular (inicial, primaria y secundaria) dividida entre el número de docentes "
+               "(incluye personal directivo). En agregados: matrícula total / docentes totales.",
+               "Public enrolment in regular basic education (pre-school, primary and secondary) divided by the number of teachers "
+               "(including school heads). Aggregates: total enrolment / total teachers."),
+         caveat=("Baja tanto por más docentes como por menos alumnos (menos niños y migración). Las plazas docentes se financian con "
+                 "recursos del Tesoro Público y las administra el gobierno regional (UGEL), no la municipalidad.",
+                 "Falls both with more teachers and with fewer pupils (fewer children and out-migration). Teaching posts are funded "
+                 "by the national Treasury and managed by the regional government (UGEL), not by the municipality.")),
     dict(id="sch_electric", kind="official_rate", col="sch_electric", dept_code="261276", cat="education",
          years=(2001, 2022), district_years=(2011, 2022), map=True, src="escale", codes="261276",
          label=("Locales escolares públicos conectados a la red eléctrica", "Public school premises connected to the electricity grid"),
          desc=("Porcentaje de locales escolares públicos con conexión a la red pública de electricidad.",
                "Percentage of public school premises connected to the public electricity grid."),
          caveat=("El valor de Cusco es la serie oficial departamental de SIRTOD; los valores distritales se muestran tal como se publican. "
-                 "No hay nivel provincial porque SIRTOD no publica el número de locales para agregar los distritos.",
+                 "Las provincias no se calculan a partir de los distritos porque SIRTOD no publica el número de locales; "
+                 "las series provinciales oficiales de SIRTOD aún no se incluyen.",
                  "The Cusco value is SIRTOD's official department series; district values are shown as published. "
-                 "There is no province level because SIRTOD does not publish the number of premises needed to aggregate districts.")),
+                 "Provinces are not built from districts because SIRTOD does not publish the number of premises; "
+                 "SIRTOD's official province series are not included yet.")),
     dict(id="ece_read", kind="official_rate", col="ece_read_satis", dept_code="420549", cat="education",
          years=(2007, 2016), district_years=(2007, 2016), map=True, src="umc", codes="420549",
          label=("Estudiantes de 2.º grado con nivel satisfactorio en lectura (ECE)", "2nd-grade pupils at the satisfactory level in reading (ECE)"),
-         desc=("Porcentaje de estudiantes de segundo grado de primaria que alcanzan el nivel satisfactorio en comprensión lectora en la Evaluación Censal de Estudiantes.",
-               "Percentage of second-grade primary pupils reaching the satisfactory level in reading comprehension in the national census test (ECE)."),
-         caveat=("La ECE excluye las escuelas de educación intercultural bilingüe, por lo que faltan sobre todo distritos rurales quechuahablantes. "
-                 "Los porcentajes distritales se basan en pocos alumnos en distritos pequeños. El valor de Cusco es la serie oficial departamental; no hay nivel provincial.",
-                 "The ECE excludes intercultural bilingual schools, so mostly rural Quechua-speaking districts are missing. "
-                 "District percentages rest on few pupils in small districts. The Cusco value is the official department series; there is no province level.")),
+         desc=("Porcentaje de los estudiantes de segundo grado de primaria evaluados que alcanzan el nivel satisfactorio en comprensión lectora en la Evaluación Censal de Estudiantes.",
+               "Percentage of second-grade primary pupils assessed who reach the satisfactory level in reading comprehension in the national census test (ECE)."),
+         caveat=("Se refiere a los estudiantes evaluados: los de escuelas de educación intercultural bilingüe (EIB) y de escuelas muy pequeñas "
+                 "no rinden esta prueba, por lo que las cifras describen sobre todo escuelas de enseñanza en castellano y pueden sobrestimar el "
+                 "aprendizaje en zonas quechuahablantes. Los porcentajes distritales se basan en pocos alumnos en distritos pequeños (un 0% puede "
+                 "reflejar un grupo muy pequeño), y en 2008 solo hay datos para 31 distritos. El valor de Cusco es la serie oficial departamental; "
+                 "las provincias no se calculan porque SIRTOD no publica el número de evaluados.",
+                 "Refers to pupils assessed: pupils in intercultural bilingual (EIB) schools and in very small schools do not take this test, "
+                 "so the figures mainly describe Spanish-instruction schools and may overstate learning in Quechua-speaking areas. District "
+                 "percentages rest on few pupils in small districts (a 0% may reflect a very small group), and 2008 has data for only 31 "
+                 "districts. The Cusco value is the official department series; provinces are not built because SIRTOD does not publish the "
+                 "number of pupils assessed.")),
     dict(id="ece_math", kind="official_rate", col="ece_math_satis", dept_code="420553", cat="education",
          years=(2007, 2016), district_years=(2007, 2016), map=True, src="umc", codes="420553",
          label=("Estudiantes de 2.º grado con nivel satisfactorio en matemática (ECE)", "2nd-grade pupils at the satisfactory level in mathematics (ECE)"),
-         desc=("Porcentaje de estudiantes de segundo grado de primaria que alcanzan el nivel satisfactorio en matemática en la Evaluación Censal de Estudiantes.",
-               "Percentage of second-grade primary pupils reaching the satisfactory level in mathematics in the national census test (ECE)."),
-         caveat=("La ECE excluye las escuelas de educación intercultural bilingüe, por lo que faltan sobre todo distritos rurales quechuahablantes. "
-                 "Los porcentajes distritales se basan en pocos alumnos en distritos pequeños. El valor de Cusco es la serie oficial departamental; no hay nivel provincial.",
-                 "The ECE excludes intercultural bilingual schools, so mostly rural Quechua-speaking districts are missing. "
-                 "District percentages rest on few pupils in small districts. The Cusco value is the official department series; there is no province level.")),
+         desc=("Porcentaje de los estudiantes de segundo grado de primaria evaluados que alcanzan el nivel satisfactorio en matemática en la Evaluación Censal de Estudiantes.",
+               "Percentage of second-grade primary pupils assessed who reach the satisfactory level in mathematics in the national census test (ECE)."),
+         caveat=("Se refiere a los estudiantes evaluados: los de escuelas de educación intercultural bilingüe (EIB) y de escuelas muy pequeñas "
+                 "no rinden esta prueba, por lo que las cifras describen sobre todo escuelas de enseñanza en castellano y pueden sobrestimar el "
+                 "aprendizaje en zonas quechuahablantes. Los porcentajes distritales se basan en pocos alumnos en distritos pequeños (un 0% puede "
+                 "reflejar un grupo muy pequeño), y en 2008 solo hay datos para 31 distritos. El valor de Cusco es la serie oficial departamental; "
+                 "las provincias no se calculan porque SIRTOD no publica el número de evaluados.",
+                 "Refers to pupils assessed: pupils in intercultural bilingual (EIB) schools and in very small schools do not take this test, "
+                 "so the figures mainly describe Spanish-instruction schools and may overstate learning in Quechua-speaking areas. District "
+                 "percentages rest on few pupils in small districts (a 0% may reflect a very small group), and 2008 has data for only 31 "
+                 "districts. The Cusco value is the official department series; provinces are not built because SIRTOD does not publish the "
+                 "number of pupils assessed.")),
     dict(id="late_birth_share", kind="ratio", num="vit_births_late", den="vit_births_reg", cat="registration",
-         official_check={"num": "262226", "den": "262211"},
+         official_check={"num": "262226", "den": "262211"}, min_den=20, missing_is_zero=True,
          years=(2005, 2024), map=True, src="reniec", codes="262226 / 262211",
          label=("Nacimientos inscritos de forma tardía", "Births registered late"),
          desc=("Porcentaje de los nacimientos inscritos que se registraron por vía extraordinaria (fuera del plazo legal). En agregados: tardíos / total inscritos.",
                "Percentage of registered births that were registered late (after the legal deadline). Aggregates: late / all registered births."),
          caveat=("Se cuenta donde se inscribe el nacimiento, no donde vive la madre; cada vez más nacimientos se inscriben en hospitales de las capitales. "
-                 "Las campañas nacionales de identidad influyen tanto como el desarrollo local.",
+                 "Las campañas nacionales de identidad influyen tanto como el desarrollo local. Los distritos con menos de 20 nacimientos inscritos en el año "
+                 "no se muestran, y 2021-2022 no se muestran para Cusco ni sus provincias porque la suma distrital de inscripciones tardías no cuadra "
+                 "con el total departamental de SIRTOD.",
                  "Counted where the birth is registered, not where the mother lives; more and more births are registered in hospitals in the main towns. "
-                 "National identity campaigns matter as much as local development.")),
+                 "National identity campaigns matter as much as local development. Districts with fewer than 20 registered births in the year are not "
+                 "shown, and 2021-2022 are not shown for Cusco or its provinces because the district sum of late registrations does not match "
+                 "SIRTOD's department total.")),
     dict(id="lab_private_workers", kind="sum", col="lab_private_workers", measures=["total", "per_1000"], money=False,
-         official_check={"col": "517303"},
+         official_check={"col": "517303"}, missing_is_zero=True,
          cat="economy", years=(2015, LAST_YEAR), map=True, src="mtpe", codes="517303",
          unit=("Trabajadores", "Workers"),
          label=("Trabajadores formales del sector privado", "Formal private-sector workers"),
          desc=("Trabajadores del sector privado registrados en la Planilla Electrónica (empleo formal).",
                "Private-sector workers registered in the electronic payroll (formal employment)."),
-         caveat=("Solo empleo formal, una parte pequeña del empleo en la mayoría de distritos. Se asigna según el registro del empleador, "
-                 "por lo que subestima a los trabajadores del gas de Camisea. Un distrito sin dato puede tener cero trabajadores o una cifra no publicada.",
-                 "Formal jobs only, a small share of employment in most districts. Workers are assigned by the employer's registration, "
-                 "so Camisea gas workers are undercounted. A district without data may have zero workers or an unpublished figure.")),
+         caveat=("Solo empleo formal, una parte pequeña del empleo en la mayoría de distritos. El lugar asignado parece ser el del empleador o el "
+                 "establecimiento declarado: Megantoni (Camisea) registra menos de 1 000 trabajadores, por lo que es probable que el empleo del gas se "
+                 "registre en otros distritos. Un distrito sin dato tiene cero trabajadores o una cifra no publicada; como la suma de los distritos "
+                 "coincide con el total departamental, en provincias y en Cusco se cuentan como cero.",
+                 "Formal jobs only, a small share of employment in most districts. The location assigned appears to be the employer's or the declared "
+                 "establishment's: Megantoni (Camisea) records fewer than 1,000 workers, so gas employment is probably recorded in other districts. "
+                 "A district without data has zero workers or an unpublished figure; since the district sum matches the department total, they count "
+                 "as zero in provinces and in Cusco.")),
     dict(id="fin_cmac_present", kind="binary", col="fin_cmac_present", measures=["count"], cat="economy",
          years=(2003, LAST_YEAR), map=True, src="sbs", codes="389746",
-         unit=("Distritos", "Districts"),
+         unit=("Distritos (en el mapa distrital: 1 = sí, 0 = no)", "Districts (on the district map: 1 = yes, 0 = no)"),
          label=("Distritos con colocaciones de una caja municipal", "Districts where a municipal savings bank (caja) lends"),
          desc=("Número de distritos donde al menos una caja municipal de ahorro y crédito registra créditos (es decir, tiene una agencia).",
                "Number of districts where at least one municipal savings and credit bank (caja municipal) books loans (that is, has a branch)."),
@@ -300,26 +324,30 @@ VARS = [
          years=(2003, 2024), map=False, src="renamu", codes="121992",
          unit=("Computadoras", "Computers"),
          label=("Computadoras de las municipalidades", "Computers in municipalities"),
-         desc=("Número de computadoras operativas de las municipalidades, fechado al año que describe (fin de año).",
-               "Number of working computers in the municipalities, dated to the year it describes (end of year)."),
-         caveat=("RENAMU registra el equipamiento al llenar la encuesta, a inicios del año siguiente; aquí se fecha al año anterior para alinearlo con el gasto.",
-                 "RENAMU records equipment when the survey is filled in, early the following year; here it is dated to the previous year to line up with spending.")),
+         desc=("Número de computadoras (operativas y no operativas) de las municipalidades.",
+               "Number of computers (working or not) available to municipalities."),
+         caveat=("Se fecha al año anterior al de la encuesta RENAMU, porque el equipamiento se registra al llenarla a inicios del año siguiente "
+                 "(supuesto basado en el calendario de RENAMU).",
+                 "Dated to the year before the RENAMU survey, because equipment is recorded when the survey is filled in early the following year "
+                 "(an assumption based on the RENAMU calendar).")),
     dict(id="mun_dump_trucks", kind="sum", col="mun_dump_trucks", measures=["total"], money=False, cat="municipal",
          official_check={"col": "121981", "shift": 1},
          years=(2003, 2024), map=False, src="renamu", codes="121981",
          unit=("Volquetes", "Dump trucks"),
-         label=("Volquetes de propiedad municipal", "Dump trucks owned by municipalities"),
-         desc=("Número de volquetes de propiedad de las municipalidades, un bien de capital ligado a las obras públicas.",
-               "Number of dump trucks owned by the municipalities, a capital good tied to public works."),
-         caveat=("Sin dato en 2005. Fechado al año que describe, como las computadoras.",
-                 "No data for 2005. Dated to the year it describes, like computers.")),
+         label=("Volquetes operativos de las municipalidades", "Working dump trucks available to municipalities"),
+         desc=("Número de volquetes operativos de las municipalidades, usados para transportar materiales de construcción y recoger residuos sólidos.",
+               "Number of working dump trucks available to municipalities, used to carry construction materials and collect solid waste."),
+         caveat=("Sin dato en 2005. Se fecha al año anterior al de la encuesta, como las computadoras (supuesto basado en el calendario de RENAMU).",
+                 "No data for 2005. Dated to the year before the survey, like computers (an assumption based on the RENAMU calendar).")),
     dict(id="sec_serenazgo", kind="binary", col="sec_serenazgo", measures=["pct"], cat="municipal",
-         years=(2004, 2024), map=True, src="renamu", codes="122093",
+         years=(2007, 2024), map=True, src="renamu", codes="122093",
          label=("Municipalidades que brindan serenazgo", "Municipalities providing serenazgo (local security patrols)"),
          desc=("Porcentaje de las municipalidades que respondieron RENAMU que brindan el servicio de serenazgo.",
                "Percentage of municipalities answering RENAMU that provide the serenazgo service (municipal security patrols)."),
-         caveat=("Sin dato en 2006. Es un servicio municipal, no una medida de delincuencia.",
-                 "No data for 2006. It is a municipal service, not a measure of crime.")),
+         caveat=("Desde 2007: en 2004-2005 casi ninguna municipalidad registra el servicio (incluso Cusco, que lo brinda desde 2007), lo que sugiere "
+                 "un cambio en la pregunta; 2006 no tiene datos. Es un servicio municipal, no una medida de delincuencia.",
+                 "From 2007: in 2004-2005 almost no municipality records the service (not even Cusco, which provides it from 2007), which suggests a "
+                 "change in the question; 2006 has no data. It is a municipal service, not a measure of crime.")),
     dict(id="vdl_benef_0_6", kind="sum", col="vdl_benef_0_6", measures=["total"], money=False, cat="social",
          official_check={"col": "516485"},
          years=(2010, 2024), map=False, src="renamu", codes="516485",
@@ -328,15 +356,20 @@ VARS = [
          desc=("Niñas y niños de 0 a 6 años atendidos por el programa municipal Vaso de Leche.",
                "Children aged 0-6 served by the municipal Vaso de Leche (glass of milk) programme."),
          caveat=("La municipalidad elige a los beneficiarios y el presupuesto nacional del programa está casi congelado en términos nominales, "
-                 "por lo que la caída mezcla menor necesidad con menor presupuesto real.",
+                 "por lo que la caída mezcla menor necesidad con menor presupuesto real. En 2014 cuatro distritos (Cusco, Marcapata, Llusco y Omacha) "
+                 "tienen valores erróneos en la fuente y se omiten, por lo que ese año no se muestra para Cusco ni para sus provincias.",
                  "The municipality chooses the beneficiaries and the programme's national budget is almost frozen in nominal terms, "
-                 "so the decline mixes lower need with a shrinking real budget.")),
+                 "so the decline mixes lower need with a shrinking real budget. In 2014 four districts (Cusco, Marcapata, Llusco and Omacha) have "
+                 "erroneous source values and are left out, so that year is not shown for Cusco or the affected provinces.")),
 ]
 
-CENSUS_CAVEAT = ("Instantánea censal. Los valores de provincia y de Cusco son promedios ponderados por la población censal, una aproximación. "
-                 "Los distritos creados después de 2007 no tienen valor de 2007, y los creados en 2021 tampoco de 2017.",
-                 "Census snapshot. Province and Cusco values are averages weighted by census population, an approximation. "
-                 "Districts created after 2007 have no 2007 value, and those created in 2021 have no 2017 value either.")
+CENSUS_CAVEAT = ("Instantánea censal. Los valores de provincia y de Cusco se calculan como cociente de las sumas de los conteos distritales. "
+                 "Los distritos creados después de 2007 no tienen valor de 2007, y los creados en 2021 tampoco de 2017. Echarate, Vilcabamba y "
+                 "Kimbiri perdieron territorio entre ambos censos (Megantoni, Inkawasi, Villa Virgen y Villa Kintiarina), por lo que sus valores "
+                 "de 2007 y 2017 no son comparables entre sí.",
+                 "Census snapshot. Province and Cusco values are ratios of the sums of the district counts. Districts created after 2007 have "
+                 "no 2007 value, and those created in 2021 have no 2017 value either. Echarate, Vilcabamba and Kimbiri lost territory between "
+                 "the two censuses (to Megantoni, Inkawasi, Villa Virgen and Villa Kintiarina), so their 2007 and 2017 values are not comparable.")
 # (id stem in the baseline columns, label es/en, description es/en, codes)
 CENSUS_VARS = [
     ("water_in", ("Viviendas con agua de red pública dentro de la vivienda", "Dwellings with piped water inside the dwelling"),
@@ -349,11 +382,11 @@ CENSUS_VARS = [
      ("Porcentaje de viviendas con ocupantes presentes con alumbrado eléctrico por red pública.",
       "Percentage of occupied dwellings lit by electricity from the public grid."), "407243"),
     ("earth_floor", ("Viviendas con piso de tierra", "Dwellings with earth floors"),
-     ("Porcentaje de viviendas con ocupantes presentes cuyo piso es de tierra.",
-      "Percentage of occupied dwellings with earth floors."), "407201"),
-    ("cook_biomass", ("Hogares que cocinan con leña o bosta", "Households cooking with firewood or dung"),
-     ("Porcentaje de hogares que usan leña o bosta (estiércol) para cocinar.",
-      "Percentage of households cooking with firewood or dung."), "407239 / 407240"),
+     ("Porcentaje de viviendas con ocupantes presentes cuyo material predominante en el piso es tierra.",
+      "Percentage of occupied dwellings whose predominant floor material is earth."), "407201"),
+    ("cook_biomass", ("Hogares que cocinan principalmente con leña o bosta", "Households cooking mainly with firewood or dung"),
+     ("Porcentaje de hogares cuyo combustible principal para cocinar es leña o bosta (estiércol).",
+      "Percentage of households whose main cooking fuel is firewood or dung."), "407239 / 407240"),
     ("internet", ("Hogares con conexión a internet", "Households with an internet connection"),
      ("Porcentaje de hogares con conexión a internet.", "Percentage of households with an internet connection."), "516775"),
     ("mobile", ("Hogares con teléfono celular", "Households with a mobile phone"),
@@ -367,18 +400,22 @@ for stem, lab, desc, codes in CENSUS_VARS:
                      weights={2007: "c07_pop", 2017: "c17_pop"}, measures=["pct"], cat="census", years=(2007, 2017),
                      map=True, src="census", codes=codes, label=lab, desc=desc, caveat=CENSUS_CAVEAT))
 VARS.append(dict(
-    id="poverty_2013", kind="snapshot", cols={2013: "pov13_mid"}, bounds={2013: ("pov13_lo", "pov13_hi")},
-    weights={2013: "pop_spliced"}, measures=["pct", "pct_lo", "pct_hi"], cat="poverty", years=(2013, 2013),
+    id="poverty", kind="official_interval", district_cols={2013: ("pov13_mid", "pov13_lo", "pov13_hi")}, dept_code="427594",
+    measures=["pct", "pct_lo", "pct_hi"], cat="poverty", years=(2007, LAST_YEAR), district_years=(2013, 2013),
     map=True, src="povmap", codes="427594",
-    label=("Pobreza monetaria (mapa de pobreza 2013)", "Monetary poverty (2013 poverty map)"),
-    desc=("Porcentaje de la población en pobreza monetaria. INEI publica un intervalo por distrito; se muestra el punto medio "
-          "y los límites inferior y superior.",
-          "Percentage of the population in monetary poverty. INEI publishes an interval for each district; the midpoint "
-          "and the lower and upper bounds are shown."),
-    caveat=("Es una estimación de un solo año, publicada como intervalo amplio: dos distritos cuyos intervalos se superponen no pueden "
-            "ordenarse con seguridad. Los valores de provincia y de Cusco son promedios de los puntos medios ponderados por población, una aproximación.",
-            "A single-year estimate published as a wide interval: two districts whose intervals overlap cannot be ranked with confidence. "
-            "Province and Cusco values are population-weighted averages of the midpoints, an approximation.")))
+    label=("Pobreza monetaria", "Monetary poverty"),
+    desc=("Porcentaje de la población en pobreza monetaria. INEI publica intervalos de confianza: se muestra el punto medio y los límites. "
+          "Para Cusco, el intervalo anual (ENAHO, 2007-2025) corresponde al grupo de departamentos con niveles de pobreza estadísticamente "
+          "semejantes al que pertenece Cusco. Para los distritos, el mapa de pobreza distrital de 2013.",
+          "Percentage of the population in monetary poverty. INEI publishes confidence intervals: the midpoint and the bounds are shown. "
+          "For Cusco, the annual interval (ENAHO, 2007-2025) is that of the group of departments with statistically similar poverty to which "
+          "Cusco belongs. For districts, the 2013 district poverty map."),
+    caveat=("El intervalo de Cusco es el de su grupo de departamentos, no una estimación exclusiva de Cusco. El mapa distrital es de un solo año y "
+            "sus intervalos son amplios: dos distritos cuyos intervalos se superponen no pueden ordenarse con seguridad. No hay nivel provincial. "
+            "Inkawasi y Villa Virgen ya figuran en el mapa de 2013, aunque se crearon en 2015.",
+            "The Cusco interval is that of its group of departments, not an estimate for Cusco alone. The district map covers a single year and its "
+            "intervals are wide: two districts whose intervals overlap cannot be ranked with confidence. There is no province level. Inkawasi and "
+            "Villa Virgen already appear in the 2013 map, although they were created in 2015.")))
 
 MONEY_UNITS = {
     "total": ("Soles corrientes", "Current soles"),
@@ -395,8 +432,8 @@ MEASURE_LABEL = {
     "total_real": ("Total, en soles constantes", "Total, constant soles"),
     "per_capita_real": ("Por habitante, en soles constantes", "Per person, constant soles"),
     "pct": ("Porcentaje", "Percent"),
-    "pct_lo": ("Límite inferior", "Lower bound"),
-    "pct_hi": ("Límite superior", "Upper bound"),
+    "pct_lo": ("Límite inferior del intervalo", "Lower bound of the interval"),
+    "pct_hi": ("Límite superior del intervalo", "Upper bound of the interval"),
     "ratio": ("Razón", "Ratio"),
     "count": ("Número", "Number"),
 }
@@ -410,7 +447,7 @@ def is_money(v):
 def measures_for(v, deflator=None):
     if "measures" in v:
         ms = list(v["measures"])
-    elif v["kind"] in ("ratio", "official_rate", "snapshot"):
+    elif v["kind"] in ("ratio", "official_rate", "snapshot", "official_interval"):
         ms = ["pct"]
     else:
         ms = ["total", "per_capita"] if v.get("pc") else ["total"]
@@ -441,7 +478,9 @@ def aggregation_for(v, m):
     if k == "official_rate":
         return "official_department_series; districts as published; no province level"
     if k == "snapshot":
-        return "population_weighted_mean (approximate)"
+        return "ratio_of_sums of district counts"
+    if k == "official_interval":
+        return "official department interval (group of departments); districts as published; no province level"
     if m.startswith("per_capita"):
         return "sum_over_population"
     if m == "per_1000":
@@ -477,6 +516,17 @@ def load_cpi():
 SPLIT_PARENT = {"080914": "080902", "080911": "080909", "080912": "080909", "080913": "080907"}
 VALUE_COVERAGE_MIN = 0.98   # share of the money held by reporting districts
 OFFICIAL_TOLERANCE = 0.02   # district sum vs SIRTOD's official department total
+YOUNG_DISTRICT_YEARS = 3    # a district created in 2015+ counts as "young" in its first 3 years
+# Single district values that are errors at the source (verified against neighbouring years); blanked.
+SOURCE_ERRORS = [
+    ("vdl_benef_0_6", "080101", 2014),    # Cusco: 32 vs 3,785 (2013) and 3,411 (2015)
+    ("vdl_benef_0_6", "081209", 2014),    # Marcapata: 25 vs 632 / 515
+    ("vdl_benef_0_6", "080706", 2014),    # Llusco: 42 vs 494 / 507
+    ("vdl_benef_0_6", "081006", 2014),    # Omacha: 110 vs 734 / 703
+    ("mun_dump_trucks", "080101", 2004),  # Cusco: zero-filled, but 22 (2003) and 15 (2006)
+    ("mun_dump_trucks", "081101", 2004),  # Paucartambo: 32 vs 2-6 in neighbouring rounds
+    ("mun_computers", "080907", 2015),    # Kimbiri: 1,631 vs 190 (2014) and 162 (2016)
+]
 PROXY_WINDOW = 3            # years searched for a missing district's size proxy
 
 
@@ -509,6 +559,10 @@ def coverage_inputs(df, col):
 
 def aggregate(df, keys, v):
     """Aggregate one sum, ratio or binary variable from districts to the groups in `keys`."""
+    if v.get("missing_is_zero"):        # SIRTOD stores no zeros: in a published year, a blank is a zero
+        for c in ([v["col"]] if "col" in v else [v["num"], v["den"]]):
+            published = df.groupby("year")[c].transform(lambda x: x.notna().any())
+            df = df.assign(**{c: df[c].where(~(df.exists & published), df[c].fillna(0))})
     pop = df["pop_spliced"].fillna(0)
     exists = df["exists"]
     if v["kind"] in ("sum", "binary"):
@@ -522,11 +576,15 @@ def aggregate(df, keys, v):
     if v["kind"] == "binary":           # a 0/1 service: coverage is about who answered, not money
         proxy = pd.Series(1.0, index=df.index)
     counted = exists & ~cbp
-    g = g.assign(_rep=rep, _ex=exists,
-                 _prep=pop.where(rep | cbp, 0), _pex=pop.where(exists, 0),
+    # young districts (created 2015+, first years) that do not report: their territory may still be reported by parents
+    young = (df.first_year_in_data >= 2015) & (df.year < df.first_year_in_data + YOUNG_DISTRICT_YEARS)
+    young_miss = exists & ~rep & ~cbp & young
+    other_miss = exists & ~rep & ~cbp & ~young
+    g = g.assign(_rep=rep, _ex=exists, _om=other_miss,
+                 _prep=pop.where(rep | cbp | young_miss, 0), _pex=pop.where(exists, 0),
                  _xrep=proxy.where(rep, 0).fillna(0), _xex=proxy.where(counted, 0).fillna(0))
     spec = dict(n_reporting=("_rep", "sum"), n_districts=("_ex", "sum"), pop_rep=("_prep", "sum"),
-                pop_ex=("_pex", "sum"), x_rep=("_xrep", "sum"), x_ex=("_xex", "sum"))
+                pop_ex=("_pex", "sum"), x_rep=("_xrep", "sum"), x_ex=("_xex", "sum"), other_missing=("_om", "sum"))
     if v["kind"] == "sum":
         out = g.groupby(keys).agg(total=("_v", lambda s: s.sum(min_count=1)), **spec)
         out["per_capita"] = out.total / out.pop_rep.replace(0, np.nan)
@@ -570,6 +628,8 @@ def district_frame(p, v):
         ok = d["pct"].notna()
     else:
         r = d[v["num"]] / d[v["den"]].replace(0, np.nan)
+        if v.get("min_den"):
+            r = r.where(d[v["den"]] >= v["min_den"])
         d["pct"] = 100 * r
         d["ratio"] = v.get("scale", 100) * r
         ok = r.notna()
@@ -610,12 +670,19 @@ def snapshot_frames(p, v):
             for c in ["pct", "pct_lo", "pct_hi"]:
                 if c in d:
                     g[f"_wx_{c}"] = (d[c] * d.w).where(rep, 0).fillna(0)
+            ratio_of_sums = f"{col}_n" in first.columns
+            if ratio_of_sums:
+                g["_num"] = first[f"{col}_n"].where(rep, 0).fillna(0).values
+                g["_den"] = first[f"{col}_d"].where(rep, 0).fillna(0).values
             agg = g.groupby(code_col).agg(n_reporting=("_rep", "sum"), n_districts=("_ex", "sum"),
                                           wsum=("_w", "sum"), wex=("_wex", "sum"),
                                           **{f"s_{c}": (f"_wx_{c}", "sum") for c in ["pct", "pct_lo", "pct_hi"] if c in d})
             for c in ["pct", "pct_lo", "pct_hi"]:
                 if c in d:
                     agg[c] = agg[f"s_{c}"] / agg.wsum.replace(0, np.nan)
+            if ratio_of_sums:
+                nd = g.groupby(code_col)[["_num", "_den"]].sum()
+                agg["pct"] = 100 * nd["_num"] / nd["_den"].replace(0, np.nan)
             agg["pop_coverage"] = (agg.wsum / agg.wex.replace(0, np.nan)).clip(upper=1.0)
             agg["value_coverage"] = 1.0
             agg = agg.reset_index().rename(columns={code_col: "geo_code"})
@@ -644,6 +711,17 @@ def official_check(a, v, official):
     return both.astype(float).where(m1.notna() & m2.notna()).values
 
 
+def load_official_interval(code):
+    """SIRTOD department series published as text intervals such as '19,5 - 23,4'."""
+    dep = pd.read_excel(DEPT_FILE, sheet_name="Datos", header=5, dtype={"Código indicador": str, "Valor original": str})
+    dep = dep[dep["Código indicador"] == code]
+    parts = dep["Valor original"].str.replace(",", ".").str.split("-", expand=True)
+    lo = pd.to_numeric(parts[0].str.strip(), errors="coerce")
+    hi = pd.to_numeric(parts[1].str.strip(), errors="coerce")
+    return pd.DataFrame({"year": dep["Año"].astype(int).values, "pct_lo": lo.values, "pct_hi": hi.values}).assign(
+        pct=lambda x: (x.pct_lo + x.pct_hi) / 2)
+
+
 def load_official_department(codes):
     dep = pd.read_excel(DEPT_FILE, sheet_name="Datos", header=5, dtype={"Código indicador": str})
     dep = dep[dep["Código indicador"].isin(codes)]
@@ -660,17 +738,31 @@ def main() -> None:
     p["munfin_rev_nonfin"] = p.munfin_rev_total - p.munfin_rev_financing.fillna(0)
     # likewise, no late registrations recorded where births were registered means zero late registrations
     p["vit_births_late"] = p.vit_births_late.where(p.vit_births_reg.isna(), p.vit_births_late.fillna(0))
+    for col, ubigeo, year in SOURCE_ERRORS:
+        p.loc[(p.ubigeo == ubigeo) & (p.year == year), col] = np.nan
     deflator = load_cpi()
     codes = [v["dept_code"] for v in VARS if v["kind"] == "official_rate"]
     codes += [c for v in VARS for k, c in v.get("official_check", {}).items() if k != "shift"]
     official = load_official_department(codes)
 
     rows = []
+    dept_verdict = {}
     for v in VARS:
         y0, y1 = v["years"]
         measures = measures_for(v)
         if v["kind"] == "snapshot":
             frames = snapshot_frames(p, v)
+        elif v["kind"] == "official_interval":
+            first = p.sort_values("year").groupby("ubigeo").first().reset_index()
+            frames = []
+            for year, (cm, cl, ch) in v["district_cols"].items():
+                d = first[["ubigeo", "province", "district", cm, cl, ch]].rename(columns={cm: "pct", cl: "pct_lo", ch: "pct_hi"})
+                d = d[d.pct.notna()].assign(level="district", geo_code=lambda x: x.ubigeo, geo_name=lambda x: x.district,
+                                            year=year, n_reporting=1, n_districts=1, pop_coverage=1.0, value_coverage=1.0)
+                frames.append(d)
+            o = load_official_interval(v["dept_code"])
+            frames.append(o.assign(level="department", geo_code="08", geo_name="CUSCO", province="",
+                                   n_reporting=np.nan, n_districts=np.nan, pop_coverage=np.nan, value_coverage=np.nan))
         else:
             frames = [district_frame(p, v)]
             if v["kind"] == "official_rate":
@@ -681,13 +773,14 @@ def main() -> None:
                     "pop_coverage": np.nan, "value_coverage": np.nan}))
             else:
                 for level, code_col, name_map in [
-                    ("province", "prov_code", p.groupby("prov_code").province.first()),
                     ("department", "dept_code", pd.Series({"08": "CUSCO"})),
+                    ("province", "prov_code", p.groupby("prov_code").province.first()),
                 ]:
                     a = aggregate(p, [code_col, "year"], v).rename(columns={code_col: "geo_code"})
                     a["official_ok"] = np.nan
                     if level == "department" and "official_check" in v:
                         a["official_ok"] = official_check(a, v, official)
+                        dept_verdict[v["id"]] = dict(zip(a.year, a.official_ok))
                     a["level"] = level
                     a["geo_name"] = a.geo_code.map(name_map)
                     a["province"] = a.geo_name if level == "province" else ""
@@ -700,19 +793,26 @@ def main() -> None:
                 part = f[["level", "geo_code", "geo_name", "province", "year",
                           "n_reporting", "n_districts", "pop_coverage", "value_coverage"]].copy()
                 part["official_ok"] = f["official_ok"].values if "official_ok" in f else np.nan
+                part["other_missing"] = f["other_missing"].values if "other_missing" in f else np.nan
                 part["variable"], part["measure"], part["value"] = v["id"], m, f[m].values
                 part = part[part.value.notna()]
-                win0, win1 = (v.get("district_years", (y0, y1)) if v["kind"] == "official_rate" else (y0, y1))
+                win0, win1 = (v.get("district_years", (y0, y1)) if v["kind"] in ("official_rate", "official_interval") else (y0, y1))
                 in_window = np.where(part.level == "district", part.year.between(win0, win1), part.year.between(y0, y1))
                 in_window = pd.Series(in_window, index=part.index) & ~part.year.isin(v.get("exclude", []))
-                if v["kind"] == "official_rate":
+                if v["kind"] in ("official_rate", "official_interval"):
                     covered = pd.Series(True, index=part.index)
                 else:
                     covered = (((part.pop_coverage >= COVERAGE_MIN) & (part.value_coverage >= VALUE_COVERAGE_MIN))
                                | (part.level == "district"))
-                    # where SIRTOD has an official department total, it decides
-                    has_off = part.official_ok.notna()
-                    covered = covered.where(~has_off, part.official_ok == 1)
+                    # SIRTOD's department total is the sum of the published districts, so a match is informative only
+                    # about districts that are absent because they are young (their territory reported by parents).
+                    # A mismatch always hides the year, at department and province level; a match lets the year through
+                    # when the only non-reporting districts are young ones.
+                    if "official_check" in v:
+                        verdict = dept_verdict.get(v["id"], {})
+                        ok_year = part.year.map(lambda y: verdict.get(y, np.nan))
+                        young_only = part.other_missing == 0
+                        covered = (covered | ((ok_year == 1) & young_only)) & (ok_year != 0)
                 part["display"] = (in_window & covered).astype(int)
                 rows.append(part)
                 if deflator is not None and is_money(v) and m in ("total", "per_capita"):
@@ -749,7 +849,8 @@ def main() -> None:
                 "variable": v["id"], "measure": m, "sort_order": i,
                 "category_es": CAT[v["cat"]][0], "category_en": CAT[v["cat"]][1],
                 "label_es": v["label"][0], "label_en": v["label"][1],
-                "measure_es": MEASURE_LABEL[m][0], "measure_en": MEASURE_LABEL[m][1],
+                "measure_es": ("Punto medio del intervalo" if v["kind"] == "official_interval" and m == "pct" else MEASURE_LABEL[m][0]),
+                "measure_en": ("Interval midpoint" if v["kind"] == "official_interval" and m == "pct" else MEASURE_LABEL[m][1]),
                 "unit_es": unit_for(v, m)[0], "unit_en": unit_for(v, m)[1],
                 "description_es": v["desc"][0], "description_en": v["desc"][1],
                 "caveat_es": " ".join(x for x in [v["caveat"][0], REAL_NOTE["es"] if m.endswith("_real") else ""] if x),

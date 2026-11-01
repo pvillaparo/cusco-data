@@ -354,6 +354,11 @@ def build_baseline(raw, names):
             col = f"c{year % 100:02d}_{name}"
             base[col] = (100 * n / d.where(d > 0)).reindex(base.index)
             labels[col] = f"{lab}, Census {year}"
+            # keep the counts so that province and department shares can be built as ratios of sums
+            base[f"{col}_n"] = n.where(d > 0).reindex(base.index)
+            base[f"{col}_d"] = d.where(d > 0).reindex(base.index)
+            labels[f"{col}_n"] = f"{lab}, Census {year}: numerator count"
+            labels[f"{col}_d"] = f"{lab}, Census {year}: denominator count"
         col = f"c{year % 100:02d}_pop"
         base[col] = vy.reindex(columns=[CENSUS_POP]).iloc[:, 0].reindex(base.index)
         labels[col] = f"Census population {year}"
