@@ -3,13 +3,15 @@
 This folder holds the display-ready data behind the planned **Cusco-stats** pages. The pipeline has three steps, and each one can be traced back to the one before:
 
 1. `SIRTOD/` keeps the raw INEI SIRTOD download (22 September 2026), as published.
-2. `panels/` turns it into a district-year panel with consistent units, flags and a spliced population series (`panels/canon_spending_district_year.csv`).
+2. `panels/` turns it into district-year panels with consistent units, flags and a spliced population series: canon and municipal finance (`canon_spending_district_year`), development indicators and census baselines (`development_core_*`), and the merged file the website data is built from (`canon_development_district_year`).
 3. `harmonized/` (this folder) aggregates that panel to province and department level, applies the display rules below, and adds bilingual labels. The plots should read only from here.
 
 Rebuild everything with:
 
 ```bash
 python panels/build_canon_spending_panel.py
+python panels/extract_development_indicators.py
+python panels/merge_canon_development.py
 python harmonized/build_cpi.py
 python harmonized/build_harmonized.py
 ```
@@ -23,8 +25,8 @@ python harmonized/build_harmonized.py
 | `level` | `department`, `province` or `district` |
 | `geo_code` | UBIGEO code: `08` (department), 4 digits (province), 6 digits (district). Keep it as text. |
 | `geo_name`, `province` | Place name and, for districts, the province they belong to |
-| `year` | 2001–2025 |
-| `variable`, `measure` | What is measured (see the dictionary) and how: `total`, `per_capita` or `pct` |
+| `year` | 2001–2025. For census snapshots, the census year (2007, 2017) or 2013 for the poverty map |
+| `variable`, `measure` | What is measured (see the dictionary) and how: `total`, `per_capita`, `per_1000`, `pct`, `ratio`, `count` (and `total_real`, `per_capita_real` for money; `pct_lo`, `pct_hi` for the poverty interval) |
 | `value` | The number |
 | `n_reporting`, `n_districts` | For aggregates: districts with data, and districts that exist that year |
 | `pop_coverage` | For aggregates: share of the population living in the reporting districts |
@@ -60,10 +62,30 @@ python harmonized/build_harmonized.py
 
 ## Variables currently included
 
-Population; canon total, gas, mining and hydropower; FONCOMUN; SIAF opening budget (PIA), modified budget (PIM), accrued expenditure and execution rate; municipal accounts (MEF's Public Accounting Directorate, DNCP, via SIRTOD) for total revenue, transfer revenue, current expenditure and capital expenditure; and three derived percentages: capital share of expenditure, dependence on transfers, and canon as a share of expenditure. Forestry, oil and fishing canon are left out of the plots because they are negligible in Cusco, but they still count in canon total.
+**Canon and municipal finance.** Population; canon total, gas, mining and hydropower; FONCOMUN; SIAF opening budget (PIA), modified budget (PIM), accrued expenditure and execution rate; municipal accounts (MEF's Public Accounting Directorate, DNCP, via SIRTOD) for total revenue, transfer revenue, current expenditure and capital expenditure; and three derived percentages: capital share of expenditure, dependence on transfers, and canon as a share of expenditure. Forestry, oil and fishing canon are left out of the plots because they are negligible in Cusco, but they still count in canon total.
 
 Two definitions deserve care. Total revenue includes **financing**, that is, balances carried over from previous years and borrowing, so it can exceed what a municipality actually raised in the year. Dependence on transfers therefore divides transfer revenue by total revenue *minus* financing. A blank financing value in SIRTOD is read as zero, because SIRTOD does not store zeros.
 
+**Development indicators** (chosen from the shortlist in `panels/development_indicators_shortlist.md`):
+
+| Variable | Measure | Years shown (Cusco) | How the Cusco and province values are built |
+|---|---|---|---|
+| Pupils per teacher, public regular basic education | ratio | 2008–2025 | Total enrolment / total teachers |
+| Public school premises on the electricity grid | % | 2001–2022 (districts 2011–2022) | **Official department series**; districts as published; no province level |
+| 2nd-grade pupils at the satisfactory level, reading and maths (ECE) | % | 2007–2016 | **Official department series**; districts as published; no province level |
+| Births registered late | % | 2005–2020, 2023–2024 | Late / all registered births. In 2021–2022 the district sums of late births fall 2–7% short of SIRTOD's department total, so those years are hidden |
+| Formal private-sector workers | total, per 1,000 people | 2015–2025 | Sum |
+| Districts where a *caja municipal* lends | count | 2003–2025 | Number of districts |
+| Computers in municipalities; municipal dump trucks | total | 2003–2024 (no trucks in 2005) | Sum, dated to the year described (RENAMU records equipment early the following year) |
+| Municipalities providing serenazgo | % | 2004–2024 (no 2006) | Share of municipalities answering RENAMU |
+| Vaso de Leche beneficiaries aged 0–6 | total | 2010–2024 | Sum |
+
+Municipal staff, the three-services school share, DNI holders and the frost and rain shocks were left out on purpose: staff has counting breaks in 2011, 2015, 2019 and 2023; the school share has only 8 usable years; DNI holders are a denominator rather than an indicator; and the weather shocks are municipal self-reports that end in 2018.
+
+**Census snapshots** (2007 and 2017) for district maps: dwellings with piped water inside, with a sewer connection inside, with grid electricity and with earth floors; households cooking with firewood or dung, with internet and with a mobile phone; and the population with Quechua as mother tongue. Province and Cusco values are averages weighted by census population, which approximates the official dwelling- or household-based totals. The rural share was left out because the two censuses define it differently. The **2013 poverty map** is shown as the midpoint of INEI's interval, with the lower and upper bounds as separate measures; districts whose intervals overlap cannot be ranked with confidence.
+
+**Two new rules came with these indicators.** First, SIRTOD publishes school electricity and the ECE only as district percentages, without the number of schools or pupils behind them, so a Cusco value cannot be built from the districts. For these two the Cusco line is SIRTOD's official department series, the districts are shown as published, and there is no province level. Second, wherever SIRTOD has its own department total for an indicator, the coverage test compares the sum of the districts with that total (tolerance 2%) instead of the population and money tests. This matters for the districts created in 2021, which are missing from several sources in their first years while their territory is still reported under the parent districts: the department totals are complete even though four districts have no value. Yes/no municipal services are tested on population coverage only.
+
 ## Adding more variables
 
-The development indicators being shortlisted in a separate session (on the branch `claude/district-development-indicators`) will be added the same way. Each one is mapped into the district panel with consistent units, then given an entry in `VARS` in `build_harmonized.py` with its kind (an amount to sum, or a ratio with a numerator and denominator), its display window and its bilingual labels. Indicators that are themselves rates, such as stunting or school enrolment, will need their numerator and denominator (or a population weight) so that province and department values remain proper weighted averages.
+Any other series from the shortlist can be added the same way: extract it into the district panel with `panels/extract_development_indicators.py --extra <codes>` (or by adding it to the `CORE` list), rebuild the merged panel, and give it an entry in `VARS` in `build_harmonized.py` with its kind (`sum`, `ratio`, `binary`, `official_rate` or `snapshot`), its display window, an official department code for the coverage check if SIRTOD has one, and bilingual labels.
