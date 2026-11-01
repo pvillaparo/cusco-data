@@ -3,7 +3,7 @@ Formula-based instrument for canon minero, Cusco districts, built by source.
 
 Run after build_canon_spending_panel.py, from the repository root:
 
-    python panels/build_mining_canon_instrument.py
+    python panels/instruments/build_mining_canon_instrument.py
 
 Why not the single-pool gas recipe
 ----------------------------------
@@ -48,7 +48,7 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
-PANEL = HERE / "canon_spending_district_year.csv"
+PANEL = HERE.parent / "canon_spending_district_year.csv"
 OUT_STEM = HERE / "mining_canon_instrument_district_year"
 
 BASE_YEARS = [2007, 2008, 2009]

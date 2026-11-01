@@ -3,7 +3,7 @@ Formula-based (shift-share) instrument for canon gasifero, Cusco districts.
 
 Run after build_canon_spending_panel.py, from the repository root:
 
-    python panels/build_gas_canon_instrument.py
+    python panels/instruments/build_gas_canon_instrument.py
 
 Logic
 -----
@@ -44,8 +44,8 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
-SIRTOD = HERE.parent / "SIRTOD"
-PANEL = HERE / "canon_spending_district_year.csv"
+SIRTOD = HERE.parent.parent / "SIRTOD"
+PANEL = HERE.parent / "canon_spending_district_year.csv"
 OUT_STEM = HERE / "gas_canon_instrument_district_year"
 
 BASE_YEARS = [2007, 2008, 2009]

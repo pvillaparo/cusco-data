@@ -20,9 +20,11 @@ Design choices (see panels/README.md for the reasoning):
     canon_total_alt with a flag.
   * Spending: MEF-SIAF budget cycle (516869-516874) and RENAMU revenues and
     spending by economic category (122042-122050). FONCOMUN (414062).
-  * All money in nominal soles (RENAMU and FONCOMUN are reported in thousands
-    and are multiplied by 1,000). Per-capita versions use INEI projected
-    population (262234). No deflator: the CPI in SIRTOD is monthly and the
+  * All money in nominal soles. RENAMU is reported in thousands and is
+    multiplied by 1,000; FONCOMUN is labelled thousands in SIRTOD but its values
+    are already in soles. Per-capita versions divide by `pop_spliced`, which
+    joins INEI's 2007-Census and 2017-Census projection vintages (see
+    splice_population). No deflator: the CPI in SIRTOD is monthly and the
     monthly files are not in the repository; `cpi_index` is left empty.
   * Boundaries are kept as official; new districts and their parents are flagged.
 """
@@ -52,7 +54,7 @@ SERIES = {
     # Canon, alternative series (soles)
     "414080": ("canon_total_alt", 1, "Canon total, alt. series 414080 (S/)"),
     # Other transfers
-    "414062": ("foncomun", 1000, "FONCOMUN transferred (S/)"),
+    "414062": ("foncomun", 1, "FONCOMUN transferred (S/)"),  # labelled thousands, values in soles
     # MEF-SIAF budget cycle (soles)
     "516869": ("siaf_pia", 1, "SIAF opening budget PIA (S/)"),
     "516870": ("siaf_pim", 1, "SIAF modified budget PIM (S/)"),
@@ -99,6 +101,15 @@ BOUNDARY_PARENTS = {
 
 CAPITALS_ALT_DIFFERS = {"080101", "080901"}  # Cusco, Santa Ana
 
+# Population vintages. INEI's district projections based on the 2007 Census
+# run to 2015; those based on the 2017 Census start in 2018 at district level
+# (2016-2017 are missing in SIRTOD) and in 2016 at department level.
+OLD_LAST, NEW_FIRST_DEPT, NEW_FIRST_DIST, TREND_FROM = 2015, 2016, 2018, 2010
+# La Convencion districts involved in the 2015-2021 splits: parents + new districts.
+# Their spliced population is handled as one block so the territory adds up.
+LC_SPLIT_BLOCK = {"080902", "080907", "080909", "080910", "080911", "080912",
+                  "080913", "080914", "080915", "080916", "080917", "080918"}
+
 
 def load_district_data() -> pd.DataFrame:
     files = sorted(SIRTOD.glob("04*_SIRTOD_Cusco_anual_distritos.xlsx"))
@@ -121,6 +132,79 @@ def load_ubigeo() -> pd.DataFrame:
     ub = ub[["UBIGEO", "Provincia", "Distrito"]].rename(
         columns={"UBIGEO": "ubigeo", "Provincia": "province", "Distrito": "district"})
     return ub[~ub.ubigeo.str.endswith("99")]  # 080199 is not a real district
+
+
+def load_dept_population() -> pd.Series:
+    dep = pd.read_excel(SIRTOD / "02_SIRTOD_Cusco_anual_departamento.xlsx",
+                        sheet_name="Datos", header=5, dtype={"Código indicador": str})
+    s = dep.loc[dep["Código indicador"] == "262234"].set_index("Año")["Valor numérico"]
+    return s.sort_index()
+
+
+def splice_population(panel: pd.DataFrame, dept: pd.Series) -> pd.DataFrame:
+    """Splice the 2007-Census and 2017-Census projection vintages.
+
+    Standard backward splice: the new vintage is kept as published, and the old
+    vintage is rescaled so that, extrapolated forward with its own 2010-2015
+    growth rate, it meets the new vintage's first year. Year-to-year changes of
+    the old series are preserved; only its level moves.
+      1. Department: old 1995-2015 rescaled to meet new 2016.
+      2. Districts: old 2001-2015 rescaled to meet new 2018 (one factor per
+         district; one shared factor for the La Convencion split block, whose
+         parents covered the new districts' territory before the splits).
+      3. 2016-2017 at district level: geometric interpolation between the
+         spliced 2015 and published 2018 values (block: interpolate the block
+         total, allocate by 2018 shares among districts that already exist).
+      4. Every year, districts are rescaled to add up to the spliced department.
+    """
+    years = sorted(panel.year.unique())
+    first_year = panel.groupby("ubigeo")["first_year_in_data"].first()
+
+    # 1. Department
+    g_dep = (dept[OLD_LAST] / dept[TREND_FROM]) ** (1 / (OLD_LAST - TREND_FROM))
+    f_dep = dept[NEW_FIRST_DEPT] / (dept[OLD_LAST] * g_dep ** (NEW_FIRST_DEPT - OLD_LAST))
+    dept_sp = dept.copy()
+    dept_sp[dept_sp.index <= OLD_LAST] *= f_dep
+
+    # 2. Districts, old vintage
+    pop = panel.pivot(index="ubigeo", columns="year", values="pop_proj").reindex(columns=years)
+    group = pd.Series(np.where(pop.index.isin(LC_SPLIT_BLOCK), "LC_BLOCK", pop.index), index=pop.index)
+    gsum = pop.groupby(group).sum(min_count=1)
+    g = (gsum[OLD_LAST] / gsum[TREND_FROM]) ** (1 / (OLD_LAST - TREND_FROM))
+    f = gsum[NEW_FIRST_DIST] / (gsum[OLD_LAST] * g ** (NEW_FIRST_DIST - OLD_LAST))
+    sp = pop.copy()
+    old_cols = [y for y in years if y <= OLD_LAST]
+    sp[old_cols] = pop[old_cols].mul(group.map(f), axis=0)
+
+    # 3. 2016-2017
+    gap_years = [y for y in years if OLD_LAST < y < NEW_FIRST_DIST]
+    span = NEW_FIRST_DIST - OLD_LAST
+    outside = ~pop.index.isin(LC_SPLIT_BLOCK)
+    for y in gap_years:
+        w = (y - OLD_LAST) / span
+        sp.loc[outside, y] = sp.loc[outside, OLD_LAST] * (
+            pop.loc[outside, NEW_FIRST_DIST] / sp.loc[outside, OLD_LAST]) ** w
+        blk = pop.index.isin(LC_SPLIT_BLOCK)
+        t0, t1 = sp.loc[blk, OLD_LAST].sum(), pop.loc[blk, NEW_FIRST_DIST].sum()
+        total = t0 * (t1 / t0) ** w
+        members = [u for u in pop.index[blk] if first_year.get(u, 9999) <= y
+                   and pd.notna(pop.loc[u, NEW_FIRST_DIST])]
+        shares = pop.loc[members, NEW_FIRST_DIST] / pop.loc[members, NEW_FIRST_DIST].sum()
+        sp.loc[members, y] = total * shares
+
+    # 4. Rake to the spliced department total
+    for y in years:
+        s = sp[y].sum(min_count=1)
+        if pd.notna(s) and y in dept_sp.index:
+            sp[y] *= dept_sp[y] / s
+
+    out = sp.stack().rename("pop_spliced").reset_index()
+    out["pop_spliced"] = out.pop_spliced.round()
+    out["pop_backcast"] = (out.year <= OLD_LAST).astype(int)
+    out["pop_interpolated"] = out.year.isin(gap_years).astype(int)
+    out["pop_boundary_mismatch"] = (out.ubigeo.isin(LC_SPLIT_BLOCK)
+                                    & out.year.between(OLD_LAST, NEW_FIRST_DIST - 1)).astype(int)
+    return out
 
 
 def main() -> None:
@@ -172,20 +256,13 @@ def main() -> None:
     ratio = panel["renamu_exp_total"] / panel["siaf_accrued"]
     panel["renamu_siaf_gap"] = np.where(ratio.notna(), ((ratio - 1).abs() > 0.05).astype(float), np.nan)
 
-    # Population: SIRTOD has no 2016-2017 values. Fill interior gaps by
-    # geometric interpolation, except for boundary-change parents, and flag.
+    # Population: splice INEI's two projection vintages into one series
     panel = panel.sort_values(["ubigeo", "year"]).reset_index(drop=True)
-    panel["pop_interpolated"] = 0
-    logpop = np.log(panel["pop_proj"])
-    filled = logpop.groupby(panel.ubigeo).transform(
-        lambda s: s.interpolate(method="linear", limit_area="inside"))
-    fill_mask = panel.pop_proj.isna() & filled.notna() & (panel.boundary_change_parent == 0)
-    panel.loc[fill_mask, "pop_proj"] = np.exp(filled[fill_mask]).round()
-    panel.loc[fill_mask, "pop_interpolated"] = 1
-    panel["pop_vintage_2017census"] = (panel.year >= 2018).astype(int)
+    spliced = splice_population(panel, load_dept_population())
+    panel = panel.merge(spliced, on=["ubigeo", "year"], how="left")
 
     for v in PER_CAPITA:
-        panel[f"{v}_pc"] = panel[v] / panel["pop_proj"]
+        panel[f"{v}_pc"] = panel[v] / panel["pop_spliced"]
 
     panel["cpi_index"] = np.nan  # placeholder: deflator not available in repo
 
@@ -193,11 +270,11 @@ def main() -> None:
     flag_cols = ["first_year_in_data", "new_district", "boundary_change_parent",
                  "capital_district", "canon_alt_differs", "canon_pre2004",
                  "canon_components_incomplete",
-                 "partial_year", "renamu_siaf_gap", "pop_interpolated",
-                 "pop_vintage_2017census"]
+                 "partial_year", "renamu_siaf_gap", "pop_backcast",
+                 "pop_interpolated", "pop_boundary_mismatch"]
     money = [v for v in names.values() if v != "pop_proj"]
     pc = [f"{v}_pc" for v in PER_CAPITA]
-    panel = panel[id_cols + money + ["pop_proj"] + pc + ["cpi_index"] + flag_cols]
+    panel = panel[id_cols + money + ["pop_proj", "pop_spliced"] + pc + ["cpi_index"] + flag_cols]
 
     # Drop district-years outside each district's existence and with no data
     allna = panel[money + ["pop_proj"]].isna().all(axis=1)
@@ -220,8 +297,10 @@ def main() -> None:
         "canon_components_incomplete": "Canon components do not sum to total (=1)",
         "partial_year": "Partial year, 2026 (=1)",
         "renamu_siaf_gap": "RENAMU total spending differs from SIAF by >5% (=1)",
-        "pop_interpolated": "Population interpolated, 2016-2017 (=1)",
-        "pop_vintage_2017census": "Population projection based on 2017 Census (=1)",
+        "pop_spliced": "Population, INEI vintages spliced (persons)",
+        "pop_backcast": "pop_spliced is old vintage rescaled, year<=2015 (=1)",
+        "pop_interpolated": "pop_spliced interpolated, 2016-2017 (=1)",
+        "pop_boundary_mismatch": "La Convencion split block, 2015-2017 (=1)",
     })
     dta = panel.copy()
     for c in ["ubigeo", "province", "district"]:
