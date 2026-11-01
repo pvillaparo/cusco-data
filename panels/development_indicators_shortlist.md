@@ -2,7 +2,7 @@
 
 This note began as a proposal and now also documents the decision taken on it. It asks which district-level series in the SIRTOD download (22 September 2026) can describe how developed Cusco's 116 districts are and how they change over time, and which of them could serve as outcomes or controls next to the canon and municipal finance panel in `canon_spending_district_year.csv`. In November 2026 the **core set, with SIRTOD data only**, was approved and built. The section "The approved core panel" near the end describes the resulting files. The rest of the note keeps the full shortlist, so that any series can be added later.
 
-The files are as follows. `development_core_district_year` (CSV and Stata) is the core panel, and `development_core_baseline_district` (CSV and Stata) holds its time-invariant baselines. `extract_development_indicators.py` builds both, and with `--set full` it extracts the whole shortlist instead. `development_indicators_coverage.csv` has coverage statistics for all 1,132 annual district indicators, and `development_indicators_coverage.py` rebuilds that table.
+The files are as follows. `canon_development_district_year` (CSV and Stata) merges the canon panel with the development panel and baselines, and `merge_canon_development.py` builds it. `development_core_district_year` (CSV and Stata) is the core panel, and `development_core_baseline_district` (CSV and Stata) holds its time-invariant baselines. `extract_development_indicators.py` builds both, and with `--set full` it extracts the whole shortlist instead. `development_indicators_coverage.csv` has coverage statistics for all 1,132 annual district indicators, and `development_indicators_coverage.py` rebuilds that table.
 
 ## The short version
 
@@ -194,6 +194,24 @@ Every zero-filled variable has a companion `<variable>_filled` flag, and `renamu
 **`development_core_baseline_district`** has one row per district. It holds 2007 and 2017 Census shares, with prefixes `c07_` and `c17_`, for piped water inside the dwelling, sewer connection inside the dwelling, public electricity, earthen floor, cooking with firewood or dung, household internet and mobile phone, Quechua mother tongue and rural population, plus census population (`c07_pop`, `c17_pop`). It also holds the 2013 poverty map as interval bounds and midpoint (`pov13_lo`, `pov13_hi`, `pov13_mid`). Dwelling shares are taken over dwellings with occupants present, because the electricity categories add up exactly to that total. Household shares are taken over the sum of the cooking-fuel categories. Language shares are taken over the sum of the four mother-tongue categories, which is about 94% of the census population because children under three are not asked. Three caveats matter here. First, the eight new districts have no 2007 values, and the four created in 2021 have no 2017 values either. Second, kerosene cooking is not reported in 2017, so the 2017 household total is slightly smaller. Third, and most important, **the rural share is not comparable between the two censuses**. No district is fully rural in 2007, but 64 are in 2017, because the 2007 Census classified every district capital as urban regardless of its size. The aggregate rural share falls (from 45% to 39%) while the unweighted district mean rises (from 63% to 74%). So use `c07_rural` or `c17_rural` as a level, but do not difference them.
 
 **Zero-fill.** The zero-fill rules described above are applied by default, and `--no-fill` turns them off. Each RENAMU item is filled using the respondent universe that matches its timing (next section). `renamu_resp_ref` and `renamu_resp_survey` record those universes, and `renamu_respondent` is either of the two.
+
+## The merged canon–development panel
+
+`canon_development_district_year` (CSV and labelled Stata) puts everything in one file. It is built by
+
+```bash
+python panels/merge_canon_development.py
+```
+
+which reads the three finished panels rather than SIRTOD, so it takes seconds. Rerun it whenever the canon panel or the development panel is rebuilt.
+
+The canon panel is the spine. That gives 2,877 rows, one per district and year from 2001 to 2026, with each district starting in its first year in the fiscal data. All 53 canon columns are carried over unchanged, including its flags (`new_district`, `boundary_change_parent`, `pop_vintage_2017census` and the others). They are followed by the 36 development columns and the 23 baseline columns. The baselines (`c07_*`, `c17_*`, `pov13_*`) are repeated in every year of a district, so they can enter interactions directly. Three details are worth knowing:
+
+- The development variables are missing in 2001–2002 and 2026, which the development panel does not cover, and the RENAMU variables also in 2025 (see the next section).
+- `pop_proj` is the canon panel's series. It is identical to the development panel's copy wherever both exist, and it adds the canon panel's 2016–2017 interpolation, so the development copy is dropped.
+- Two development rows have no canon row and are dropped: Villa Kintiarina 2015 and Megantoni 2016. They hold only RENIEC DNI counts recorded before the districts enter the fiscal data.
+
+The script stops if a key is duplicated, if province or district names disagree, or if the two population series differ. The canon instruments that the other session is building (`gas_canon_instrument_district_year`, `mining_canon_instrument_district_year`, on its own branch) are not included. They have the same `ubigeo` and `year` key and can be merged the same way once they are final.
 
 ## When RENAMU variables are dated
 
