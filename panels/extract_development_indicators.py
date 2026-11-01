@@ -12,7 +12,7 @@ INEI SIRTOD on 2026-09-22. Run from the repository root or from this folder:
     python panels/extract_development_indicators.py --set full      # whole shortlist
     python panels/extract_development_indicators.py --set full --only education,crime
     python panels/extract_development_indicators.py --extra 516459,122103
-    python panels/extract_development_indicators.py --no-fill --keep-suspect   # as published
+    python panels/extract_development_indicators.py --no-fill --keep-suspect --sirtod-dates  # as published
 
 Reading the four workbooks takes about two minutes. Outputs, written next to
 this script (CSV, plus Stata .dta with variable labels unless --no-dta):
@@ -56,9 +56,9 @@ share of school premises with all three services in 2019-2022 (questionnaire
 break in 2019; the series is kept as 2011-2018).
 
 RENAMU timing: SIRTOD dates items about year Y as Y and items recorded at the
-survey (collected in Y+1) as Y+1. --align-renamu re-dates the survey items to
-Y so that all RENAMU variables in a row refer to the same year; by default the
-SIRTOD dates are kept.
+survey (collected in Y+1) as Y+1. By default the survey items are re-dated to
+Y, so that all RENAMU variables in a row refer to year Y (calendar year or
+its end). --sirtod-dates keeps the dates exactly as SIRTOD publishes them.
 
 For every filled variable a companion flag `<var>_filled` (1 = value was set
 by a rule above) is written, so the fill can always be undone.
@@ -393,8 +393,8 @@ def main():
     ap.add_argument("--only", default="", help="comma-separated dimensions to keep (full set only)")
     ap.add_argument("--no-fill", action="store_true", help="do not apply the zero-fill rules")
     ap.add_argument("--keep-suspect", action="store_true", help="keep the cells listed in SUSPECT")
-    ap.add_argument("--align-renamu", action="store_true",
-                    help="re-date RENAMU survey-date stocks from Y+1 to Y (end of year Y)")
+    ap.add_argument("--sirtod-dates", action="store_true",
+                    help="keep SIRTOD's dates for RENAMU survey-date items instead of re-dating them to Y")
     ap.add_argument("--no-dta", action="store_true", help="write CSV only")
     ap.add_argument("--first-year", type=int, default=2003)
     ap.add_argument("--last-year", type=int, default=2025)
@@ -429,7 +429,7 @@ def main():
                   renamu_resp_survey="Reports computers dated this year (universe for survey-date items)")
     out = build_panel(raw, spec, names, args.first_year, args.last_year,
                       fill=not args.no_fill, keep_suspect=args.keep_suspect,
-                      align_renamu=args.align_renamu)
+                      align_renamu=not args.sirtod_dates)
     out = add_derived(out, labels)
     write(out, str(stem), labels, dta=not args.no_dta)
 

@@ -183,8 +183,8 @@ which reads the four district workbooks (about two minutes) and writes two pairs
 | Economy | `lab_private_workers` | 517303 | 2015–2025 | Formal private jobs; missing likely zero but not filled. |
 | Economy | `fin_cmac_present` (from `fin_cmac_credit`) | 389746 | 2003–2025 | 1 if a *caja municipal* books credit in the district. |
 | Municipal capacity | `mun_staff_total`, `mun_staff_prof`, `mun_prof_share` | 121951, 121953 | 2004–2024 | Breaks at the term starts of 2011, 2019 and 2023. |
-| Municipal capacity | `mun_computers` | 121992 | 2004–2025 | |
-| Municipal capacity | `mun_dump_trucks` | 121981 | 2003–2025 | Zero filled for RENAMU respondents from 2004. |
+| Municipal capacity | `mun_computers` | 121992 | 2003–2024 | Re-dated from the survey year to the year it describes (see RENAMU dating). |
+| Municipal capacity | `mun_dump_trucks` | 121981 | 2003–2024 | Re-dated like computers; zero filled for RENAMU respondents. |
 | Municipal services | `sec_serenazgo` | 122093 | 2004–2024 | 0/1, zero filled. |
 | Shocks | `env_frost`, `env_heavy_rain` | 122146, 122148 | 2005–2018; 2004–2018 | 0/1, zero filled; self-reported. |
 | Denominator | `pop_proj` | 262234 | 2003–2025 | Same series as the canon panel, without its 2016–2017 interpolation. |
@@ -203,21 +203,19 @@ I could not open the RENAMU questionnaires (*cédulas*) themselves, because INEI
 
 **How SIRTOD dates them.** SIRTOD appears to date each item by its own reference date, not by the survey round. The clearest evidence is where the series end. The latest round in the download is RENAMU 2025, collected in 2025 about 2024. In every module, items about activity during the year end in **2024**: staff counts (all 45 staff series), serenazgo service and staff, programmes implemented, waste collected, Vaso de Leche beneficiaries, DEMUNA cases, licences granted and council membership. By contrast, items about what the municipality has end in **2025**: computers and other equipment (35 of the 36 equipment series still running after 2017; the exception is internet access), vehicles, the sports infrastructure and health facilities it administers, planning instruments, technical-assistance needs and perceived environmental problems. The entry years of the new districts point the same way. Megantoni, Villa Kintiarina and Inkawasi first report staff one year before they first report computers, which is what you would expect if their first survey round dated staff at 31 December *Y* and equipment at *Y*+1.
 
-**What this means for the core panel.** In SIRTOD's own dating, used by default:
+**What this means for the core panel.** In SIRTOD's own dating:
 
 - **Year-*Y* items** describe calendar year *Y*, or 31 December *Y*: `mun_staff_total`, `mun_staff_prof`, `sec_serenazgo`, `vdl_benef_0_6` (and, in the full set, waste, internet, the CRED programme and serenazgo staff).
 - **Survey-date items** are recorded early in the year they carry, so the value dated *Y* describes the municipality at about the end of *Y*−1: `mun_computers`, `mun_dump_trucks` (and, in the full set, planning instruments, environmental-management instruments and perceived pollution).
 - **Unclassified items** stop before 2019, so the end-year test cannot place them: frost, heavy rain and any disaster recorded (2005–2018), and the security-problem perceptions (2004–2015). Their wording ("registraron" frost or rain) suggests events during the year, but I have not changed their dating.
 
-So for canon transferred and spent in fiscal year *t*, a purchase of trucks or computers made during *t* first appears in the value dated *t*+1, while staff hired during *t* appear in the value dated *t*. To put every RENAMU variable on an end-of-year-*t* basis, build with
+So in SIRTOD's dating, for canon transferred and spent in fiscal year *t*, a purchase of trucks or computers made during *t* first appears in the value dated *t*+1, while staff hired during *t* appear in the value dated *t*. **The panel therefore re-dates the survey-date items from *Y*+1 to *Y* by default (decision of November 2026)**, so that every RENAMU variable in a row refers to year *t* or its end, and lines up with canon and SIAF for fiscal year *t*. As a result, `mun_computers` and `mun_dump_trucks` run from 2003 to 2024 in the core panel, not to 2025. The 2003 values come from the 2004 survey, and the universe for filling them is the computers series re-dated the same way. To keep SIRTOD's dates instead, build with
 
 ```bash
-python panels/extract_development_indicators.py --align-renamu
+python panels/extract_development_indicators.py --sirtod-dates
 ```
 
-which re-dates the survey-date items from *Y*+1 to *Y*. The SIRTOD dates are kept by default, so the panel you approved does not change silently. Computers and dump trucks then run to 2024 instead of 2025.
-
-**A behavioural check, which is inconclusive.** If equipment is recorded at the survey, then municipal capital spending in *t* should predict the change in the series from *t* to *t*+1 rather than from *t*−1 to *t*. With district and year effects (2005–2022), computers behave as expected: the coefficient on log capital spending is 16.3 (t = 2.4) for the forward change and 11.8 (t = 1.8) for the backward change. Dump trucks go the other way, at 0.02 (t = 0.2) forward and 0.18 (t = 1.9) backward. These regressions are too noisy to overturn the evidence from the end years, but they are also a reminder to check that results hold under both datings.
+**A behavioural check, which is inconclusive.** If equipment is recorded at the survey, then municipal capital spending in *t* should predict the change in the series from *t* to *t*+1 rather than from *t*−1 to *t*. With district and year effects (2005–2022), computers behave as expected: the coefficient on log capital spending is 16.3 (t = 2.4) for the forward change and 11.8 (t = 1.8) for the backward change. Dump trucks go the other way, at 0.02 (t = 0.2) forward and 0.18 (t = 1.9) backward. These regressions use SIRTOD's dates. They are too noisy to overturn the evidence from the end years, but they are also a reminder to check that results hold under both datings: `--sirtod-dates` rebuilds the alternative.
 
 **A related correction.** In SIRTOD, the RENAMU finance series (122042–122050) are sourced to the Ministry of Economy and Finance, not to the RENAMU survey, and they are dated by fiscal year. RENAMU spending matches SIAF accrued spending in the same year in 2008–2022 and 2024, with medians of 1.000–1.003 and 95–100% of districts within 5%, while one-year leads and lags do not match. That is why they agree so closely with SIAF. They should be read as a second view of the same MEF accounts, not as an independent survey measure. In 2023 they match no SIAF year or stage of the budget cycle, and revenue jumps to 2.4 times spending, so that year looks like a data problem rather than a timing shift.
 
@@ -232,9 +230,9 @@ python panels/extract_development_indicators.py --set full --only education,econ
 python panels/extract_development_indicators.py --extra 398450,426742  # add any SIRTOD codes
 python panels/extract_development_indicators.py --no-fill              # no zero-fill
 python panels/extract_development_indicators.py --keep-suspect         # keep the cells blanked below
-python panels/extract_development_indicators.py --align-renamu         # RENAMU survey-date items re-dated to year Y
+python panels/extract_development_indicators.py --sirtod-dates         # keep SIRTOD dates for RENAMU survey-date items
 ```
 
-By default the script blanks four groups of cells that this note judges unusable: MINEM production in 2025 (a copy of 2024), the 2015 MTPE firm count, RENIEC registered deaths in 2020–2022, and the three-services school share in 2019–2022. To get the values exactly as SIRTOD publishes them, use both `--no-fill` and `--keep-suspect`.
+By default the script blanks four groups of cells that this note judges unusable: MINEM production in 2025 (a copy of 2024), the 2015 MTPE firm count, RENIEC registered deaths in 2020–2022, and the three-services school share in 2019–2022. To get the values exactly as SIRTOD publishes them, use `--no-fill`, `--keep-suspect` and `--sirtod-dates` together.
 
 With `--set full`, the script writes `panels/development_indicators_district_year` with the same structure as the core panel, but with all 57 shortlisted series. To change either set, edit the `CORE` list or the `SHORTLIST` dictionary at the top of the script. Each `SHORTLIST` entry is a SIRTOD code with a variable name, a dimension, a fill rule and a label.
