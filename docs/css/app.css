@@ -268,7 +268,7 @@ thead th { color: var(--text-secondary); font-weight: 600; position: sticky; top
 .catalogue-cat { font-size: 16px; margin: 24px 0 10px; color: var(--text-primary); }
 .catalogue { display: grid; gap: 12px; }
 .cat-item { background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 14px 16px; scroll-margin-top: 16px; }
-.cat-item:target { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.cat-item:target, .cat-item.is-target { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
 .cat-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
 .cat-head h4 { margin: 0; font-size: 15.5px; }
 .cat-open { font-size: 13px; color: var(--accent); white-space: nowrap; }

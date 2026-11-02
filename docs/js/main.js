@@ -84,7 +84,7 @@ function readURL() {
   if (q.get("p")) state.places = q.get("p").split(",").map((s) => s.trim()).filter(Boolean);
   if (q.get("c")) state.slotHint = q.get("c");
   if (q.get("y")) state.year = +q.get("y");
-  state.fromLink = q.has("v");      // a shared explorer view: open the page at the explorer
+  state.fromLink = q.has("v") || location.hash === "#explorer";   // a shared view, or a link to #explorer: open at the explorer
 }
 function writeURL() {
   const q = new URLSearchParams();

@@ -179,7 +179,7 @@ def splice_population(panel: pd.DataFrame, dept: pd.Series) -> pd.DataFrame:
       4. Every year, districts are rescaled to add up to the spliced department.
          Because the department is anchored in 2016 and districts in 2018, this
          common factor (0.98-0.99 before 2018) adds ~0.8 pp to district growth
-         in 2017-2018.
+         in 2016-2017 and again in 2017-2018 (~-0.06 pp in 2015-2016, ~+0.04 pp/yr before).
     """
     years = sorted(panel.year.unique())
     first_year = panel.groupby("ubigeo")["first_year_in_data"].first()

@@ -135,12 +135,14 @@ VARS = [
                  "(with Megantoni, Inkawasi, Villa Virgen and Villa Kintiarina) population and per-person values are not shown in "
                  "2015-2017, because the population of those years can only be divided between them approximately.")),
     dict(id="canon_total", kind="sum", col="canon_total", cat="canon", years=(2005, 2024),
-         pc=True, map=True, src="canon", codes="407245 (2021-2022 gaps of the four districts created in 2021 filled from 414080)",
+         pc=True, map=True, src="canon", codes="407245; 414080",
          label=("Canon transferido a municipalidades", "Canon transferred to municipalities"),
          desc=("Suma de todos los tipos de canon transferidos a la municipalidad: minero, gasífero, hidroenergético, forestal, petrolero, pesquero y sobrecanon petrolero. "
-               "El canon es la participación de los gobiernos locales y regionales en los ingresos y rentas que el Estado obtiene por la explotación de recursos naturales.",
+               "El canon es la participación de los gobiernos locales y regionales en los ingresos y rentas que el Estado obtiene por la explotación de recursos naturales. "
+               "En 2021-2022, los datos de los cuatro distritos creados en 2021 se completan con el código 414080.",
                "Sum of all canon types transferred to the municipality: mining, gas, hydropower, forestry, oil, fishing and the oil surcharge (sobrecanon petrolero). "
-               "Canon is the share of the revenue the State obtains from the exploitation of natural resources that is passed on to local and regional governments."),
+               "Canon is the share of the revenue the State obtains from the exploitation of natural resources that is passed on to local and regional governments. "
+               "In 2021-2022, the data of the four districts created in 2021 are filled in from code 414080."),
          caveat=CAVEAT_CANON),
     dict(id="canon_gas", kind="sum", col="canon_gas", cat="canon", years=(2005, 2024),
          pc=True, map=True, src="canon", codes="407247",
@@ -319,7 +321,7 @@ VARS = [
          desc=("Trabajadores del sector privado registrados en la Planilla Electrónica (empleo formal).",
                "Private-sector workers registered in the electronic payroll (formal employment)."),
          caveat=("Solo empleo formal, una parte pequeña del empleo en la mayoría de distritos. El lugar asignado parece ser el del empleador o el "
-                 "establecimiento declarado: Megantoni (Camisea) registra alrededor de 1 000 trabajadores o menos, por lo que es probable que el empleo del gas se "
+                 "establecimiento declarado: Megantoni (Camisea) registra alrededor de 1 000 trabajadores o menos, por lo que es probable que el empleo del gas se "
                  "registre en otros distritos. Un distrito sin dato tiene cero trabajadores o una cifra no publicada; como la suma de los distritos "
                  "coincide con el total departamental, en provincias y en Cusco se cuentan como cero.",
                  "Formal jobs only, a small share of employment in most districts. The location assigned appears to be the employer's or the declared "
@@ -342,7 +344,7 @@ VARS = [
          desc=("Número de computadoras (operativas y no operativas) de las municipalidades.",
                "Number of computers (working or not) available to municipalities."),
          caveat=("Se fecha al año anterior al de la encuesta RENAMU, porque el equipamiento se registra al llenarla a inicios del año siguiente "
-                 "(supuesto basado en el calendario de RENAMU). En 2015 se omite el valor erróneo de Kimbiri (1 631 frente a 190 y 162), "
+                 "(supuesto basado en el calendario de RENAMU). En 2015 se omite el valor erróneo de Kimbiri (1 631 frente a 190 y 162), "
                  "y como el total departamental oficial todavía lo incluye, ese año no se muestra para Cusco ni para sus provincias.",
                  "Dated to the year before the RENAMU survey, because equipment is recorded when the survey is filled in early the following year "
                  "(an assumption based on the RENAMU calendar). In 2015 Kimbiri's erroneous value (1,631 against 190 and 162) is left out, "
@@ -354,8 +356,12 @@ VARS = [
          label=("Volquetes operativos de las municipalidades", "Working dump trucks available to municipalities"),
          desc=("Número de volquetes operativos de las municipalidades, usados para transportar materiales de construcción y recoger residuos sólidos.",
                "Number of working dump trucks available to municipalities, used to carry construction materials and collect solid waste."),
-         caveat=("Sin dato en 2005. Se fecha al año anterior al de la encuesta, como las computadoras (supuesto basado en el calendario de RENAMU).",
-                 "No data for 2005. Dated to the year before the survey, like computers (an assumption based on the RENAMU calendar).")),
+         caveat=("Sin dato en 2005. Se fecha al año anterior al de la encuesta, como las computadoras (supuesto basado en el calendario de RENAMU). "
+                 "En 2004 se omiten los valores erróneos de Cusco y Paucartambo, y como el total departamental oficial todavía los incluye, "
+                 "ese año no se muestra para Cusco ni para sus provincias.",
+                 "No data for 2005. Dated to the year before the survey, like computers (an assumption based on the RENAMU calendar). "
+                 "In 2004 the erroneous values of Cusco and Paucartambo are left out, and because the official department total still "
+                 "includes them, that year is not shown for Cusco or its provinces.")),
     dict(id="sec_serenazgo", kind="binary", col="sec_serenazgo", measures=["pct"], cat="municipal",
          years=(2007, 2024), map=True, src="renamu", codes="122093",
          unit=("Porcentaje de municipalidades (en el mapa distrital: 100 = brinda el servicio, 0 = no)",
@@ -385,18 +391,19 @@ VARS = [
 CENSUS_CAVEAT = ("Instantánea censal. Los valores de provincia y de Cusco se calculan como cociente de las sumas de los conteos distritales. "
                  "Los distritos creados después de 2007 no tienen valor de 2007, y los creados en 2021 tampoco de 2017. Echarate, Vilcabamba y "
                  "Kimbiri perdieron territorio entre ambos censos (Megantoni, Inkawasi, Villa Virgen y Villa Kintiarina), por lo que sus valores "
-                 "de 2007 y 2017 no son comparables entre sí. En 2007, los totales provinciales y departamentales que publica SIRTOD para agua, "
-                 "electricidad, combustibles para cocinar, internet y celular son menores que la suma de sus distritos, sobre todo en las "
-                 "provincias de Cusco y Paruro, e implican hogares inverosímiles (5,8 y 6,4 personas por vivienda, frente a 3,7-4,3 en las "
-                 "demás provincias); por eso aquí se construyen a partir de los conteos distritales y difieren de las cifras departamentales "
-                 "de 2007 de SIRTOD hasta en 7 puntos.",
+                 "de 2007 y 2017 no son comparables entre sí. En 2007, los totales provinciales y departamentales que publica SIRTOD para viviendas y "
+                 "hogares no coinciden con la suma de sus distritos (a nivel departamental, agua y electricidad 14% por debajo, internet 27%, "
+                 "celular 17% y el total de viviendas 9%), y con ellos las provincias de Cusco y Paruro tendrían 5,8 y 6,4 personas por "
+                 "vivienda, frente a 3,7-4,3 en todas las provincias con los conteos distritales; por eso aquí se construyen a partir de los "
+                 "conteos distritales y difieren de los valores que implican los totales departamentales de SIRTOD hasta en 7 puntos.",
                  "Census snapshot. Province and Cusco values are ratios of the sums of the district counts. Districts created after 2007 have "
                  "no 2007 value, and those created in 2021 have no 2017 value either. Echarate, Vilcabamba and Kimbiri lost territory between "
                  "the two censuses (to Megantoni, Inkawasi, Villa Virgen and Villa Kintiarina), so their 2007 and 2017 values are not comparable. "
-                 "For 2007, SIRTOD's own province and department totals for water, electricity, cooking fuels, internet and mobile phones are "
-                 "lower than the sum of their districts, mainly in the provinces of Cusco and Paruro, and imply implausible households "
-                 "(5.8 and 6.4 persons per dwelling, against 3.7-4.3 in the other provinces); the values here are therefore built from the "
-                 "district counts and differ from SIRTOD's 2007 department figures by up to 7 points.")
+                 "For 2007, SIRTOD's own province and department totals for dwellings and households do not add up to its districts "
+                 "(at department level, water and electricity 14% short, internet 27%, mobile phones 17% and total dwellings 9%), and "
+                 "with them the provinces of Cusco and Paruro would have 5.8 and 6.4 persons per dwelling, against 3.7-4.3 in every "
+                 "province from the district counts; the values here are therefore built from the district counts and differ from those "
+                 "implied by SIRTOD's department totals by up to 7 points.")
 # (id stem in the baseline columns, label es/en, description es/en, codes)
 CENSUS_VARS = [
     ("water_in", ("Viviendas con agua de red pública dentro de la vivienda", "Dwellings with piped water inside the dwelling"),
@@ -413,11 +420,11 @@ CENSUS_VARS = [
       "Percentage of private dwellings with occupants present whose predominant floor material is earth."), "407201 / (407243 + 407244)"),
     ("cook_biomass", ("Hogares que cocinan principalmente con leña o bosta", "Households cooking mainly with firewood or dung"),
      ("Porcentaje de hogares cuyo combustible principal para cocinar es leña o bosta (estiércol).",
-      "Percentage of households whose main cooking fuel is firewood or dung."), "(407239 + 407240) / (407235 to 407242)"),
+      "Percentage of households whose main cooking fuel is firewood or dung."), "(407239 + 407240) / (407235–407242)"),
     ("internet", ("Hogares con conexión a internet", "Households with an internet connection"),
-     ("Porcentaje de hogares con conexión a internet.", "Percentage of households with an internet connection."), "516775 / (407235 to 407242)"),
+     ("Porcentaje de hogares con conexión a internet.", "Percentage of households with an internet connection."), "516775 / (407235–407242)"),
     ("mobile", ("Hogares con teléfono celular", "Households with a mobile phone"),
-     ("Porcentaje de hogares con al menos un teléfono celular.", "Percentage of households with at least one mobile phone."), "516777 / (407235 to 407242)"),
+     ("Porcentaje de hogares con al menos un teléfono celular.", "Percentage of households with at least one mobile phone."), "516777 / (407235–407242)"),
     ("quechua", ("Población con el quechua como lengua materna", "Population with Quechua as mother tongue"),
      ("Porcentaje de la población de 3 años a más que declara como lengua materna el castellano, el quechua, el aimara u otra lengua, "
       "cuya lengua materna es el quechua.",
@@ -459,7 +466,7 @@ MONEY_UNITS = {
 MEASURE_LABEL = {
     "total": ("Total", "Total"),
     "per_capita": ("Por habitante", "Per person"),
-    "per_1000": ("Por 1 000 habitantes", "Per 1,000 people"),
+    "per_1000": ("Por 1 000 habitantes", "Per 1,000 people"),
     "total_real": ("Total, en soles constantes", "Total, constant soles"),
     "per_capita_real": ("Por habitante, en soles constantes", "Per person, constant soles"),
     "pct": ("Porcentaje", "Percent"),
@@ -497,7 +504,7 @@ def unit_for(v, m):
         return ("Personas", "People")
     u = v["unit"]
     if m == "per_1000":
-        return (f"{u[0]} por 1 000 habitantes", f"{u[1]} per 1,000 people")
+        return (f"{u[0]} por 1 000 habitantes", f"{u[1]} per 1,000 people")
     return u
 
 

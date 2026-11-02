@@ -169,12 +169,31 @@ function renderCatalogue(sec) {
         yl.append(li);
       }
       row(M.catalogue.years, yl);
-      row(M.catalogue.method, aggText(first.aggregation, t));
+      // how Cusco and provinces are computed, per measure when the measures differ (e.g. total vs per person)
+      const aggs = [...new Set(base.map((m) => aggText(m.aggregation, t)))];
+      if (aggs.length === 1) row(M.catalogue.method, aggs[0]);
+      else {
+        const al = el("ul");
+        for (const m of base) {
+          const a = aggText(m.aggregation, t);
+          const li = el("li");
+          li.append(el("span", "cat-m", m.label[state.lang]), `: ${a.charAt(0).toLowerCase()}${a.slice(1)}`);
+          al.append(li);
+        }
+        row(M.catalogue.method, al);
+      }
       const src = el("span");
       src.append(e.source[state.lang]);
       if (e.sirtod_codes && e.sirtod_codes !== "nan") src.append(el("span", "cat-codes", ` · ${t.sirtodCodes}: ${e.sirtod_codes.replace(/;\s*/g, ", ")}`));
       row(M.catalogue.source, src);
-      const cav = [...new Set(e.measures.map((m) => m.caveat[state.lang]).filter(Boolean))];
+      // constant-soles measures repeat the base caveat and add the deflator note: keep only what is new
+      const raw = [...new Set(e.measures.map((m) => m.caveat[state.lang]).filter(Boolean))].sort((x, y) => x.length - y.length);
+      const cav = [];
+      for (const c of raw) {
+        const base = cav.find((k) => c.startsWith(k));
+        const extra = base ? c.slice(base.length).trim() : c;
+        if (extra && !cav.includes(extra)) cav.push(extra);
+      }
       if (cav.length) {
         const cl = el("ul", "cat-caveats");
         for (const c of cav) cl.append(el("li", null, c));
@@ -185,6 +204,15 @@ function renderCatalogue(sec) {
     }
     sec.append(list);
   }
+}
+
+// :target does not match cards created after the fragment was processed, so mark the target with a class
+function markTarget(scroll) {
+  for (const e of document.querySelectorAll(".is-target")) e.classList.remove("is-target");
+  const tgt = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (!tgt) return;
+  tgt.classList.add("is-target");
+  if (scroll) tgt.scrollIntoView({ block: "start" });
 }
 
 function render() {
@@ -198,24 +226,29 @@ function render() {
     sec.setAttribute("aria-labelledby", `${s.id}-h`);
     const h = el("h2", null, s.title); h.id = `${s.id}-h`;
     sec.append(h);
-    if (s.id === "catalogue") renderCatalogue(sec);
+    if (s.id === "catalogue") { if (DICT) renderCatalogue(sec); else sec.append(el("p", "methods-note", STRINGS[state.lang].loadError)); }
     else for (const item of s.body) sec.append(block(item));
     body.append(sec);
     const li = el("li"); const a = el("a", null, s.title); a.href = `#${s.id}`; li.append(a); toc.append(li);
   }
   // keep a deep link (#section or #var-id) in view after a re-render
-  if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: "start" });
+  markTarget(true);
 }
 
 async function init() {
-  try {
-    [META, DICT] = await Promise.all(["data/meta.json", "data/dictionary.json"].map((u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u); return r.json(); })));
-  } catch (err) {
-    applyChrome();
-    $("methods-status").textContent = STRINGS[state.lang].loadError;
-    return;
-  }
+  // remember the reading position, so a reload returns to it (the page is built after the data load)
+  addEventListener("pagehide", () => { try { sessionStorage.setItem("methods-y", String(Math.round(scrollY))); } catch { /* storage off */ } });
+  // the prose does not need the data: render it even if a file fails (only the catalogue and footer do)
+  const get = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u); return r.json(); });
+  const [m, d] = await Promise.allSettled([get("data/meta.json"), get("data/dictionary.json")]);
+  META = m.status === "fulfilled" ? m.value : null;
+  DICT = d.status === "fulfilled" ? d.value : null;
   render();
+  const nav = performance.getEntriesByType("navigation")[0];
+  if (nav && (nav.type === "reload" || nav.type === "back_forward")) {
+    try { const y = +sessionStorage.getItem("methods-y"); if (y) window.scrollTo(0, y); } catch { /* storage off */ }
+  }
+  addEventListener("hashchange", () => markTarget(false));
   for (const b of document.querySelectorAll("[data-lang]")) {
     b.addEventListener("click", () => {
       if (b.dataset.lang === state.lang) return;
