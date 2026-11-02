@@ -17,6 +17,8 @@ The site is a Jekyll *academicpages* theme on GitHub Pages. Its "Miscellaneous" 
 2. **The app** in this repository's `docs/` folder, published by GitHub Pages at `pvillaparo.github.io/cusco-data/` (the repository is renamed from `data_cusco` to `cusco-data`). It is a static site: plain HTML, CSS and JavaScript, with no build step and no server. The theme cannot constrain its layout, and it cannot break the academic site.
 3. **The data** is exported by `website/export_site_data.py` straight into `docs/data/`, so a yearly update is one rebuild with no copying between repositories.
 
+*(As built: the app uses plain d3 v7.9.0, vendored in `docs/vendor/`, for charts and maps; boundaries are GeoJSON; interface and story strings live in `docs/js/i18n.js`, `story-text.js` and `methods-text.js`; links also carry units `u` and colour slots `c`. The plan below is kept as written.)*
+
 **Libraries.** I recommend [Observable Plot](https://observablehq.com/plot/), which builds on d3, for both line charts and maps. Its defaults are clean, it handles missing years as true gaps, and it draws maps from GeoJSON without tile servers. That suits 116 districts, works offline, and avoids the usage terms of commercial map tiles. Everything else is plain JavaScript.
 
 ## 2. Data for the site
