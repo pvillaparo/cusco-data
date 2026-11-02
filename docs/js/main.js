@@ -782,6 +782,7 @@ async function init() {
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { render(); redrawStory(); });
 
   await render();
+  await new Promise((r) => requestAnimationFrame(() => setTimeout(r)));   // paint the explorer before any jump, so it does not count as a layout shift
   const anchor = saved && anchors()[saved.i];
   if (anchor) pin(anchor, saved.top);        // a reload or Back: return to where the reader was
   else if (state.fromLink) pinExplorer();

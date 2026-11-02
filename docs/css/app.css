@@ -103,6 +103,7 @@ a:hover { text-decoration-thickness: 2px; }
 .story-note { margin: 0; font-size: 13px; color: var(--text-muted); }
 .story-step { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr); gap: 28px; padding: 36px 0; border-top: 1px solid var(--hairline); }
 .story-step:first-child { margin-top: 24px; }
+#story-steps:empty { min-height: 100vh; }   /* until the script adds the steps: keep the explorer below the fold, so it does not jump */
 .story-num { margin: 0; font-size: 13px; font-weight: 700; color: var(--accent); }
 .story-title { margin: 2px 0 10px; font-size: 21px; letter-spacing: -0.01em; line-height: 1.25; }
 .story-body { margin: 0 0 14px; font-size: 15.5px; line-height: 1.65; }
@@ -195,6 +196,7 @@ select, input[type="text"] {
 .map .district { stroke: var(--surface-1); stroke-width: 0.6; cursor: pointer; }
 .map .district:hover { filter: brightness(1.08); stroke: var(--text-primary); stroke-width: 1.2; }
 .map .district.is-selected { stroke-width: 2.4; }
+.map > .empty { aspect-ratio: 25 / 28; display: flex; align-items: center; justify-content: center; padding: 8px; margin: 0; }   /* the map's own shape, while it loads */
 .map .province { fill: none; stroke: var(--text-primary); stroke-width: 1.1; stroke-opacity: 0.75; pointer-events: none; }
 .map-tools { margin-top: 10px; }
 .map-table { max-height: 360px; overflow-y: auto; }
@@ -242,6 +244,7 @@ thead th { color: var(--text-secondary); font-weight: 600; position: sticky; top
 .methods-head { max-width: 760px; margin-bottom: 24px; }
 .methods-head h1 { margin: 4px 0 10px; font-size: 32px; letter-spacing: -0.02em; line-height: 1.15; }
 .methods-lede { margin: 0; font-size: 17px; line-height: 1.6; color: var(--text-secondary); }
+.methods-lede:empty { min-height: 3.2em; }   /* its two lines, until the script fills it */
 .methods-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: start; }
 .methods-toc { position: sticky; top: 16px; font-size: 13.5px; }
 .methods-toc-title { margin: 0 0 8px; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
@@ -249,7 +252,7 @@ thead th { color: var(--text-secondary); font-weight: 600; position: sticky; top
 .methods-toc li { margin: 0 0 6px; }
 .methods-toc a { color: var(--text-secondary); text-decoration: none; }
 .methods-toc a:hover { color: var(--accent); text-decoration: underline; }
-.methods-body { max-width: 780px; min-width: 0; }
+.methods-body { max-width: 780px; min-width: 0; min-height: 100vh; }   /* the footer starts below the fold until the text is in */
 .methods-section { padding: 8px 0 28px; border-bottom: 1px solid var(--hairline); margin-bottom: 20px; scroll-margin-top: 16px; }
 .methods-section:last-child { border-bottom: 0; }
 .methods-section h2 { font-size: 22px; letter-spacing: -0.01em; margin: 8px 0 12px; }
@@ -284,6 +287,8 @@ thead th { color: var(--text-secondary); font-weight: 600; position: sticky; top
   .methods-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .methods-toc { position: static; background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 12px 14px; }
   .methods-head h1 { font-size: 26px; }
+  .methods-lede:empty { min-height: 6.4em; }
+  .methods-toc ol:empty { min-height: 19em; }   /* ten entries, above the text on narrow screens */
   .cat-facts { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .cat-facts dd { margin-bottom: 6px; }
 }

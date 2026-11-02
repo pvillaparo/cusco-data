@@ -170,7 +170,7 @@ async function step1(box, st) {
   const g = svg.append("g").attr("transform", `translate(${m.left},${m.top})`);
   g.append("g").attr("class", "grid").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call((s) => s.select(".domain").remove());
   g.append("g").attr("class", "axis").attr("transform", `translate(0,${ih})`)
-    .call(d3.axisBottom(x).tickValues(years.filter((yy) => yy % 2 === 0)).tickSizeOuter(0));
+    .call(d3.axisBottom(x).tickValues(years.filter((yy) => yy % (x.step() * 2 < 31 ? 4 : 2) === 0)).tickSizeOuter(0));   // every 4 years when labels would touch
   g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(5).tickFormat(tickFormat(y.domain()[1])).tickSizeOuter(0)).call((s) => s.select(".domain").remove());
   const stack = d3.stack().keys(keys)(rows);
   g.append("g").selectAll("g").data(stack).join("g").attr("fill", (d) => colors[d.key])
@@ -217,7 +217,7 @@ async function step2(box, st) {
       tooltip: ctx.tooltip, strings, binary: false, intervals: null, ariaLabel: st.chart,
       onToggle: (code) => ctx.openExplorer({ v: "canon_total", m: "per_capita", real: true, places: [code] }),
     });
-  } else mapEl.append(el("p", "empty", STRINGS[ctx.lang()].loadError));   // the bars below still show
+  } else mapEl.append(el("p", "empty", STRINGS[ctx.lang()].loadError));   // the ranked bars still show
   // ranked bars, top ten
   const top = [...avg].sort((a, b) => b[1] - a[1]).slice(0, 10);
   const median = d3.median([...avg.values()]);
