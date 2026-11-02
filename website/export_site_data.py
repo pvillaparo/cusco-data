@@ -124,6 +124,10 @@ def main():
             "aggregation": r.aggregation,
             "levels": [lv for lv in LEVELS if (sub.level == lv).any()],
             "years": [int(sub.year.min()), int(sub.year.max())],
+            # years with data at each level (the overall range above can hide gaps, e.g. district
+            # poverty exists only for the 2013 map); the Methods page catalogue lists these
+            "years_by_level": {lv: sorted(int(y) for y in sub[sub.level == lv].year.unique())
+                               for lv in LEVELS if (sub.level == lv).any()},
             "map": int(r.map_recommended),
         })
     dictionary = [e for e in entries.values() if e["measures"]]

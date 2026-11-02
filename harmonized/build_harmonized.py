@@ -14,15 +14,22 @@ Run from the repository root:
 
 Harmonization rules (see harmonized/README.md):
   * Levels: district, province (13) and department. Province and department
-    values are built from the districts, so the three levels always agree.
+    values are built from the districts, so the three levels always agree
+    (except official rates and poverty, whose department line is SIRTOD's
+    official series and which have no province level).
   * Measures: for amounts, the total and the per-capita value (total divided by
     the spliced population of the districts that report); for ratios, the ratio
     of sums (e.g. accrued / PIM across districts), never an average of ratios.
   * Coverage: an aggregate is displayed only if the reporting districts hold at
-    least 95% of the population AND at least 98% of the money (estimated from
-    each missing district's nearest observed year) of the districts that exist
-    that year. A district in its first year whose parent still reports is
-    treated as covered by the parent (its budget was still the parent's).
+    least 95% of the population AND at least 98% of the money of the districts
+    that exist that year. A missing district is sized by the mean of its values
+    k years before and after, for the smallest k <= 3 with any value (otherwise
+    zero). A district in its first year whose parent still reports, and young
+    districts (created 2015 or later, first 3 years), count as covered in the
+    population test and stay in per-capita denominators. Where SIRTOD has an
+    official department total, the district sum must match it within 2%; a
+    mismatch hides the aggregate, and a match lets a year through only when the
+    missing districts are young ones.
   * Years: each variable has a display window (canon from 2005, SIAF from 2008,
     municipal accounts from 2004 without the broken year 2023, FONCOMUN without
     the scrambled year 2016); 2026 is dropped for
@@ -31,8 +38,9 @@ Harmonization rules (see harmonized/README.md):
     services (count or share of reporting municipalities), official rates
     (department line from SIRTOD's department series because the district
     percentages come without denominators; districts as published; no
-    province level) and census snapshots (2007, 2017 and the 2013 poverty map;
-    province and department are population-weighted means, an approximation).
+    province level), the official poverty interval (same treatment) and census
+    snapshots (2007, 2017; province and department are ratios of the sums of
+    the district counts).
   * Money is in current soles, plus constant-soles measures (total_real,
     per_capita_real) in soles of REAL_BASE_YEAR when inputs/cpi_annual.csv exists
     (built by build_cpi.py from the Cusco city CPI; available from 2010 only).
@@ -329,9 +337,11 @@ VARS = [
          desc=("Número de computadoras (operativas y no operativas) de las municipalidades.",
                "Number of computers (working or not) available to municipalities."),
          caveat=("Se fecha al año anterior al de la encuesta RENAMU, porque el equipamiento se registra al llenarla a inicios del año siguiente "
-                 "(supuesto basado en el calendario de RENAMU).",
+                 "(supuesto basado en el calendario de RENAMU). En 2015 se omite el valor erróneo de Kimbiri (1 631 frente a 190 y 162), "
+                 "y como el total departamental oficial todavía lo incluye, ese año no se muestra para Cusco ni para sus provincias.",
                  "Dated to the year before the RENAMU survey, because equipment is recorded when the survey is filled in early the following year "
-                 "(an assumption based on the RENAMU calendar).")),
+                 "(an assumption based on the RENAMU calendar). In 2015 Kimbiri's erroneous value (1,631 against 190 and 162) is left out, "
+                 "and because the official department total still includes it, that year is not shown for Cusco or its provinces.")),
     dict(id="mun_dump_trucks", kind="sum", col="mun_dump_trucks", measures=["total"], money=False, cat="municipal",
          official_check={"col": "121981", "shift": 1},
          years=(2003, 2024), map=False, src="renamu", codes="121981",
@@ -359,7 +369,7 @@ VARS = [
                "Children aged 0-6 served by the municipal Vaso de Leche (glass of milk) programme."),
          caveat=("La municipalidad elige a los beneficiarios y el presupuesto nacional del programa está casi congelado en términos nominales, "
                  "por lo que la caída mezcla menor necesidad con menor presupuesto real. En 2014 cuatro distritos (Cusco, Marcapata, Llusco y Omacha) "
-                 "tienen valores erróneos en la fuente y se omiten, por lo que ese año no se muestra para Cusco ni para sus provincias.",
+                 "tienen valores erróneos en la fuente y se omiten, por lo que ese año no se muestra para Cusco ni para las provincias afectadas.",
                  "The municipality chooses the beneficiaries and the programme's national budget is almost frozen in nominal terms, "
                  "so the decline mixes lower need with a shrinking real budget. In 2014 four districts (Cusco, Marcapata, Llusco and Omacha) have "
                  "erroneous source values and are left out, so that year is not shown for Cusco or the affected provinces.")),
@@ -641,7 +651,7 @@ def district_frame(p, v):
 
 
 def snapshot_frames(p, v):
-    """District values and population-weighted province/department means for one census-type variable."""
+    """District values and province/department values (ratio of the sums of district counts) for one census-type variable."""
     first = p.sort_values("year").groupby("ubigeo").first().reset_index()
     frames = []
     for year, col in v["cols"].items():

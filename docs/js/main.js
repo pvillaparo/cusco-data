@@ -560,7 +560,8 @@ function applyLanguage() {
   }
   for (const el of document.querySelectorAll("[data-i18n-placeholder]")) el.placeholder = t[el.dataset.i18nPlaceholder];
   for (const el of document.querySelectorAll("[data-i18n-aria]")) el.setAttribute("aria-label", t[el.dataset.i18nAria]);
-  for (const el of document.querySelectorAll(".nav-link.is-soon")) el.dataset.soon = t.soon;
+  const ml = document.querySelector('[data-nav="methods"]');
+  if (ml) ml.setAttribute("href", `methods.html?lang=${state.lang}`);
   const head = document.querySelector("#story-kicker");
   if (head) document.querySelector("meta[name=description]")?.setAttribute("content", t.metaDescription || "");
   for (const b of document.querySelectorAll("[data-lang]")) b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));

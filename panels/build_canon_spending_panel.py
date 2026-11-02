@@ -27,8 +27,9 @@ Design choices (see panels/README.md for the reasoning):
     multiplied by 1,000; FONCOMUN is labelled thousands in SIRTOD but its values
     are already in soles. Per-capita versions divide by `pop_spliced`, which
     joins INEI's 2007-Census and 2017-Census projection vintages (see
-    splice_population). No deflator: the CPI in SIRTOD is monthly and the
-    monthly files are not in the repository; `cpi_index` is left empty.
+    splice_population). No deflator here: money stays in current soles and
+    `cpi_index` is left empty; constant 2024 soles are added in harmonized/
+    (build_cpi.py + build_harmonized.py, from 2010).
   * Boundaries are kept as official; new districts and their parents are flagged.
 """
 
