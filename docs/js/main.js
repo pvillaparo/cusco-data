@@ -3,16 +3,19 @@
 import { STRINGS, makeFormatter } from "./i18n.js";
 import { drawLineChart } from "./linechart.js";
 import { drawMap, rewind } from "./map.js";
-import { initStory, redrawStory } from "./story.js";
+import { buildStory, initStory, redrawStory } from "./story.js";
 
 const SERIES_VARS = ["--series-1", "--series-2", "--series-3", "--series-4", "--series-5", "--series-6"];
 const MAX_PLACES = 6;
 const HIDDEN_MEASURES = new Set(["pct_lo", "pct_hi"]);
 
-const state = { lang: "en", v: "canon_total", m: "per_capita", real: true, places: [], year: null, table: false, mapTable: false };
+const DEFAULT_VIEW = { v: "canon_total", m: "per_capita", real: true };
+const state = { lang: "en", ...DEFAULT_VIEW, places: [], year: null, table: false, mapTable: false };
 const slots = new Map();      // place code -> colour slot, kept while the place stays selected
 const cache = new Map();      // variable -> promise of the series json
 let DICT, PLACES, META, GEO_D, GEO_P;
+let geoFailed = false;        // the district boundaries could not be loaded
+let pendingMap = null;        // draws the explorer map once the boundaries arrive
 const byId = new Map();
 const placeInfo = new Map();  // code -> {name, level, province}
 let provinceNames = new Set();
@@ -75,18 +78,51 @@ function series(v) {
 }
 
 // ---------- URL state ----------
+// The explorer view a link describes; missing parts take the defaults.
+function viewFromURL() {
+  const q = new URLSearchParams(location.search);
+  const view = { ...DEFAULT_VIEW, places: [], slotHint: "", year: null, isLink: q.has("v") };
+  if (q.get("v")) view.v = q.get("v");
+  if (q.get("m")) view.m = q.get("m");
+  if (q.get("u")) view.real = q.get("u") !== "nominal";
+  if (q.get("p")) view.places = q.get("p").split(",").map((s) => s.trim()).filter(Boolean);
+  if (q.get("c")) view.slotHint = q.get("c");
+  if (q.get("y")) view.year = +q.get("y");
+  return view;
+}
 function readURL() {
   const q = new URLSearchParams(location.search);
   if (q.get("lang") === "es" || q.get("lang") === "en") state.lang = q.get("lang");
-  if (q.get("v")) state.v = q.get("v");
-  if (q.get("m")) state.m = q.get("m");
-  if (q.get("u")) state.real = q.get("u") !== "nominal";
-  if (q.get("p")) state.places = q.get("p").split(",").map((s) => s.trim()).filter(Boolean);
-  if (q.get("c")) state.slotHint = q.get("c");
-  if (q.get("y")) state.year = +q.get("y");
-  state.fromLink = q.has("v") || location.hash === "#explorer";   // a shared view, or a link to #explorer: open at the explorer
+  const view = viewFromURL();
+  // only a link to a view, or a change made in the explorer, puts the view in the address
+  state.touched = view.isLink;
+  state.fromLink = view.isLink || location.hash === "#explorer";   // a shared view, or a link to #explorer: open at the explorer
+  return view;
+}
+// Put a link's view into the state. An unknown indicator falls back to the default view and unknown
+// place codes are dropped (both with a note); colour slots are restored from the link.
+function applyView(view) {
+  const t = STRINGS[state.lang];
+  Object.assign(state, { v: view.v, m: view.m, real: view.real, year: view.year });
+  if (!byId.has(state.v)) { pendingNotes.push(t.unknownIndicator); Object.assign(state, DEFAULT_VIEW); }
+  const asked = view.places;
+  const known = [...new Set(asked.filter((c) => placeInfo.has(c)))];
+  if (known.length < new Set(asked).size) pendingNotes.push(t.unknownPlaces);
+  state.places = known.slice(0, MAX_PLACES);
+  if (known.length > MAX_PLACES) pendingNotes.push(t.linkTrimmed);
+  slots.clear();
+  const hint = view.slotHint;
+  state.places.forEach((c) => {
+    const i = asked.indexOf(c);
+    assignSlot(c, hint.length === asked.length && i >= 0 ? +hint[i] : null);
+  });
+  state.askedYear = !!state.year;
 }
 function writeURL() {
+  if (!state.touched) {   // the default view: keep the address plain, so a reload or a copied link opens the story
+    history.replaceState(history.state, "", `${location.pathname}?lang=${state.lang}${location.hash}`);
+    return;
+  }
   const q = new URLSearchParams();
   q.set("lang", state.lang); q.set("v", state.v); q.set("m", state.m);
   if (!state.real) q.set("u", "nominal");
@@ -95,7 +131,7 @@ function writeURL() {
     q.set("c", state.places.map((c) => slots.get(c)).join(""));   // colour slots, so a shared link looks the same
   }
   if (state.year) q.set("y", state.year);
-  history.replaceState(null, "", `${location.pathname}?${q.toString()}`);
+  history.replaceState(history.state, "", `${location.pathname}?${q.toString()}`);
 }
 
 // ---------- helpers ----------
@@ -130,6 +166,7 @@ function hasReal(v, m) { return byId.get(v).measures.some((x) => x.id === `${m}_
 function effMeasure() { return state.real && hasReal(state.v, state.m) ? `${state.m}_real` : state.m; }
 function aggText(agg) {
   const a = T().aggregation;
+  if (agg.startsWith("official department interval")) return a.official_interval;
   if (agg.startsWith("official")) return a.official;
   if (agg.startsWith("ratio_of_sums of district")) return a.snapshot;
   return a[agg] || agg;
@@ -208,16 +245,21 @@ function lookupPlace(text) {
   if (d) return { code: d.code, ambiguous: !!p };
   return p ? { code: p.code } : {};
 }
+// Returns true when the place was added.
 function addPlace(code, { ambiguous = false } = {}) {
-  if (!code || code === "08" || state.places.includes(code)) return;
-  if (state.places.length >= MAX_PLACES) { setStatus(T().tooMany); return; }
+  if (!code || code === "08") return false;
+  if (state.places.includes(code)) { setStatus(T().alreadyIn(placeLabel(code))); return false; }
+  if (state.places.length >= MAX_PLACES) { setStatus(T().tooMany); return false; }
   state.places.push(code);
   assignSlot(code);
+  state.touched = true;
   pendingNotes.push(ambiguous ? T().ambiguous(baseName(code)) : T().added(placeLabel(code)));
   render();
+  return true;
 }
 function removePlace(code, { focusNext = false } = {}) {
   const idx = state.places.indexOf(code);
+  state.touched = true;
   pendingNotes.push(T().removed(placeLabel(code)));
   state.places = state.places.filter((c) => c !== code);
   slots.delete(code);
@@ -267,8 +309,11 @@ async function render() {
   } catch (e) {
     if (token !== renderToken) return;
     console.error(e);
+    // clear what still describes the previous indicator, so nothing stale is shown or downloaded
+    lastData = null;
+    for (const id of ["chart-title", "chart-subtitle", "chart-legend", "chart", "chart-table", "map-title", "notes"]) $(id).textContent = "";
+    clearMap("");
     setStatus(T().loadError);
-    $("chart").textContent = "";
     return;
   }
   if (token !== renderToken) return;           // a newer selection started while this one was loading
@@ -311,7 +356,7 @@ async function render() {
     const arr = block[lv] && block[lv][code];
     if (!arr || !arr.length) {
       missing.add(code);
-      if (lv === "province" && !block.province) noProv.push(baseName(code));
+      if (lv === "province" && !block.province) noProv.push(placeLabel(code));
       else messages.push(t.notAvailablePlace(placeLabel(code)));
       continue;
     }
@@ -328,7 +373,7 @@ async function render() {
     const nominal = data.measures[state.m]?.department?.["08"] || [];
     if (nominal.some((p) => p[0] < 2010)) messages.push(t.realFrom2010);
   }
-  if (official) messages.push(t.officialNote);
+  if (official) messages.push(entry.kind === "official_interval" ? t.officialNoteInterval : t.officialNote);
 
   // titles and legend
   $("chart-title").textContent = entry.label[state.lang];
@@ -379,21 +424,33 @@ async function render() {
   writeURL();
 }
 
+function clearMap(msg) {
+  pendingMap = null;
+  $("map-subtitle").textContent = msg;
+  $("map-year-wrap").hidden = true;
+  $("map").textContent = "";
+  $("map-legend").textContent = "";
+  $("btn-map-table").hidden = true;
+  $("map-table").hidden = true;
+}
+// A short message in place of the map (while the boundaries load, or if they fail).
+function mapMessage(msg) {
+  const p = document.createElement("p");
+  p.className = "empty";
+  p.textContent = msg;
+  $("map").textContent = "";
+  $("map").append(p);
+  $("map-legend").textContent = "";
+}
+
 function renderMap(entry, em, mi, data, fmtv, bounds) {
   const t = T();
   const dist = data.measures[em]?.district;
   $("map-title").textContent = t.mapTitle(entry.label[state.lang]);
-  const noMap = (msg) => {
-    $("map-subtitle").textContent = msg;
-    $("map-year-wrap").hidden = true;
-    $("map").textContent = "";
-    $("map-legend").textContent = "";
-    $("btn-map-table").hidden = true;
-    $("map-table").hidden = true;
-    return null;
-  };
+  const noMap = (msg) => { clearMap(msg); return null; };
   if (!dist) return noMap(t.noDistrictLevel);
-  if (!mi.map) return noMap(t.noMapForMeasure);
+  if (!mi.map) return noMap(entry.measures.some((x) => x.map) ? t.noMapForMeasure : t.noMapForIndicator);
+  pendingMap = null;
   $("map-year-wrap").hidden = false;
   $("btn-map-table").hidden = false;
   const years = [...new Set(Object.values(dist).flatMap((a) => a.map((p) => p[0])))].sort((a, b) => a - b);
@@ -422,12 +479,15 @@ function renderMap(entry, em, mi, data, fmtv, bounds) {
   const names = new Map(PLACES.district.map((d) => [d.code, d.name]));
   const provName = new Map(PLACES.province.map((p) => [p.code, p.name]));
   const provinceOf = new Map(PLACES.district.map((d) => [d.code, provName.get(d.province)]));
-  drawMap($("map"), $("map-legend"), {
+  const draw = () => drawMap($("map"), $("map-legend"), {
     districts: GEO_D, provinces: GEO_P, values, names, provinceOf, selected, intervals: intervals.size ? intervals : null,
     fmt: fmtv, tooltip, strings: t, binary: entry.kind === "binary",
     ariaLabel: t.mapLabel(entry.label[state.lang], state.year),
     onToggle: (code) => (state.places.includes(code) ? removePlace(code) : addPlace(code)),
   });
+  if (GEO_D) draw();
+  else if (geoFailed) mapMessage(t.loadError);
+  else { pendingMap = draw; mapMessage(t.loading); }
   renderMapTable(entry, values, intervals, names, provinceOf, fmtv);
   return note;
 }
@@ -544,7 +604,12 @@ function renderNotes(entry, mi, em, data) {
   for (const code of state.places) {
     const d = PLACES.district.find((x) => x.code === code);
     if (!d) continue;
-    if (d.new_district) placeNotes.push(t.created(d.name, d.first_year));
+    if (d.new_district) {
+      // a source can report a district before SIRTOD's year of creation (the 2013 poverty map)
+      const pts = data.measures[em]?.district?.[code] || [];
+      const first = pts.length ? Math.min(...pts.map((p) => p[0])) : null;
+      placeNotes.push(first !== null && first < d.first_year ? t.createdEarly(d.name, d.first_year, first) : t.created(d.name, d.first_year));
+    }
     if (d.lost_territory) placeNotes.push(t.lostTerritory(d.name));
   }
   if (placeNotes.length) section(t.placeNotes, placeNotes);
@@ -565,93 +630,140 @@ function applyLanguage() {
   const head = document.querySelector("#story-kicker");
   if (head) document.querySelector("meta[name=description]")?.setAttribute("content", t.metaDescription || "");
   for (const b of document.querySelectorAll("[data-lang]")) b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));
-  $("footer-data").textContent = t.dataVintage(vintageDate(), META.built);
+  if (META) $("footer-data").textContent = t.dataVintage(vintageDate(), META.built);
   document.title = state.lang === "es" ? "Cusco-stats · Los distritos de Cusco en datos" : "Cusco-stats · Districts of Cusco in data";
 }
 
 // ---------- story -> explorer ----------
 function openExplorer({ v, m, real, places }) {
+  savePosition();                                                    // for a return to this story entry
+  history.pushState(null, "", location.pathname + location.search);  // so Back returns to the story
+  state.touched = true;
   state.v = v; state.m = m; state.real = real; state.year = null;
   state.places = []; slots.clear();
   for (const c of places) { state.places.push(c); assignSlot(c); }
   fillIndicatorSelect(); fillMeasureSelect();
   render();
-  const ex = $("explorer");
-  ex.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
-  ex.focus({ preventScroll: true });
+  goToExplorer();
+}
+function goToExplorer() {
+  pinExplorer();
+  $("explorer").focus({ preventScroll: true });
+}
+
+// ---------- reading position ----------
+// The story charts draw after the page loads, so the browser's own scroll restoration misses after a
+// reload or a return from another page. Remember the block at the top of the screen instead.
+const anchors = () => [...document.querySelectorAll(".story-head, .story-text, .story-figure, .story-end, #explorer")];
+const posKey = () => `index-pos:${location.search}${location.hash}`;
+function topAnchor() {
+  const list = anchors();
+  const i = list.findIndex((e) => e.getBoundingClientRect().bottom > 0);
+  return i < 0 ? null : { i, top: Math.round(list[i].getBoundingClientRect().top) };
+}
+function savePosition() {
+  const a = topAnchor();
+  if (a) try { sessionStorage.setItem(posKey(), JSON.stringify(a)); } catch { /* storage off */ }
+}
+function savedPosition() {
+  try { return JSON.parse(sessionStorage.getItem(posKey())); } catch { return null; }
 }
 
 // ---------- init ----------
 async function init() {
   tooltip.el = $("tooltip");
-  readURL();
+  const view = readURL();
+  const nav = performance.getEntriesByType("navigation")[0];
+  const saved = nav && (nav.type === "reload" || nav.type === "back_forward") ? savedPosition() : null;
+  addEventListener("pagehide", savePosition);
+  // the story text needs no data: show it at once, and let only the maps wait for the boundaries
+  applyLanguage();
+  buildStory(state.lang);
   setStatus(STRINGS[state.lang].loading);
+  const geo = Promise.all([getJSON("data/geo/districts.geojson"), getJSON("data/geo/provinces.geojson")]).then(([d, p]) => {
+    GEO_D = rewind(d); GEO_P = rewind(p);
+    if (pendingMap) { const draw = pendingMap; pendingMap = null; draw(); }
+    return { districts: GEO_D, provinces: GEO_P };
+  });
+  geo.catch((e) => {
+    console.error(e);
+    geoFailed = true;
+    if (pendingMap) { pendingMap = null; mapMessage(T().loadError); }
+  });
   try {
-    [META, DICT, PLACES, GEO_D, GEO_P] = await Promise.all([
-      getJSON("data/meta.json"), getJSON("data/dictionary.json"), getJSON("data/places.json"),
-      getJSON("data/geo/districts.geojson"), getJSON("data/geo/provinces.geojson"),
-    ]);
+    [META, DICT, PLACES] = await Promise.all([getJSON("data/meta.json"), getJSON("data/dictionary.json"), getJSON("data/places.json")]);
   } catch (e) {
     setStatus(STRINGS[state.lang].loadError);
     console.error(e);
     return;
   }
-  rewind(GEO_D); rewind(GEO_P);
   for (const e of DICT) byId.set(e.id, e);
   for (const p of PLACES.province) placeInfo.set(p.code, { name: p.name, level: "province" });
   for (const d of PLACES.district) placeInfo.set(d.code, { name: d.name, level: "district", province: d.province });
   provinceNames = new Set(PLACES.province.map((p) => p.name));
-  if (!byId.has(state.v)) state.v = DICT[0].id;
-
-  // places from the link: keep known codes, de-duplicate, then apply the limit; restore colour slots
-  const asked = state.places;
-  const valid = [...new Set(asked.filter((c) => placeInfo.has(c)))];
-  state.places = valid.slice(0, MAX_PLACES);
-  if (valid.length > MAX_PLACES) pendingNotes.push(STRINGS[state.lang].linkTrimmed);
-  const hint = state.slotHint || "";
-  state.places.forEach((c) => {
-    const i = asked.indexOf(c);
-    assignSlot(c, hint.length === asked.length && i >= 0 ? +hint[i] : null);
-  });
-  state.askedYear = !!state.year;
+  applyView(view);
 
   applyLanguage();
   fillIndicatorSelect();
   fillMeasureSelect();
   fillPlaceList();
   initStory({
-    lang: () => state.lang, series, tooltip, GEO_D, GEO_P, PLACES, cssVar, openExplorer,
+    lang: () => state.lang, series, tooltip, geo, PLACES, cssVar, openExplorer,
     label: (v) => byId.get(v)?.label[state.lang] || v,
   });
 
-  $("sel-indicator").addEventListener("change", (e) => { state.v = e.target.value; state.year = null; fillMeasureSelect(); render(); });
-  $("sel-measure").addEventListener("change", (e) => { state.m = e.target.value; fillMeasureSelect(); render(); });
+  $("sel-indicator").addEventListener("change", (e) => { state.touched = true; state.v = e.target.value; state.year = null; fillMeasureSelect(); render(); });
+  $("sel-measure").addEventListener("change", (e) => { state.touched = true; state.m = e.target.value; fillMeasureSelect(); render(); });
   for (const b of document.querySelectorAll("[data-units]")) {
-    b.addEventListener("click", () => { state.real = b.dataset.units === "real"; fillMeasureSelect(); render(); });
+    b.addEventListener("click", () => { state.touched = true; state.real = b.dataset.units === "real"; fillMeasureSelect(); render(); });
   }
   const inp = $("inp-place");
   const tryAdd = () => {
     if (!inp.value.trim()) return;
     const { code, ambiguous } = lookupPlace(inp.value);
-    if (code) { addPlace(code, { ambiguous }); inp.value = ""; } else setStatus(T().notFound);
+    if (code) { if (addPlace(code, { ambiguous })) inp.value = ""; } else setStatus(T().notFound);   // keep the text if it was not added
   };
   inp.addEventListener("change", tryAdd);
   inp.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); tryAdd(); } });
   const rng = $("rng-year");
   rng.addEventListener("input", () => {
     const years = rng.dataset.years.split(",").map(Number);
+    state.touched = true;
     state.year = years[Math.max(0, Math.min(years.length - 1, +rng.value))];
     render();
   });
   $("btn-table").addEventListener("click", () => { state.table = !state.table; renderTable(); });
-  $("btn-map-table").addEventListener("click", () => { state.mapTable = !state.mapTable; render(); });
+  $("btn-map-table").addEventListener("click", () => { state.touched = true; state.mapTable = !state.mapTable; render(); });
   $("btn-csv").addEventListener("click", downloadCSV);
   for (const b of document.querySelectorAll("[data-lang]")) {
     b.addEventListener("click", () => {
+      const a = topAnchor();   // the texts change length and the charts are redrawn: keep the reader's place
       state.lang = b.dataset.lang;
       applyLanguage(); fillIndicatorSelect(); fillMeasureSelect(); fillPlaceList(); render(); redrawStory();
+      if (a) pin(anchors()[a.i], a.top);
     });
   }
+  // in-page links to the explorer: same landing as the story buttons (charts above may still be drawing)
+  for (const a of document.querySelectorAll('a[href="#explorer"]')) {
+    a.addEventListener("click", (e) => {
+      if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;   // new tab or window
+      e.preventDefault();
+      savePosition();
+      const url = `${location.pathname}${location.search}#explorer`;
+      if (location.hash === "#explorer") history.replaceState(history.state, "", url); else history.pushState(null, "", url);
+      goToExplorer();
+    });
+  }
+  // Back/Forward between the story and an explorer view opened from it: show the view in the address
+  addEventListener("popstate", () => {
+    const v = viewFromURL();
+    state.touched = v.isLink;
+    const same = v.v === state.v && v.m === state.m && v.real === state.real && v.places.join() === state.places.join()
+      && (!v.year || v.year === state.year);
+    if (same) { writeURL(); return; }
+    applyView(v);
+    fillIndicatorSelect(); fillMeasureSelect(); render();
+  });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") tooltip.hide(); });
   document.addEventListener("pointerdown", (e) => {
     const inside = e.target.closest && (e.target.closest(".chart") || e.target.closest(".map"));
@@ -670,21 +782,25 @@ async function init() {
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { render(); redrawStory(); });
 
   await render();
-  if (state.fromLink) pinExplorer();
+  const anchor = saved && anchors()[saved.i];
+  if (anchor) pin(anchor, saved.top);        // a reload or Back: return to where the reader was
+  else if (state.fromLink) pinExplorer();
 }
 
-// A shared explorer link opens at the explorer. Story charts above it draw lazily and can grow the
-// page after the jump, so keep the explorer in place until those settle or the reader takes over.
-function pinExplorer() {
-  const ex = $("explorer");
-  ex.scrollIntoView({ block: "start" });
-  const ro = new ResizeObserver(() => ex.scrollIntoView({ block: "start" }));
+// Story charts draw lazily and can change the page height after a jump, so keep an element at the
+// same place on screen until they settle or the reader takes over.
+function pin(el, top = 0) {
+  const place = () => window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - top);
+  place();
+  const ro = new ResizeObserver(place);
   ro.observe($("story"));
   const events = ["wheel", "touchstart", "keydown", "pointerdown"];
   const stop = () => { ro.disconnect(); for (const e of events) window.removeEventListener(e, stop); };
   for (const e of events) window.addEventListener(e, stop, { passive: true });
   setTimeout(stop, 4000);
 }
+// A shared explorer link, a story button or a link to #explorer opens at the explorer.
+const pinExplorer = () => pin($("explorer"));
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
 else init();

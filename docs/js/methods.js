@@ -5,7 +5,7 @@ import { METHODS } from "./methods-text.js";
 
 const $ = (id) => document.getElementById(id);
 const state = { lang: new URLSearchParams(location.search).get("lang") === "es" ? "es" : "en" };
-let META = null, DICT = null;
+let META = null, DICT = null, loaded = false;   // loaded: both fetches have settled
 
 const el = (tag, cls, text) => {
   const e = document.createElement(tag);
@@ -30,6 +30,7 @@ function yearText(list) {
 
 function aggText(agg, m) {
   const a = m.aggregation;
+  if (agg.startsWith("official department interval")) return a.official_interval;
   if (agg.startsWith("official")) return a.official;
   if (agg.startsWith("ratio_of_sums of district")) return a.snapshot;
   return a[agg] || agg;
@@ -206,10 +207,24 @@ function renderCatalogue(sec) {
   }
 }
 
+// The catalogue section's content: the cards once the dictionary is in, a placeholder until then.
+function fillCatalogue(sec) {
+  while (sec.childNodes.length > 1) sec.lastChild.remove();   // keep the heading
+  if (DICT) renderCatalogue(sec);
+  else if (loaded) sec.append(el("p", "methods-note", STRINGS[state.lang].loadError));
+  else sec.append(el("p", null, STRINGS[state.lang].loading));
+}
+
+function hashTarget() {
+  let id = location.hash.slice(1);
+  try { id = decodeURIComponent(id); } catch { /* malformed escape: use the raw text */ }
+  return id ? document.getElementById(id) : null;
+}
+
 // :target does not match cards created after the fragment was processed, so mark the target with a class
 function markTarget(scroll) {
   for (const e of document.querySelectorAll(".is-target")) e.classList.remove("is-target");
-  const tgt = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  const tgt = hashTarget();
   if (!tgt) return;
   tgt.classList.add("is-target");
   if (scroll) tgt.scrollIntoView({ block: "start" });
@@ -226,7 +241,7 @@ function render() {
     sec.setAttribute("aria-labelledby", `${s.id}-h`);
     const h = el("h2", null, s.title); h.id = `${s.id}-h`;
     sec.append(h);
-    if (s.id === "catalogue") { if (DICT) renderCatalogue(sec); else sec.append(el("p", "methods-note", STRINGS[state.lang].loadError)); }
+    if (s.id === "catalogue") fillCatalogue(sec);
     else for (const item of s.body) sec.append(block(item));
     body.append(sec);
     const li = el("li"); const a = el("a", null, s.title); a.href = `#${s.id}`; li.append(a); toc.append(li);
@@ -236,18 +251,9 @@ function render() {
 }
 
 async function init() {
-  // remember the reading position, so a reload returns to it (the page is built after the data load)
+  // remember the reading position, so a reload returns to it (the catalogue is built after the data load)
   addEventListener("pagehide", () => { try { sessionStorage.setItem("methods-y", String(Math.round(scrollY))); } catch { /* storage off */ } });
-  // the prose does not need the data: render it even if a file fails (only the catalogue and footer do)
-  const get = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u); return r.json(); });
-  const [m, d] = await Promise.allSettled([get("data/meta.json"), get("data/dictionary.json")]);
-  META = m.status === "fulfilled" ? m.value : null;
-  DICT = d.status === "fulfilled" ? d.value : null;
-  render();
-  const nav = performance.getEntriesByType("navigation")[0];
-  if (nav && (nav.type === "reload" || nav.type === "back_forward")) {
-    try { const y = +sessionStorage.getItem("methods-y"); if (y) window.scrollTo(0, y); } catch { /* storage off */ }
-  }
+  // listeners first, so that nothing that goes wrong while rendering can disable them
   addEventListener("hashchange", () => markTarget(false));
   for (const b of document.querySelectorAll("[data-lang]")) {
     b.addEventListener("click", () => {
@@ -259,6 +265,27 @@ async function init() {
       render();
       window.scrollTo(0, y);
     });
+  }
+  // the prose does not need the data: show it now; the catalogue and footer follow when the files arrive
+  render();
+  const get = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u); return r.json(); });
+  const [m, d] = await Promise.allSettled([get("data/meta.json"), get("data/dictionary.json")]);
+  META = m.status === "fulfilled" ? m.value : null;
+  DICT = d.status === "fulfilled" ? d.value : null;
+  loaded = true;
+  applyChrome();
+  const cat = $("catalogue");
+  if (cat) fillCatalogue(cat);
+  const nav = performance.getEntriesByType("navigation")[0];
+  let y = 0;
+  if (nav && (nav.type === "reload" || nav.type === "back_forward")) {
+    try { y = +sessionStorage.getItem("methods-y"); } catch { /* storage off */ }
+  }
+  if (y) { markTarget(false); window.scrollTo(0, y); }
+  else {
+    // a target in or after the catalogue (#var-..., #reuse) has moved or only now exists
+    const tgt = hashTarget();
+    markTarget(!!tgt && !!cat && !(tgt.compareDocumentPosition(cat) & Node.DOCUMENT_POSITION_FOLLOWING));
   }
 }
 

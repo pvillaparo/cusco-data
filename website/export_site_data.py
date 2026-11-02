@@ -7,7 +7,7 @@ Inputs : harmonized/cusco_stats_long.csv, harmonized/cusco_stats_dictionary.csv,
          website/place_names.csv, panels/canon_spending_district_year.csv (district flags),
          docs/data/geo/*.geojson (from build_boundaries.py)
 Output : docs/data/  (served with the app by GitHub Pages)
-           meta.json          data vintage, build date, data_cusco commit, CPI base year
+           meta.json          data vintage, build date, cusco-data commit, CPI base year
            dictionary.json    every variable x measure, labels/units/caveats in en and es
            places.json        department, provinces and districts with display names and flags
            series/<var>.json  displayable values only, by measure, level and place

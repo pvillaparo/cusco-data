@@ -233,7 +233,7 @@ BASELINE = {
     "earth_floor": (["407201"], DWELL, "% dwellings with earthen floor"),
     "cook_biomass": (["407239", "407240"], HH,
                      {2007: "% households cooking mainly with firewood or dung",
-                      2017: "% households using firewood or dung (several fuels possible)"}),
+                      2017: "% households using firewood or dung (any use)"}),
     "internet": (["516775"], HH, "% households with internet"),
     "mobile": (["516777"], HH, "% households with a mobile phone"),
     "quechua": (["516750"], LANG, "% population with Quechua mother tongue"),

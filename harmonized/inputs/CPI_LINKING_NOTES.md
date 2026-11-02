@@ -10,7 +10,7 @@
 
 **The newer series is consistent with December 2021 = 100.** January 2022 is 100.41, which would be a January change of +0.41% if December 2021 equals 100. That is plausible next to the older series' last monthly change (+0.52% in December 2021).
 
-## Proposed links (pending confirmation)
+## Links considered (see the decisions below: only the 2021–2022 link is applied)
 
 | Break | Proposed method | Factor | Implied change across the break | Plausibility check |
 |---|---|---|---|---|

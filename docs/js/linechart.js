@@ -36,7 +36,9 @@ export function drawLineChart(container, opts) {
     .call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat(""))
     .call((s) => s.select(".domain").remove());
   const span = y1 - y0;
-  const step = span > 16 ? 4 : span > 8 ? 2 : 1;
+  let step = span > 16 ? 4 : span > 8 ? 2 : 1;
+  // a 4-digit label is about 27px wide at 12px: thin the ticks on narrow charts so labels never touch
+  while (step < 10 && (innerW * step) / Math.max(span, 1) < 31) step = step === 4 ? 5 : step * 2;
   let xticks = d3.range(Math.ceil(y0 / step) * step, y1 + 1, step).filter((t) => t >= y0 && t <= y1);
   if (!xticks.includes(y1)) {
     if (xticks.length && y1 - xticks[xticks.length - 1] < step * 0.75) xticks.pop();

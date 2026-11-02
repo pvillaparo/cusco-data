@@ -1,6 +1,7 @@
 /* Cusco-stats — app styles.
    Colour roles are CSS custom properties; light and dark values swap in one place.
-   Series colours: reference categorical palette (validated, 6 slots, both modes).
+   Series colours: reference categorical palette (validated, 6 slots, both modes); light slots 3-5
+   re-stepped (aqua, lavender, magenta) to reach 3:1 on the chart surface and stay apart under protan/deutan.
    Map ramp: reference sequential blue. Brand accent: terracotta (UI chrome only). */
 
 :root {
@@ -19,8 +20,8 @@
   --focus: #2a78d6;
   --ref-line: #1d1c1a;       /* Cusco (department) line */
   --band: rgba(29, 28, 26, 0.12);
-  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a;
-  --series-4: #eda100; --series-5: #e87ba4; --series-6: #008300;
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #41a083;
+  --series-4: #a97ec0; --series-5: #b8338a; --series-6: #008300;
   --seq-1: #b7d3f6; --seq-2: #86b6ef; --seq-3: #5598e7; --seq-4: #2a78d6; --seq-5: #1c5cab; --seq-6: #104281;
   --nodata: #d6d4ce;
   --radius: 10px;
@@ -86,8 +87,6 @@ a:hover { text-decoration-thickness: 2px; }
 .site-nav { display: flex; gap: 4px; flex-wrap: wrap; }
 .nav-link { color: var(--text-secondary); text-decoration: none; padding: 6px 10px; border-radius: 6px; font-size: 14px; }
 .nav-link.is-active { color: var(--text-primary); background: var(--surface-2); font-weight: 600; }
-.nav-link.is-soon { color: var(--text-muted); cursor: default; }
-.nav-link.is-soon::after { content: attr(data-soon); font-size: 11px; margin-left: 4px; }
 .lang-switch, .segmented { display: inline-flex; border: 1px solid var(--control-border); border-radius: 8px; overflow: hidden; }
 .lang-switch button, .segmented button {
   border: 0; background: transparent; color: var(--text-secondary); padding: 6px 10px; font: inherit; font-size: 13px; cursor: pointer; min-height: 32px;

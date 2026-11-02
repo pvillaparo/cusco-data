@@ -31,7 +31,7 @@ The site is a Jekyll *academicpages* theme on GitHub Pages. Its "Miscellaneous" 
 | `data/series/<variable>.json` | Department, province and district values for that variable, **rows with `display = 1` only**, grouped by measure and place | 5–60 KB each |
 | `data/places.json` | UBIGEO, display name with accents, province, level, first year in the data, flags for districts created or split | ~15 KB |
 | `data/geo/districts.json`, `provinces.json` | Simplified boundaries (TopoJSON), with provinces dissolved from districts | ~150 KB |
-| `data/meta.json` | Data vintage (SIRTOD 22 Sep 2026), build date, and the link to the commit of `data_cusco` used | <1 KB |
+| `data/meta.json` | Data vintage (SIRTOD 22 Sep 2026), build date, and the link to the commit of `cusco-data` used | <1 KB |
 
 **Two inputs are still missing.**
 
@@ -62,7 +62,7 @@ A two-column layout on wide screens, which stacks on phones.
 
 ### 3.3 Methods and data
 
-A plain page for researchers. It covers the pipeline (SIRTOD → panels → harmonized → site), the display rules (coverage tests, display windows, excluded years and why), the population splice, the deflator and its open issues, the boundary changes, a suggested citation, links to the `data_cusco` repository and its READMEs, and an update log.
+A plain page for researchers. It covers the pipeline (SIRTOD → panels → harmonized → site), the display rules (coverage tests, display windows, excluded years and why), the population splice, the deflator and its open issues, the boundary changes, a suggested citation, links to the `cusco-data` repository and its READMEs, and an update log.
 
 ## 4. Display rules the app must enforce
 

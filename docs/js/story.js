@@ -2,20 +2,22 @@
 // scrolls into view, from the same data files as the explorer.
 /* global d3 */
 import { STORY, STORY_LINKS } from "./story-text.js";
-import { makeFormatter } from "./i18n.js";
+import { STRINGS, makeFormatter } from "./i18n.js";
 import { drawLineChart } from "./linechart.js";
 import { drawMap } from "./map.js";
 
-let ctx = null;            // set by initStory: { lang(), series(v), tooltip, GEO_D, GEO_P, PLACES, cssVar, openExplorer, label(v), measureLabel(v,m) }
+let ctx = null;            // set by initStory: { lang(), series(v), tooltip, geo (promise of the boundaries), PLACES, cssVar, openExplorer, label(v) }
+let firstLang = "en";      // the language buildStory was called with, until initStory
 const drawn = new Set();   // steps already drawn (re-drawn on language change or resize)
 let observer = null;
 
-const S = () => STORY[ctx.lang()];
+const S = () => STORY[ctx ? ctx.lang() : firstLang];
 const pts = (json, m, lv = "department", code = "08") =>
   ((json.measures[m] || {})[lv] || {})[code]?.map((p) => ({ year: p[0], value: p[1], n: p[2], N: p[3] })) || [];
 
-export function initStory(context) {
-  ctx = context;
+// The six sections with their text, before any data has loaded (the Explore buttons wait for initStory).
+export function buildStory(lang) {
+  firstLang = lang;
   const root = document.getElementById("story-steps");
   root.textContent = "";
   S().steps.forEach((_, i) => {
@@ -26,7 +28,7 @@ export function initStory(context) {
     sec.innerHTML = `
       <div class="story-text">
         <p class="story-num">${i + 1}</p>
-        <h3 class="story-title"></h3>
+        <h2 class="story-title"></h2>
         <p class="story-body"></p>
         <div class="story-links"></div>
       </div>
@@ -36,6 +38,14 @@ export function initStory(context) {
       </figure>`;
     root.append(sec);
   });
+  renderStoryText();
+}
+
+// Once the data have loaded: Explore buttons, and charts drawn as their step scrolls into view.
+export function initStory(context) {
+  ctx = context;
+  const root = document.getElementById("story-steps");
+  if (!root.querySelector(".story-step")) buildStory(ctx.lang());
   renderStoryText();
   observer = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) drawStep(+e.target.dataset.step);
@@ -59,6 +69,7 @@ export function renderStoryText() {
     sec.querySelector(".story-caption").textContent = st.chart;
     const links = sec.querySelector(".story-links");
     links.textContent = "";
+    if (!ctx) return;                                          // labels come from the dictionary
     for (const [v, m, real, places] of STORY_LINKS[i]) {
       const b = document.createElement("button");
       b.type = "button";
@@ -106,13 +117,13 @@ function legend(items) {
   }
   return lg;
 }
-function line(container, series, { digits = 1, unit = "", height = 220, band = null, compact = true } = {}) {
+function line(container, series, { digits = 1, unit = "", height = 220, band = null, compact = true, label = null } = {}) {
   const { f, tickFormat } = fmts(digits);
   const year = ctx.lang() === "es" ? "Año" : "Year";
   drawLineChart(container, {
     series, band, unit, fmt: f, tickFormat, tooltip: ctx.tooltip, compact, height,
     coverageText: (n, N) => `${n}/${N}`, intervalText: (a, b) => `${a}–${b}`, yearLabel: year,
-    ariaLabel: series.map((s) => s.name).join(", "),
+    ariaLabel: label || series.map((s) => s.name).join(", "),
     summary: (y) => `${y}: ` + series.map((s) => { const p = s.points.find((q) => q.year === y); return `${s.name} ${p ? f(p.value) : "–"}`; }).join("; "),
   });
 }
@@ -131,7 +142,8 @@ function multiples(box, panels) {
     grid.append(cell);
     return c;
   });
-  panels.forEach((p, i) => p.draw(charts[i]));
+  // name each chart after its panel title (the series names alone can be just "Cusco")
+  panels.forEach((p, i) => { p.draw(charts[i]); charts[i].querySelector("svg")?.setAttribute("aria-label", p.title); });
 }
 const ink = () => ctx.cssVar("--ref-line");
 const slot = (i) => ctx.cssVar(`--series-${i}`);
@@ -180,7 +192,7 @@ async function step1(box, st) {
 
 // ---------- 2. where it lands: map + ranked bars ----------
 async function step2(box, st) {
-  const tot = await ctx.series("canon_total");
+  const [tot, geo] = await Promise.all([ctx.series("canon_total"), ctx.geo.catch(() => null)]);
   const dist = tot.measures.per_capita_real.district;
   const avg = new Map();
   for (const [code, arr] of Object.entries(dist)) {
@@ -199,11 +211,13 @@ async function step2(box, st) {
   left.append(mapEl, legendEl, el("p", "story-hint", st.mapHint));
   const strings = { yes: "", no: "", noData: ctx.lang() === "es" ? "Sin datos" : "No data", mapNoDataLegend: ctx.lang() === "es" ? "Sin datos" : "No data",
     interval: () => "", tapAgain: ctx.lang() === "es" ? "toca de nuevo para abrir" : "tap again to open" };
-  drawMap(mapEl, legendEl, {
-    districts: ctx.GEO_D, provinces: ctx.GEO_P, values: avg, names, provinceOf, selected: new Map(), fmt: f,
-    tooltip: ctx.tooltip, strings, binary: false, intervals: null, ariaLabel: st.chart,
-    onToggle: (code) => ctx.openExplorer({ v: "canon_total", m: "per_capita", real: true, places: [code] }),
-  });
+  if (geo) {
+    drawMap(mapEl, legendEl, {
+      districts: geo.districts, provinces: geo.provinces, values: avg, names, provinceOf, selected: new Map(), fmt: f,
+      tooltip: ctx.tooltip, strings, binary: false, intervals: null, ariaLabel: st.chart,
+      onToggle: (code) => ctx.openExplorer({ v: "canon_total", m: "per_capita", real: true, places: [code] }),
+    });
+  } else mapEl.append(el("p", "empty", STRINGS[ctx.lang()].loadError));   // the bars below still show
   // ranked bars, top ten
   const top = [...avg].sort((a, b) => b[1] - a[1]).slice(0, 10);
   const median = d3.median([...avg.values()]);
@@ -287,7 +301,7 @@ async function step5(box, st) {
   right.append(legend([{ label: "Cusco", color: ink() }, { label: st.band, color: "var(--band)", box: true }]));
   const c = el("div", "chart"); right.append(c);
   line(c, [{ code: "pov", name: "Cusco", color: ink(), isRef: true, points: pts(pov, "pct") }],
-    { height: 250, band: { label: st.band, points: [...lo.keys()].filter((y) => hi.has(y)).map((y) => ({ year: y, lo: lo.get(y), hi: hi.get(y) })) } });
+    { height: 250, label: st.poverty, band: { label: st.band, points: [...lo.keys()].filter((y) => hi.has(y)).map((y) => ({ year: y, lo: lo.get(y), hi: hi.get(y) })) } });
 }
 
 // ---------- 6. the reach of the state ----------

@@ -55,6 +55,7 @@ export function drawMap(container, legendEl, opts) {
           strings, binary, intervals } = opts;
   container.textContent = "";
   legendEl.textContent = "";
+  const hid = "hatch-" + (container.id || Math.random().toString(36).slice(2));   // one pattern id per map
   const width = Math.max(260, container.clientWidth || 480);
   const height = Math.round(width * 1.12);
   const css = getComputedStyle(document.documentElement);
@@ -72,7 +73,7 @@ export function drawMap(container, legendEl, opts) {
     .attr("role", "img").attr("aria-label", ariaLabel);
 
   const defs = svg.append("defs");
-  const pat = defs.append("pattern").attr("id", "hatch").attr("width", 6).attr("height", 6)
+  const pat = defs.append("pattern").attr("id", hid).attr("width", 6).attr("height", 6)
     .attr("patternUnits", "userSpaceOnUse").attr("patternTransform", "rotate(45)");
   pat.append("rect").attr("width", 6).attr("height", 6).attr("fill", nodata);
   pat.append("line").attr("x1", 0).attr("y1", 0).attr("x2", 0).attr("y2", 6).attr("stroke", "var(--surface-1)").attr("stroke-width", 2);
@@ -93,7 +94,7 @@ export function drawMap(container, legendEl, opts) {
   svg.append("g").selectAll("path").data(districts.features).join("path")
     .attr("class", "district")
     .attr("d", path)
-    .attr("fill", (d) => { const v = values.get(d.properties.ubigeo); return v == null ? "url(#hatch)" : color(v); })
+    .attr("fill", (d) => { const v = values.get(d.properties.ubigeo); return v == null ? `url(#${hid})` : color(v); })
     .on("pointermove", (ev, d) => { if (ev.pointerType === "mouse") showTip(ev, d); })
     .on("pointerleave", (ev) => { if (ev.pointerType === "mouse") tooltip.hide(); })
     .on("pointerup", (ev, d) => {
