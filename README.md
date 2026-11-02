@@ -12,6 +12,10 @@ Compilation of datasets for the Cusco Region and its districts, and the data beh
 
 Each folder has its own README explaining sources, choices and caveats.
 
+## Licence
+
+The code is released under the **MIT licence** (`LICENSE`). The harmonized data, the panels, the site data and the text of the pages are released under **CC BY 4.0** (`LICENSE-DATA.md`): reuse them freely, with credit. The underlying statistics belong to INEI and the other agencies that produce them, and remain subject to their terms.
+
 ---
 
 Project by **Paola Villa Paro** ([pvillaparo.github.io](https://pvillaparo.github.io/)), built with assistance from Claude (Anthropic).

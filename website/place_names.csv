@@ -16,8 +16,8 @@ ubigeo,level,sirtod_name,name,province_code,review_note
 080101,district,CUSCO,Cusco,0801,
 080102,district,CCORCA,Ccorca,0801,
 080103,district,POROY,Poroy,0801,
-080104,district,SAN JERONIMO,San Jerónimo,0801,
-080105,district,SAN SEBASTIAN,San Sebastián,0801,
+080104,district,SAN JERONIMO,San Jeronimo,0801,
+080105,district,SAN SEBASTIAN,San Sebastian,0801,
 080106,district,SANTIAGO,Santiago,0801,
 080107,district,SAYLLA,Saylla,0801,
 080108,district,WANCHAQ,Wanchaq,0801,
@@ -26,8 +26,8 @@ ubigeo,level,sirtod_name,name,province_code,review_note
 080203,district,ACOS,Acos,0802,
 080204,district,MOSOC LLACTA,Mosoc Llacta,0802,
 080205,district,POMACANCHI,Pomacanchi,0802,
-080206,district,RONDOCAN,Rondocan,0802,Also written Rondocán
-080207,district,SANGARARA,Sangarará,0802,Also written Sangarara (INEI uses no accent)
+080206,district,RONDOCAN,Rondocan,0802,INEI spelling used (also written Rondocán)
+080207,district,SANGARARA,Sangarara,0802,INEI spelling used (also written Sangarará)
 080301,district,ANTA,Anta,0803,
 080302,district,ANCAHUASI,Ancahuasi,0803,
 080303,district,CACHIMAYO,Cachimayo,0803,
@@ -41,7 +41,7 @@ ubigeo,level,sirtod_name,name,province_code,review_note
 080402,district,COYA,Coya,0804,
 080403,district,LAMAY,Lamay,0804,
 080404,district,LARES,Lares,0804,
-080405,district,PISAC,Pisac,0804,Also written Písac
+080405,district,PISAC,Pisac,0804,INEI spelling used (also written Písac)
 080406,district,SAN SALVADOR,San Salvador,0804,
 080407,district,TARAY,Taray,0804,
 080408,district,YANATILE,Yanatile,0804,
@@ -52,16 +52,16 @@ ubigeo,level,sirtod_name,name,province_code,review_note
 080505,district,LAYO,Layo,0805,
 080506,district,PAMPAMARCA,Pampamarca,0805,
 080507,district,QUEHUE,Quehue,0805,
-080508,district,TUPAC AMARU,Túpac Amaru,0805,
+080508,district,TUPAC AMARU,Tupac Amaru,0805,
 080601,district,SICUANI,Sicuani,0806,
 080602,district,CHECACUPE,Checacupe,0806,
 080603,district,COMBAPATA,Combapata,0806,
-080604,district,MARANGANI,Marangani,0806,Also written Maranganí
+080604,district,MARANGANI,Marangani,0806,INEI spelling used (also written Maranganí)
 080605,district,PITUMARCA,Pitumarca,0806,
 080606,district,SAN PABLO,San Pablo,0806,
 080607,district,SAN PEDRO,San Pedro,0806,
 080608,district,TINTA,Tinta,0806,
-080701,district,SANTO TOMAS,Santo Tomás,0807,
+080701,district,SANTO TOMAS,Santo Tomas,0807,
 080702,district,CAPACMARCA,Capacmarca,0807,
 080703,district,CHAMACA,Chamaca,0807,
 080704,district,COLQUEMARCA,Colquemarca,0807,
@@ -78,7 +78,7 @@ ubigeo,level,sirtod_name,name,province_code,review_note
 080807,district,SUYCKUTAMBO,Suyckutambo,0808,
 080808,district,ALTO PICHIGUA,Alto Pichigua,0808,
 080901,district,SANTA ANA,Santa Ana,0809,
-080902,district,ECHARATE,Echarate,0809,Also written Echarati
+080902,district,ECHARATE,Echarate,0809,INEI spelling used (also written Echarati)
 080903,district,HUAYOPATA,Huayopata,0809,
 080904,district,MARANURA,Maranura,0809,
 080905,district,OCOBAMBA,Ocobamba,0809,
@@ -94,7 +94,7 @@ ubigeo,level,sirtod_name,name,province_code,review_note
 080915,district,KUMPIRUSHIATO,Kumpirushiato,0809,
 080916,district,CIELO PUNCO,Cielo Punco,0809,
 080917,district,MANITEA,Manitea,0809,
-080918,district,UNION ASHANINKA,Unión Asháninka,0809,
+080918,district,UNION ASHANINKA,Union Ashaninka,0809,
 081001,district,PARURO,Paruro,0810,
 081002,district,ACCHA,Accha,0810,
 081003,district,CCAPI,Ccapi,0810,

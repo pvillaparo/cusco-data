@@ -13,7 +13,7 @@ python website/export_site_data.py      # JSON for the app, into docs/data/
 
 | Path | What it is |
 |---|---|
-| `place_names.csv` | Display names with accents for the department, 13 provinces and 116 districts. `review_note` marks names with alternative spellings, to be checked by hand |
+| `place_names.csv` | Display names for the department, 13 provinces and 116 districts, in title case with **INEI's spelling** (accents only where SIRTOD writes them: La Convención, Quiñota, Kosñipata). `review_note` records common alternative spellings |
 | `build_boundaries.py` | Writes `docs/data/geo/districts.geojson` (116 districts) and `provinces.geojson` (13). Source: **INEI's district boundaries, IDE 2024 edition** (`Distritos_INEI_2025_IDE_2024`, served by UNDP), downloaded on 2026-11-01 at full resolution and cached in `inputs/inei_ide2024_cusco_districts.geojson`. The polygons are simplified locally to about 55 m with shared borders preserved (python package `topojson`), and province outlines are the union of their districts (`shapely`), so the two layers line up exactly. Laguna Langui-Layo (Canas) is outside every district and shows as a gap. `--refresh` re-downloads the layer; `--source pe-atlas` rebuilds the older interim version (112 districts). Rebuilding needs `pip install topojson shapely` |
 | `export_site_data.py` | Writes `docs/data/meta.json`, `dictionary.json`, `places.json` and `series/<variable>.json` |
 | `../docs/data/` | The output, about 3 MB in total (series about 2 MB, boundaries about 0.65 MB); each indicator is a separate file of at most ~140 KB, loaded only when needed |
