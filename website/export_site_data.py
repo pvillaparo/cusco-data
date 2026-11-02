@@ -19,6 +19,7 @@ harmonized data hides, and a missing year is a gap.
 
 import datetime as dt
 import json
+from decimal import ROUND_HALF_UP, Decimal
 import subprocess
 from pathlib import Path
 
@@ -38,11 +39,19 @@ LEVELS = ["department", "province", "district"]
 
 
 def digits(variable, measure):
+    """Export precision. Percentages and ratios keep 4 decimals so that the app's own
+    rounding to 1 decimal is the only rounding (no double rounding)."""
     if measure in ("total", "total_real", "count"):
         return 0
     if measure in ("per_capita", "per_capita_real", "per_1000"):
         return 1
-    return 2
+    return 4
+
+
+def round_half_up(v, nd):
+    """Round half away from zero, as the app's number formatting does (Python's round() is half-to-even)."""
+    q = Decimal(1).scaleb(-nd)
+    return float(Decimal(repr(float(v))).quantize(q, rounding=ROUND_HALF_UP))
 
 
 def write_json(path, obj):
@@ -138,7 +147,7 @@ def main():
                 for code, g in s.sort_values("year").groupby("geo_code"):
                     pts = []
                     for _, row in g.iterrows():
-                        val = round(float(row.value), nd)
+                        val = round_half_up(row.value, nd)
                         val = int(val) if nd == 0 else val
                         if lv == "district":
                             pts.append([int(row.year), val])

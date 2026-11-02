@@ -92,8 +92,10 @@ SRC = {
     "renamu": ("INEI, Registro Nacional de Municipalidades - RENAMU (vía SIRTOD)",
                "INEI National Registry of Municipalities - RENAMU (via SIRTOD)"),
     "census": ("INEI, Censos Nacionales 2007 y 2017 (vía SIRTOD)", "INEI 2007 and 2017 National Censuses (via SIRTOD)"),
-    "povmap": ("INEI, Mapa de pobreza provincial y distrital 2013 (vía SIRTOD)",
-               "INEI 2013 provincial and district poverty map (via SIRTOD)"),
+    "povmap": ("INEI: Encuesta Nacional de Hogares (ENAHO), intervalos por grupos de departamentos, para Cusco; "
+               "Mapa de pobreza provincial y distrital 2013, para los distritos (vía SIRTOD)",
+               "INEI: National Household Survey (ENAHO), intervals for groups of departments, for Cusco; "
+               "2013 provincial and district poverty map, for districts (via SIRTOD)"),
 }
 
 CAVEAT_CANON = ("Desde 2005: 2004 es un año de arranque con cobertura incompleta, y antes de la reforma de 2004 "
@@ -812,7 +814,8 @@ def main() -> None:
                         verdict = dept_verdict.get(v["id"], {})
                         ok_year = part.year.map(lambda y: verdict.get(y, np.nan))
                         young_only = part.other_missing == 0
-                        covered = (covered | ((ok_year == 1) & young_only)) & (ok_year != 0)
+                        agg_level = part.level != "district"      # districts are shown as published
+                        covered = (covered | ((ok_year == 1) & young_only)) & ((ok_year != 0) | ~agg_level)
                 part["display"] = (in_window & covered).astype(int)
                 rows.append(part)
                 if deflator is not None and is_money(v) and m in ("total", "per_capita"):

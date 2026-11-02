@@ -24,14 +24,14 @@
           <p class="brand-tag" data-i18n="tagline">The 116 districts of Cusco, Peru, in data</p>
         </div>
       </div>
-      <nav class="site-nav" aria-label="Sections">
-        <a href="#story" class="nav-link is-soon" aria-disabled="true" data-i18n="navStory">Story</a>
-        <a href="#explorer" class="nav-link is-active" aria-current="page" data-i18n="navExplorer">Explorer</a>
-        <a href="#methods" class="nav-link is-soon" aria-disabled="true" data-i18n="navMethods">Methods &amp; data</a>
+      <nav class="site-nav" aria-label="Sections" data-i18n-aria="ariaSections">
+        <span class="nav-link is-soon" aria-disabled="true" data-i18n="navStory">Story</span>
+        <a href="./" class="nav-link is-active" aria-current="page" data-i18n="navExplorer">Explorer</a>
+        <span class="nav-link is-soon" aria-disabled="true" data-i18n="navMethods">Methods &amp; data</span>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Language / Idioma">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria="ariaLanguage">
+        <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
       </div>
     </div>
   </header>
@@ -42,7 +42,7 @@
       <p data-i18n="explorerIntro">Choose an indicator, then add provinces or districts to compare them with Cusco as a whole. Click a district on the map to add it to the chart.</p>
     </section>
 
-    <section class="controls" aria-label="Filters">
+    <section class="controls" aria-label="Filters" data-i18n-aria="ariaFilters">
       <div class="control">
         <label for="sel-indicator" data-i18n="indicator">Indicator</label>
         <select id="sel-indicator"></select>
@@ -65,7 +65,7 @@
       </div>
     </section>
 
-    <div class="chips" id="chips" aria-label="Places in the chart"></div>
+    <div class="chips" id="chips" role="group" aria-label="Places in the chart" data-i18n-aria="ariaPlaces"></div>
     <p class="status" id="status" role="status" aria-live="polite"></p>
 
     <div class="grid">
@@ -76,7 +76,7 @@
             <p id="chart-subtitle" class="card-subtitle"></p>
           </div>
           <div class="card-tools">
-            <button type="button" class="btn-ghost" id="btn-table" aria-expanded="false" data-i18n="showTable">Show table</button>
+            <button type="button" class="btn-ghost" id="btn-table" aria-expanded="false" aria-controls="chart-table" data-i18n="showTable">Show table</button>
             <button type="button" class="btn-ghost" id="btn-csv" data-i18n="downloadCsv">Download CSV</button>
           </div>
         </header>
@@ -94,10 +94,14 @@
         </header>
         <div class="map-year" id="map-year-wrap">
           <label for="rng-year"><span data-i18n="year">Year</span> <output id="out-year"></output></label>
-          <input id="rng-year" type="range" min="2000" max="2025" step="1">
+          <input id="rng-year" type="range" min="0" max="0" step="1">
         </div>
         <div class="map" id="map"></div>
         <div class="map-legend" id="map-legend"></div>
+        <div class="card-tools map-tools">
+          <button type="button" class="btn-ghost" id="btn-map-table" aria-expanded="false" aria-controls="map-table" data-i18n="showMapData">Show map data</button>
+        </div>
+        <div class="table-wrap map-table" id="map-table" hidden></div>
       </section>
 
       <section class="card card-notes" aria-labelledby="notes-title">

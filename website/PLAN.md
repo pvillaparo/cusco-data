@@ -69,7 +69,7 @@ These rules come from the harmonized data. The app should never work around them
 1. **Only rows with `display = 1` are drawn.** Hidden years appear as gaps, and the notes say why ("2023 excluded: inconsistent source data").
 2. **Each measure is labelled with its unit on the axis**, and official department series carry a small "official series" tag. For school electricity, the ECE and poverty, the Cusco line does not come from the districts, and there is no province level.
 3. **Uncertainty is shown where the data have it.** Poverty appears as an interval band (department) or as a value with interval in the tooltip (districts). Wherever the visitor compares districts, a note says that overlapping intervals cannot be ranked.
-4. **Breaks and boundary changes are marked.** A small marker on the axis shows the 2016–2018 change of population source in per-capita series and the La Convención splits (2015–2017, 2021). For Echarate, Vilcabamba and Kimbiri, the census 2007 → 2017 view says the territories differ.
+4. **Breaks and boundary changes are explained.** Per-person series need no axis marker for 2016–2018, because the population series is spliced (the notes say so). Districts that lost or gained territory carry a note when selected, and the census view warns that Echarate, Vilcabamba and Kimbiri cover different territories in 2007 and 2017. Years hidden by the coverage rule are listed under "Years not shown".
 5. **Defaults favour comparability.** Per-person rather than totals, constant soles from 2010, and the full display window.
 
 ## 5. Language and accessibility

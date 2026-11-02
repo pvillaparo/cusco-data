@@ -6,31 +6,46 @@ export const STRINGS = {
     skip: "Skip to the explorer",
     tagline: "The 116 districts of Cusco, Peru, in data",
     navStory: "Story", navExplorer: "Explorer", navMethods: "Methods & data", soon: "(soon)",
+    ariaSections: "Sections", ariaFilters: "Filters", ariaPlaces: "Places in the chart", ariaLanguage: "Language",
+    langEn: "English", langEs: "Español",
     explorerTitle: "Explorer",
     explorerIntro: "Choose an indicator, then add provinces or districts to compare them with Cusco as a whole. Click a district on the map to add it to the chart.",
     indicator: "Indicator", measure: "Measure", units: "Soles", unitsReal: "Constant 2024", unitsNominal: "Current",
     addPlace: "Add a province or district", addPlaceHint: "Type a name…",
     showTable: "Show table", hideTable: "Hide table", downloadCsv: "Download CSV",
+    showMapData: "Show map data", hideMapData: "Hide map data",
     year: "Year", aboutIndicator: "About this indicator",
     footerBy: "A project by", footerAssist: ", built with assistance from Claude (Anthropic)", footerRepo: "Data and code on GitHub",
     cusco: "Cusco (department)", cuscoShort: "Cusco dept.", province: "province", district: "district",
+    provSuffix: "(province)", distSuffix: "(district)",
     remove: "Remove", noData: "No data", yes: "Yes", no: "No",
     officialTag: "official series",
     officialNote: "The Cusco line is SIRTOD's official department series; it is not built from the districts.",
-    noProvinceLevel: "This indicator has no province level.",
+    noProvinceLevel: (names) => `This indicator has no province level, so ${names} ${names.includes(",") ? "are" : "is"} not shown.`,
     noDistrictLevel: "This indicator is not available by district, so there is no map.",
+    noMapForMeasure: "Maps are shown for per-person values, rates and percentages. Totals mostly reflect how large a district is, so switch the measure to see a map.",
     tooMany: "Up to six places can be compared at once. Remove one to add another.",
+    linkTrimmed: "The link asked for more places than can be shown; the first six valid ones are displayed.",
     notFound: "No province or district matches that name.",
+    ambiguous: (name) => `${name} is both a province and a district; the district was added. Choose "${name} (province)" from the list for the province.`,
+    added: (name) => `${name} added.`,
+    removed: (name) => `${name} removed.`,
     notAvailablePlace: (name) => `${name} has no data for this measure.`,
     realFrom2010: "Constant-soles values start in 2010 (the Cusco price index before 2010 is not yet linked). Switch to current soles to see earlier years.",
+    yearReplaced: (asked, shown) => `${asked} is not shown for this indicator (see the notes); showing ${shown}.`,
     coverage: (n, N) => `${n} of ${N} districts with data`,
     yearsShown: (a, b) => (a === b ? `${a}` : `${a}–${b}`),
     mapTitle: (label) => `${label}, by district`,
     mapSubtitle: (y) => `Year ${y}. Click a district to add it to the chart.`,
     mapNoDataLegend: "No data",
+    tapAgain: "tap again to add",
     interval: (lo, hi) => `interval ${lo}–${hi}`,
-    band: "Confidence interval",
+    band: "Confidence interval (Cusco)",
     description: "What it measures", caveats: "Read with care", source: "Source", method: "How Cusco and provinces are computed",
+    gaps: "Years not shown",
+    coverageRule: "A year is left out (drawn as a gap) when the districts with data hold less than 95% of the population or of the money, or when the source data are unreliable that year (see Read with care).",
+    missingYears: (list) => `Cusco: ${list}.`,
+    splicedNote: "Per-person values divide by INEI's population projections, with the 2007- and 2017-Census series joined (spliced) so that 2016–2018 has no artificial jump.",
     placeNotes: "About the places selected",
     created: (name, y) => `${name} was created in ${y}; it has data from that year onwards.`,
     lostTerritory: (name) => `${name} lost territory when new districts were created (2015–2021), so its earlier values cover a larger area.`,
@@ -48,39 +63,56 @@ export const STRINGS = {
     },
     loading: "Loading…",
     loadError: "The data could not be loaded. Please reload the page.",
-    chartLabel: (label, places) => `Line chart of ${label} for ${places}.`,
-    mapLabel: (label, y) => `Map of ${label} by district, ${y}.`,
-    tableYear: "Year",
+    chartLabel: (label, places) => `Line chart of ${label} for ${places}. Focus the chart and use the arrow keys to read each year.`,
+    mapLabel: (label, y) => `Map of ${label} by district, ${y}. The values are listed with "Show map data".`,
+    tableCaption: (label, unit) => `${label} (${unit})`,
+    mapTableCaption: (label, y) => `${label}, by district, ${y}`,
+    tableYear: "Year", tableDistrict: "District", tableProvince: "Province", tableValue: "Value", tableInterval: "Interval",
   },
   es: {
     skip: "Ir al explorador",
     tagline: "Los 116 distritos de Cusco, Perú, en datos",
     navStory: "Historia", navExplorer: "Explorador", navMethods: "Métodos y datos", soon: "(pronto)",
+    ariaSections: "Secciones", ariaFilters: "Filtros", ariaPlaces: "Lugares en el gráfico", ariaLanguage: "Idioma",
+    langEn: "English", langEs: "Español",
     explorerTitle: "Explorador",
     explorerIntro: "Elige un indicador y añade provincias o distritos para compararlos con el departamento de Cusco. Haz clic en un distrito del mapa para añadirlo al gráfico.",
     indicator: "Indicador", measure: "Medida", units: "Soles", unitsReal: "Constantes de 2024", unitsNominal: "Corrientes",
     addPlace: "Añadir una provincia o distrito", addPlaceHint: "Escribe un nombre…",
     showTable: "Ver tabla", hideTable: "Ocultar tabla", downloadCsv: "Descargar CSV",
+    showMapData: "Ver datos del mapa", hideMapData: "Ocultar datos del mapa",
     year: "Año", aboutIndicator: "Sobre este indicador",
     footerBy: "Un proyecto de", footerAssist: ", elaborado con la asistencia de Claude (Anthropic)", footerRepo: "Datos y código en GitHub",
     cusco: "Cusco (departamento)", cuscoShort: "Cusco dpto.", province: "provincia", district: "distrito",
+    provSuffix: "(provincia)", distSuffix: "(distrito)",
     remove: "Quitar", noData: "Sin datos", yes: "Sí", no: "No",
     officialTag: "serie oficial",
     officialNote: "La línea de Cusco es la serie oficial departamental de SIRTOD; no se calcula a partir de los distritos.",
-    noProvinceLevel: "Este indicador no tiene nivel provincial.",
+    noProvinceLevel: (names) => `Este indicador no tiene nivel provincial, por lo que no se muestra${names.includes(",") ? "n" : ""} ${names}.`,
     noDistrictLevel: "Este indicador no está disponible por distrito, por eso no hay mapa.",
+    noMapForMeasure: "Los mapas se muestran para valores por habitante, tasas y porcentajes. Los totales reflejan sobre todo el tamaño del distrito; cambia la medida para ver un mapa.",
     tooMany: "Se pueden comparar hasta seis lugares a la vez. Quita uno para añadir otro.",
+    linkTrimmed: "El enlace pedía más lugares de los que se pueden mostrar; se muestran los seis primeros válidos.",
     notFound: "Ninguna provincia o distrito coincide con ese nombre.",
+    ambiguous: (name) => `${name} es provincia y distrito; se añadió el distrito. Elige "${name} (provincia)" en la lista para la provincia.`,
+    added: (name) => `Se añadió ${name}.`,
+    removed: (name) => `Se quitó ${name}.`,
     notAvailablePlace: (name) => `${name} no tiene datos para esta medida.`,
     realFrom2010: "Los valores en soles constantes empiezan en 2010 (el índice de precios de Cusco anterior a 2010 aún no está empalmado). Cambia a soles corrientes para ver los años anteriores.",
+    yearReplaced: (asked, shown) => `${asked} no se muestra para este indicador (ver las notas); se muestra ${shown}.`,
     coverage: (n, N) => `${n} de ${N} distritos con datos`,
-    yearsShown: (a, b) => (a === b ? `${a}` : `${a}-${b}`),
+    yearsShown: (a, b) => (a === b ? `${a}` : `${a}–${b}`),
     mapTitle: (label) => `${label}, por distrito`,
     mapSubtitle: (y) => `Año ${y}. Haz clic en un distrito para añadirlo al gráfico.`,
     mapNoDataLegend: "Sin datos",
-    interval: (lo, hi) => `intervalo ${lo}-${hi}`,
-    band: "Intervalo de confianza",
+    tapAgain: "toca de nuevo para añadir",
+    interval: (lo, hi) => `intervalo ${lo}–${hi}`,
+    band: "Intervalo de confianza (Cusco)",
     description: "Qué mide", caveats: "Leer con cuidado", source: "Fuente", method: "Cómo se calculan Cusco y las provincias",
+    gaps: "Años que no se muestran",
+    coverageRule: "Un año se omite (se dibuja como un vacío) cuando los distritos con datos reúnen menos del 95% de la población o del dinero, o cuando los datos de la fuente no son fiables ese año (ver Leer con cuidado).",
+    missingYears: (list) => `Cusco: ${list}.`,
+    splicedNote: "Los valores por habitante dividen entre las proyecciones de población de INEI, con las series basadas en los censos de 2007 y 2017 empalmadas para que 2016-2018 no tenga un salto artificial.",
     placeNotes: "Sobre los lugares seleccionados",
     created: (name, y) => `${name} se creó en ${y}; tiene datos desde ese año.`,
     lostTerritory: (name) => `${name} perdió territorio al crearse nuevos distritos (2015-2021), por lo que sus valores anteriores cubren un área mayor.`,
@@ -98,9 +130,11 @@ export const STRINGS = {
     },
     loading: "Cargando…",
     loadError: "No se pudieron cargar los datos. Vuelve a cargar la página.",
-    chartLabel: (label, places) => `Gráfico de líneas de ${label} para ${places}.`,
-    mapLabel: (label, y) => `Mapa de ${label} por distrito, ${y}.`,
-    tableYear: "Año",
+    chartLabel: (label, places) => `Gráfico de líneas de ${label} para ${places}. Enfoca el gráfico y usa las flechas para leer cada año.`,
+    mapLabel: (label, y) => `Mapa de ${label} por distrito, ${y}. Los valores se listan con "Ver datos del mapa".`,
+    tableCaption: (label, unit) => `${label} (${unit})`,
+    mapTableCaption: (label, y) => `${label}, por distrito, ${y}`,
+    tableYear: "Año", tableDistrict: "Distrito", tableProvince: "Provincia", tableValue: "Valor", tableInterval: "Intervalo",
   },
 };
 
@@ -108,26 +142,24 @@ export const STRINGS = {
 export function makeFormatter(lang) {
   const nf = (digits, fixed = false) => new Intl.NumberFormat("en-US", { maximumFractionDigits: digits, minimumFractionDigits: fixed ? digits : 0 });
   const toEs = (s) => s.replace(/,/g, " ").replace(/\./g, ",");
+  const loc = (s) => (lang === "es" ? toEs(s) : s);
   const fmt = (v, digits = 1) => {
     if (v === null || v === undefined || Number.isNaN(v)) return "–";
-    const s = nf(digits, true).format(v);      // values keep a fixed number of decimals
-    return lang === "es" ? toEs(s) : s;
+    return loc(nf(digits, true).format(v));        // values keep a fixed number of decimals
   };
-  const compact = (v) => {
-    if (v === null || v === undefined || Number.isNaN(v)) return "–";
-    const a = Math.abs(v);
-    let s;
-    if (a >= 1e9) s = nf(1).format(v / 1e9) + (lang === "es" ? " mil M" : "B");
-    else if (a >= 1e6) s = nf(1).format(v / 1e6) + "M";
-    else if (a >= 1e4) s = nf(0).format(v / 1e3) + "k";
-    else s = nf(a < 10 ? 1 : 0).format(v);
-    return lang === "es" ? toEs(s) : s;
+  // One tick format per axis, chosen from the axis maximum, so ticks never mix styles.
+  const tickFormat = (max) => {
+    const a = Math.abs(max);
+    const unitOf = a >= 1e9 ? [1e9, lang === "es" ? " mil M" : "B"]
+      : a >= 1e6 ? [1e6, lang === "es" ? " M" : "M"]
+      : a >= 1e4 ? [1e3, lang === "es" ? " mil" : "k"]
+      : [1, ""];
+    return (v) => {
+      if (v === 0) return "0";
+      const s = v / unitOf[0];
+      const d = Number.isInteger(Math.round(s * 10) / 10) ? 0 : 1;
+      return loc(nf(unitOf[0] === 1 && a < 10 ? 1 : d).format(s)) + unitOf[1];
+    };
   };
-  return { fmt, compact };
-}
-
-export function digitsFor(measure) {
-  if (["total", "total_real", "count"].includes(measure)) return 0;
-  if (["per_capita", "per_capita_real", "per_1000"].includes(measure)) return 1;
-  return 1;
+  return { fmt, tickFormat };
 }
