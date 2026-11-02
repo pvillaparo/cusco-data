@@ -19,6 +19,7 @@ harmonized data hides, and a missing year is a gap.
 
 import datetime as dt
 import json
+import re
 from decimal import ROUND_HALF_UP, Decimal
 import subprocess
 from pathlib import Path
@@ -58,6 +59,14 @@ def write_json(path, obj):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     return path.stat().st_size
+
+
+YEAR_RANGE = re.compile(r"(?<!\d)((?:19|20)\d{2})-((?:19|20)\d{2})(?!\d)")
+
+
+def dash(t):
+    """Year ranges with an en dash in displayed text (2016-2017 -> 2016–2017)."""
+    return YEAR_RANGE.sub("\\1\u2013\\2", t) if isinstance(t, str) else t
 
 
 def clean(v):
@@ -108,8 +117,8 @@ def main():
                 "id": v, "order": int(r.sort_order), "kind": r.kind,
                 "category": {"en": r.category_en, "es": r.category_es},
                 "label": {"en": r.label_en, "es": r.label_es},
-                "description": {"en": r.description_en, "es": r.description_es},
-                "source": {"en": r.source_en, "es": r.source_es},
+                "description": {"en": dash(r.description_en), "es": dash(r.description_es)},
+                "source": {"en": dash(r.source_en), "es": dash(r.source_es)},
                 "sirtod_codes": str(r.sirtod_codes),
                 "measures": [],
             }
@@ -120,7 +129,7 @@ def main():
             "id": r.measure,
             "label": {"en": r.measure_en, "es": r.measure_es},
             "unit": {"en": r.unit_en, "es": r.unit_es},
-            "caveat": {"en": clean(r.caveat_en) or "", "es": clean(r.caveat_es) or ""},
+            "caveat": {"en": dash(clean(r.caveat_en) or ""), "es": dash(clean(r.caveat_es) or "")},
             "aggregation": r.aggregation,
             "levels": [lv for lv in LEVELS if (sub.level == lv).any()],
             "years": [int(sub.year.min()), int(sub.year.max())],

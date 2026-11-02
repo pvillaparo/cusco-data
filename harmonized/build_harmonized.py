@@ -79,21 +79,22 @@ CAT = {
 MONEY_CATS = {"canon", "transfers", "budget", "finance"}
 
 SRC = {
-    "pop": ("INEI, proyecciones de población (SIRTOD 262234)",
-            "INEI population projections (SIRTOD 262234)"),
+    "pop": ("INEI, estimaciones y proyecciones de población (vía SIRTOD)",
+            "INEI population estimates and projections (via SIRTOD)"),
     "canon": ("MEF, transferencias de canon a municipalidades (vía INEI SIRTOD)",
               "MEF canon transfers to municipalities (via INEI SIRTOD)"),
     "foncomun": ("MEF, Dirección Nacional de Contabilidad Pública: FONCOMUN transferido (vía INEI SIRTOD)",
                  "MEF Public Accounting Directorate: FONCOMUN transfers (via INEI SIRTOD)"),
     "canon_siaf": ("MEF: transferencias de canon y ejecución presupuestal SIAF (vía INEI SIRTOD)",
                    "MEF canon transfers and SIAF budget execution (via INEI SIRTOD)"),
-    "siaf": ("MEF, Consulta Amigable / SIAF, gobiernos locales (vía INEI SIRTOD)",
-             "MEF SIAF budget execution, local governments (via INEI SIRTOD)"),
+    "siaf": ("MEF, Consulta Amigable (SIAF): presupuesto y ejecución de los gobiernos locales (vía INEI SIRTOD)",
+             "MEF, Consulta Amigable (SIAF): budgets and execution of local governments (via INEI SIRTOD)"),
     "munfin": ("MEF, Dirección Nacional de Contabilidad Pública: finanzas municipales (vía INEI SIRTOD)",
                "MEF Public Accounting Directorate: municipal finances (via INEI SIRTOD)"),
-    "escale": ("MINEDU, Censo Escolar - ESCALE (vía INEI SIRTOD)", "MINEDU School Census - ESCALE (via INEI SIRTOD)"),
-    "umc": ("MINEDU, Oficina de Medición de la Calidad de los Aprendizajes - ECE (vía INEI SIRTOD)",
-            "MINEDU Learning Assessment Office - ECE census test (via INEI SIRTOD)"),
+    "escale": ("MINEDU, Unidad de Estadística Educativa: Censo Escolar, ESCALE (vía INEI SIRTOD)",
+               "MINEDU, Educational Statistics Unit: School Census, ESCALE (via INEI SIRTOD)"),
+    "umc": ("MINEDU, Oficina de Medición de la Calidad de los Aprendizajes (UMC): Evaluación Censal de Estudiantes, ECE (vía INEI SIRTOD)",
+            "MINEDU, Learning Quality Measurement Office (UMC): national census test of pupils, ECE (via INEI SIRTOD)"),
     "reniec": ("RENIEC, registro de nacimientos (vía INEI SIRTOD)", "RENIEC birth registration (via INEI SIRTOD)"),
     "mtpe": ("MTPE, Planilla Electrónica (vía INEI SIRTOD)", "MTPE electronic payroll (via INEI SIRTOD)"),
     "sbs": ("SBS, colocaciones de cajas municipales (vía INEI SIRTOD)", "SBS municipal savings banks' lending (via INEI SIRTOD)"),
@@ -115,7 +116,7 @@ CAVEAT_SIAF = ("Desde 2008: en 2007 SIAF cubre solo 40 de 108 distritos.",
 CAVEAT_MUNFIN = ("Se excluye 2023: ese año los datos distritales son inconsistentes en casi todos los distritos "
                  "(gasto ~23% sobre el devengado de SIAF; ingresos ~2 veces el promedio de 2022 y 2024).",
                  "2023 is excluded: that year the district data are inconsistent in almost every district "
-                 "(spending ~23% above SIAF accrued spending; revenue about twice the 2022-2024 average).")
+                 "(spending ~23% above SIAF accrued spending; revenue about twice the average of 2022 and 2024).")
 MUNFIN_BAD_YEARS = [2023]
 
 # id, kind, source column(s), category, display window, per-capita?, map?, source, codes, labels, description, caveat
@@ -126,15 +127,19 @@ VARS = [
          desc=("Población proyectada por INEI, con las proyecciones basadas en los censos de 2007 y 2017 empalmadas en una sola serie.",
                "INEI projected population, with the projections based on the 2007 and 2017 censuses spliced into one series."),
          caveat=("Antes de 2016 (departamento) y 2018 (distritos) la serie antigua está reescalada al nivel de la nueva; "
-                 "2016-2017 interpolado a nivel distrital.",
+                 "2016-2017 interpolado a nivel distrital. Para los siete distritos de las familias de Echarate, Vilcabamba y Kimbiri "
+                 "(con Megantoni, Inkawasi, Villa Virgen y Villa Kintiarina) la población y los valores por habitante no se muestran en "
+                 "2015-2017, porque la población de esos años solo puede repartirse de forma aproximada entre ellos.",
                  "Before 2016 (department) and 2018 (districts) the old series is rescaled to the level of the new one; "
-                 "2016-2017 interpolated at district level.")),
+                 "2016-2017 interpolated at district level. For the seven districts of the Echarate, Vilcabamba and Kimbiri families "
+                 "(with Megantoni, Inkawasi, Villa Virgen and Villa Kintiarina) population and per-person values are not shown in "
+                 "2015-2017, because the population of those years can only be divided between them approximately.")),
     dict(id="canon_total", kind="sum", col="canon_total", cat="canon", years=(2005, 2024),
-         pc=True, map=True, src="canon", codes="407245",
+         pc=True, map=True, src="canon", codes="407245 (2021-2022 gaps of the four districts created in 2021 filled from 414080)",
          label=("Canon transferido a municipalidades", "Canon transferred to municipalities"),
          desc=("Suma de todos los tipos de canon transferidos a la municipalidad: minero, gasífero, hidroenergético, forestal, petrolero, pesquero y sobrecanon petrolero. "
                "El canon es la participación de los gobiernos locales y regionales en los ingresos y rentas que el Estado obtiene por la explotación de recursos naturales.",
-               "Sum of all canon types transferred to the municipality: mining, gas, hydropower, forestry, oil, fishing and oil sobrecanon. "
+               "Sum of all canon types transferred to the municipality: mining, gas, hydropower, forestry, oil, fishing and the oil surcharge (sobrecanon petrolero). "
                "Canon is the share of the revenue the State obtains from the exploitation of natural resources that is passed on to local and regional governments."),
          caveat=CAVEAT_CANON),
     dict(id="canon_gas", kind="sum", col="canon_gas", cat="canon", years=(2005, 2024),
@@ -168,7 +173,7 @@ VARS = [
                  "SIRTOD labels it in thousands of soles, but the values are already in soles.")),
     dict(id="siaf_pia", kind="sum", col="siaf_pia", cat="budget", years=(2008, LAST_YEAR),
          pc=True, map=False, src="siaf", codes="516869",
-         label=("Presupuesto Institucional de Apertura (PIA)", "Initial budget (PIA)"),
+         label=("Presupuesto Institucional de Apertura (PIA)", "Opening budget (PIA)"),
          desc=("Presupuesto aprobado al inicio del año.", "Budget approved at the start of the year."),
          caveat=CAVEAT_SIAF),
     dict(id="siaf_pim", kind="sum", col="siaf_pim", cat="budget", years=(2008, LAST_YEAR),
@@ -192,9 +197,9 @@ VARS = [
     dict(id="munfin_rev_total", kind="sum", col="munfin_rev_total", cat="finance", years=(2004, LAST_YEAR),
          pc=True, map=False, src="munfin", codes="122042", exclude=MUNFIN_BAD_YEARS,
          label=("Ingresos totales (incluye saldos de balance y endeudamiento)", "Total revenue (incl. carry-over balances and borrowing)"),
-         desc=("Ingreso total recaudado por la municipalidad: ingresos corrientes, de capital, transferencias y financiamiento "
+         desc=("Ingreso total registrado por la municipalidad (SIRTOD: ingreso total recaudado): ingresos corrientes, de capital, transferencias y financiamiento "
                "(este último incluye los saldos de balance de años anteriores y el endeudamiento).",
-               "Total revenue collected by the municipality: current revenue, capital revenue, transfers and financing "
+               "Total revenue recorded by the municipality: current revenue, capital revenue, transfers and financing "
                "(the latter includes balances carried over from previous years and borrowing)."),
          caveat=CAVEAT_MUNFIN),
     dict(id="munfin_rev_transfers", kind="sum", col="munfin_rev_transfers", cat="finance", years=(2004, LAST_YEAR),
@@ -270,12 +275,12 @@ VARS = [
          caveat=("Se refiere a los estudiantes evaluados: los de escuelas de educación intercultural bilingüe (EIB) y de escuelas muy pequeñas "
                  "no rinden esta prueba, por lo que las cifras describen sobre todo escuelas de enseñanza en castellano y pueden sobrestimar el "
                  "aprendizaje en zonas quechuahablantes. Los porcentajes distritales se basan en pocos alumnos en distritos pequeños (un 0% puede "
-                 "reflejar un grupo muy pequeño), y en 2008 solo hay datos para 31 distritos. El valor de Cusco es la serie oficial departamental; "
+                 "reflejar un grupo muy pequeño), y la cobertura distrital es incompleta en algunos años (69 de 108 distritos en 2007, 31 en 2008, 73 en 2009 y 81 en 2012). El valor de Cusco es la serie oficial departamental; "
                  "las provincias no se calculan porque SIRTOD no publica el número de evaluados.",
                  "Refers to pupils assessed: pupils in intercultural bilingual (EIB) schools and in very small schools do not take this test, "
                  "so the figures mainly describe Spanish-instruction schools and may overstate learning in Quechua-speaking areas. District "
-                 "percentages rest on few pupils in small districts (a 0% may reflect a very small group), and 2008 has data for only 31 "
-                 "districts. The Cusco value is the official department series; provinces are not built because SIRTOD does not publish the "
+                 "percentages rest on few pupils in small districts (a 0% may reflect a very small group), and district coverage is incomplete in "
+                 "some years (69 of 108 districts in 2007, 31 in 2008, 73 in 2009 and 81 in 2012). The Cusco value is the official department series; provinces are not built because SIRTOD does not publish the "
                  "number of pupils assessed.")),
     dict(id="ece_math", kind="official_rate", col="ece_math_satis", dept_code="420553", cat="education",
          years=(2007, 2016), district_years=(2007, 2016), map=True, src="umc", codes="420553",
@@ -285,19 +290,19 @@ VARS = [
          caveat=("Se refiere a los estudiantes evaluados: los de escuelas de educación intercultural bilingüe (EIB) y de escuelas muy pequeñas "
                  "no rinden esta prueba, por lo que las cifras describen sobre todo escuelas de enseñanza en castellano y pueden sobrestimar el "
                  "aprendizaje en zonas quechuahablantes. Los porcentajes distritales se basan en pocos alumnos en distritos pequeños (un 0% puede "
-                 "reflejar un grupo muy pequeño), y en 2008 solo hay datos para 31 distritos. El valor de Cusco es la serie oficial departamental; "
+                 "reflejar un grupo muy pequeño), y la cobertura distrital es incompleta en algunos años (69 de 108 distritos en 2007, 31 en 2008, 73 en 2009 y 81 en 2012). El valor de Cusco es la serie oficial departamental; "
                  "las provincias no se calculan porque SIRTOD no publica el número de evaluados.",
                  "Refers to pupils assessed: pupils in intercultural bilingual (EIB) schools and in very small schools do not take this test, "
                  "so the figures mainly describe Spanish-instruction schools and may overstate learning in Quechua-speaking areas. District "
-                 "percentages rest on few pupils in small districts (a 0% may reflect a very small group), and 2008 has data for only 31 "
-                 "districts. The Cusco value is the official department series; provinces are not built because SIRTOD does not publish the "
+                 "percentages rest on few pupils in small districts (a 0% may reflect a very small group), and district coverage is incomplete in "
+                 "some years (69 of 108 districts in 2007, 31 in 2008, 73 in 2009 and 81 in 2012). The Cusco value is the official department series; provinces are not built because SIRTOD does not publish the "
                  "number of pupils assessed.")),
     dict(id="late_birth_share", kind="ratio", num="vit_births_late", den="vit_births_reg", cat="registration",
          official_check={"num": "262226", "den": "262211"}, min_den=20, missing_is_zero=True,
          years=(2005, 2024), map=True, src="reniec", codes="262226 / 262211",
          label=("Nacimientos inscritos de forma tardía", "Births registered late"),
-         desc=("Porcentaje de los nacimientos inscritos que se registraron por vía extraordinaria (fuera del plazo legal). En agregados: tardíos / total inscritos.",
-               "Percentage of registered births that were registered late (after the legal deadline). Aggregates: late / all registered births."),
+         desc=("Porcentaje de los nacimientos inscritos que se registraron por vía extraordinaria, fuera del plazo legal (60 días en general; 90 días en comunidades nativas y municipalidades de centros poblados). En agregados: tardíos / total inscritos.",
+               "Percentage of registered births that were registered late, after the legal deadline (60 days in general; 90 days in native communities and populated-centre municipalities). Aggregates: late / all registered births."),
          caveat=("Se cuenta donde se inscribe el nacimiento, no donde vive la madre; cada vez más nacimientos se inscriben en hospitales de las capitales. "
                  "Las campañas nacionales de identidad influyen tanto como el desarrollo local. Los distritos con menos de 20 nacimientos inscritos en el año "
                  "no se muestran, y 2021-2022 no se muestran para Cusco ni sus provincias porque la suma distrital de inscripciones tardías no cuadra "
@@ -314,11 +319,11 @@ VARS = [
          desc=("Trabajadores del sector privado registrados en la Planilla Electrónica (empleo formal).",
                "Private-sector workers registered in the electronic payroll (formal employment)."),
          caveat=("Solo empleo formal, una parte pequeña del empleo en la mayoría de distritos. El lugar asignado parece ser el del empleador o el "
-                 "establecimiento declarado: Megantoni (Camisea) registra menos de 1 000 trabajadores, por lo que es probable que el empleo del gas se "
+                 "establecimiento declarado: Megantoni (Camisea) registra alrededor de 1 000 trabajadores o menos, por lo que es probable que el empleo del gas se "
                  "registre en otros distritos. Un distrito sin dato tiene cero trabajadores o una cifra no publicada; como la suma de los distritos "
                  "coincide con el total departamental, en provincias y en Cusco se cuentan como cero.",
                  "Formal jobs only, a small share of employment in most districts. The location assigned appears to be the employer's or the declared "
-                 "establishment's: Megantoni (Camisea) records fewer than 1,000 workers, so gas employment is probably recorded in other districts. "
+                 "establishment's: Megantoni (Camisea) records about 1,000 workers or fewer, so gas employment is probably recorded in other districts. "
                  "A district without data has zero workers or an unpublished figure; since the district sum matches the department total, they count "
                  "as zero in provinces and in Cusco.")),
     dict(id="fin_cmac_present", kind="binary", col="fin_cmac_present", measures=["count"], cat="economy",
@@ -353,9 +358,11 @@ VARS = [
                  "No data for 2005. Dated to the year before the survey, like computers (an assumption based on the RENAMU calendar).")),
     dict(id="sec_serenazgo", kind="binary", col="sec_serenazgo", measures=["pct"], cat="municipal",
          years=(2007, 2024), map=True, src="renamu", codes="122093",
+         unit=("Porcentaje de municipalidades (en el mapa distrital: 100 = brinda el servicio, 0 = no)",
+               "Percent of municipalities (on the district map: 100 = provides the service, 0 = does not)"),
          label=("Municipalidades que brindan serenazgo", "Municipalities providing serenazgo (local security patrols)"),
          desc=("Porcentaje de las municipalidades que respondieron RENAMU que brindan el servicio de serenazgo.",
-               "Percentage of municipalities answering RENAMU that provide the serenazgo service (municipal security patrols)."),
+               "Percentage of municipalities answering RENAMU that provide the serenazgo service (local security patrols)."),
          caveat=("Desde 2007: en 2004-2005 casi ninguna municipalidad registra el servicio (incluso Cusco, que lo brinda desde 2007), lo que sugiere "
                  "un cambio en la pregunta; 2006 no tiene datos. Es un servicio municipal, no una medida de delincuencia.",
                  "From 2007: in 2004-2005 almost no municipality records the service (not even Cusco, which provides it from 2007), which suggests a "
@@ -378,34 +385,44 @@ VARS = [
 CENSUS_CAVEAT = ("Instantánea censal. Los valores de provincia y de Cusco se calculan como cociente de las sumas de los conteos distritales. "
                  "Los distritos creados después de 2007 no tienen valor de 2007, y los creados en 2021 tampoco de 2017. Echarate, Vilcabamba y "
                  "Kimbiri perdieron territorio entre ambos censos (Megantoni, Inkawasi, Villa Virgen y Villa Kintiarina), por lo que sus valores "
-                 "de 2007 y 2017 no son comparables entre sí.",
+                 "de 2007 y 2017 no son comparables entre sí. En 2007, los totales provinciales y departamentales que publica SIRTOD para agua, "
+                 "electricidad, combustibles para cocinar, internet y celular son menores que la suma de sus distritos, sobre todo en las "
+                 "provincias de Cusco y Paruro, e implican hogares inverosímiles (5,8 y 6,4 personas por vivienda, frente a 3,7-4,3 en las "
+                 "demás provincias); por eso aquí se construyen a partir de los conteos distritales y difieren de las cifras departamentales "
+                 "de 2007 de SIRTOD hasta en 7 puntos.",
                  "Census snapshot. Province and Cusco values are ratios of the sums of the district counts. Districts created after 2007 have "
                  "no 2007 value, and those created in 2021 have no 2017 value either. Echarate, Vilcabamba and Kimbiri lost territory between "
-                 "the two censuses (to Megantoni, Inkawasi, Villa Virgen and Villa Kintiarina), so their 2007 and 2017 values are not comparable.")
+                 "the two censuses (to Megantoni, Inkawasi, Villa Virgen and Villa Kintiarina), so their 2007 and 2017 values are not comparable. "
+                 "For 2007, SIRTOD's own province and department totals for water, electricity, cooking fuels, internet and mobile phones are "
+                 "lower than the sum of their districts, mainly in the provinces of Cusco and Paruro, and imply implausible households "
+                 "(5.8 and 6.4 persons per dwelling, against 3.7-4.3 in the other provinces); the values here are therefore built from the "
+                 "district counts and differ from SIRTOD's 2007 department figures by up to 7 points.")
 # (id stem in the baseline columns, label es/en, description es/en, codes)
 CENSUS_VARS = [
     ("water_in", ("Viviendas con agua de red pública dentro de la vivienda", "Dwellings with piped water inside the dwelling"),
      ("Porcentaje de viviendas con ocupantes presentes que se abastecen de agua por red pública dentro de la vivienda.",
-      "Percentage of occupied dwellings supplied with piped water inside the dwelling."), "407209"),
+      "Percentage of private dwellings with occupants present supplied with piped water inside the dwelling."), "407209 / (407243 + 407244)"),
     ("sewer_in", ("Viviendas con desagüe de red pública dentro de la vivienda", "Dwellings with a sewer connection inside the dwelling"),
      ("Porcentaje de viviendas con ocupantes presentes conectadas a la red pública de desagüe dentro de la vivienda.",
-      "Percentage of occupied dwellings connected to the public sewer inside the dwelling."), "407217"),
+      "Percentage of private dwellings with occupants present connected to the public sewer inside the dwelling."), "407217 / (407243 + 407244)"),
     ("electric", ("Viviendas con alumbrado eléctrico de red pública", "Dwellings with electricity from the public grid"),
      ("Porcentaje de viviendas con ocupantes presentes con alumbrado eléctrico por red pública.",
-      "Percentage of occupied dwellings lit by electricity from the public grid."), "407243"),
+      "Percentage of private dwellings with occupants present lit by electricity from the public grid."), "407243 / (407243 + 407244)"),
     ("earth_floor", ("Viviendas con piso de tierra", "Dwellings with earth floors"),
      ("Porcentaje de viviendas con ocupantes presentes cuyo material predominante en el piso es tierra.",
-      "Percentage of occupied dwellings whose predominant floor material is earth."), "407201"),
+      "Percentage of private dwellings with occupants present whose predominant floor material is earth."), "407201 / (407243 + 407244)"),
     ("cook_biomass", ("Hogares que cocinan principalmente con leña o bosta", "Households cooking mainly with firewood or dung"),
      ("Porcentaje de hogares cuyo combustible principal para cocinar es leña o bosta (estiércol).",
-      "Percentage of households whose main cooking fuel is firewood or dung."), "407239 / 407240"),
+      "Percentage of households whose main cooking fuel is firewood or dung."), "(407239 + 407240) / (407235 to 407242)"),
     ("internet", ("Hogares con conexión a internet", "Households with an internet connection"),
-     ("Porcentaje de hogares con conexión a internet.", "Percentage of households with an internet connection."), "516775"),
+     ("Porcentaje de hogares con conexión a internet.", "Percentage of households with an internet connection."), "516775 / (407235 to 407242)"),
     ("mobile", ("Hogares con teléfono celular", "Households with a mobile phone"),
-     ("Porcentaje de hogares con al menos un teléfono celular.", "Percentage of households with at least one mobile phone."), "516777"),
+     ("Porcentaje de hogares con al menos un teléfono celular.", "Percentage of households with at least one mobile phone."), "516777 / (407235 to 407242)"),
     ("quechua", ("Población con el quechua como lengua materna", "Population with Quechua as mother tongue"),
-     ("Porcentaje de la población de 3 años a más cuya lengua materna es el quechua.",
-      "Percentage of the population aged 3 and over whose mother tongue is Quechua."), "516749 / 516750"),
+     ("Porcentaje de la población de 3 años a más que declara como lengua materna el castellano, el quechua, el aimara u otra lengua, "
+      "cuya lengua materna es el quechua.",
+      "Percentage of the population aged 3 and over reporting Spanish, Quechua, Aymara or another mother tongue whose mother tongue is Quechua."),
+     "516750 / (516749 + 516750 + 516751 + 516752)"),
 ]
 for stem, lab, desc, codes in CENSUS_VARS:
     VARS.append(dict(id=f"census_{stem}", kind="snapshot", cols={2007: f"c07_{stem}", 2017: f"c17_{stem}"},
@@ -416,12 +433,14 @@ VARS.append(dict(
     measures=["pct", "pct_lo", "pct_hi"], cat="poverty", years=(2007, LAST_YEAR), district_years=(2013, 2013),
     map=True, src="povmap", codes="427594",
     label=("Pobreza monetaria", "Monetary poverty"),
-    desc=("Porcentaje de la población en pobreza monetaria. INEI publica intervalos de confianza: se muestra el punto medio y los límites. "
+    desc=("Porcentaje de la población en pobreza monetaria. INEI publica intervalos de confianza: se muestran los límites y su punto medio, "
+          "que es el promedio de ambos límites calculado para el gráfico (no una estimación puntual del INEI). "
           "Para Cusco, el intervalo anual (ENAHO, 2007-2025) corresponde al grupo de departamentos con niveles de pobreza estadísticamente "
-          "semejantes al que pertenece Cusco. Para los distritos, el mapa de pobreza distrital de 2013.",
-          "Percentage of the population in monetary poverty. INEI publishes confidence intervals: the midpoint and the bounds are shown. "
+          "semejantes al que pertenece Cusco. Para los distritos, el mapa de pobreza distrital de 2013 (el mismo código 427594 a nivel distrital).",
+          "Percentage of the population in monetary poverty. INEI publishes confidence intervals: the bounds are shown with their midpoint, "
+          "the average of the two bounds computed for the chart (not an INEI point estimate). "
           "For Cusco, the annual interval (ENAHO, 2007-2025) is that of the group of departments with statistically similar poverty to which "
-          "Cusco belongs. For districts, the 2013 district poverty map."),
+          "Cusco belongs. For districts, the 2013 district poverty map (the same code 427594 at district level)."),
     caveat=("El intervalo de Cusco es el de su grupo de departamentos, no una estimación exclusiva de Cusco. El mapa distrital es de un solo año y "
             "sus intervalos son amplios: dos distritos cuyos intervalos se superponen no pueden ordenarse con seguridad. No hay nivel provincial. "
             "Inkawasi y Villa Virgen ya figuran en el mapa de 2013, aunque se crearon en 2015.",
@@ -472,7 +491,8 @@ def unit_for(v, m):
     if is_money(v):
         return MONEY_UNITS[m]
     if m in ("pct", "pct_lo", "pct_hi"):
-        return PCT_UNIT
+        # a yes/no service may carry its own unit, to explain the 0/100 district values
+        return v["unit"] if v["kind"] == "binary" and "unit" in v else PCT_UNIT
     if v["id"] == "pop":
         return ("Personas", "People")
     u = v["unit"]
