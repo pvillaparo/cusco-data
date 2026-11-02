@@ -20,14 +20,14 @@ export const STORY = {
       {
         title: "Where the money lands",
         chart: "Canon per person by district, average 2020–2024 (constant 2024 soles), and the ten largest recipients",
-        text: "The money is very unevenly spread. All ten districts with the most canon per person are in La Convención, the gas province, led by Megantoni, home of Camisea, with about S/ 44,000 per resident a year. The median district receives about S/ 1,300. Mining canon tells a different, smaller story, concentrated in the high-altitude districts of Espinar such as Ocoruro, Condoroma and Suyckutambo.",
+        text: "The money is very unevenly spread. All ten districts with the most canon per person are in La Convención, the gas province, led by Megantoni, home of Camisea, with about S/ 44,000 per resident a year (per INEI's population projection). The median district receives about S/ 1,300. Mining canon tells a different, smaller story, concentrated in the high-altitude districts of Espinar such as Ocoruro, Condoroma and Suyckutambo.",
         median: (v) => `District median: ${v}`,
         mapHint: "Click a district to open it in the explorer.",
       },
       {
         title: "Budgets that grow faster than spending",
         chart: "Modified budget (PIM) and accrued expenditure per person, 2010–2025 (constant 2024 soles), and the budget execution rate (%)",
-        text: "When canon booms, budgets jump: the modified budget rose from S/ 2,661 per person in 2010 to S/ 4,727 in 2013. Spending follows, but with a lag, so the share of the budget actually spent tends to fall in boom years (64% in 2011, 65% in 2023) and recover afterwards (88% in 2024). About seven soles in ten of municipal spending go to capital projects, a share that dipped mainly during the 2020 pandemic (56%).",
+        text: "When canon booms, budgets jump: the modified budget rose from S/ 2,661 per person in 2010 to S/ 4,727 in 2013. Spending follows, but with a lag: the share of the budget actually spent is lowest when budgets jump or have just jumped (64% in 2011, and 65% in 2023, the year after the 2022 jump) and highest when they shrink (87% in 2014, 88% in 2024). About seven soles in ten of municipal spending go to capital projects, a share that dipped mainly during the 2020 pandemic (56%).",
         pim: "Modified budget (PIM)", accrued: "Accrued expenditure", exec: "Budget execution rate (%)",
       },
       {
@@ -39,8 +39,8 @@ export const STORY = {
       {
         title: "Households between two censuses, and poverty",
         chart: "Cusco, 2007 and 2017 censuses (% of dwellings or households), and monetary poverty 2007–2025 with its confidence interval",
-        text: "Between the two censuses the share of dwellings with piped water inside rose from 61% to 80%, sewerage from 31% to 47%, and electricity from 64% to 82%. Cooking mainly with firewood or dung fell from 62% to 27% of households, while internet at home, still rare, rose from 2% to 15%. Monetary poverty in the group of departments that includes Cusco fell from about 57% in 2007 to about 24% in 2019, jumped to 33% in the pandemic year and was back near 21% by 2025.",
-        rows: { census_water_in: "Piped water inside", census_sewer_in: "Sewer connection inside", census_electric: "Grid electricity", census_cook_biomass: "Cooks mainly with firewood or dung", census_internet: "Internet at home" },
+        text: "Between the two censuses the share of dwellings with piped water inside rose from 61% to 80%, sewerage from 31% to 47%, and electricity from 64% to 82%. In 2007, 62% of households cooked mainly with firewood or dung; in 2017, at most 31% did (the 2017 census counts any use of these fuels, so the two figures are not strictly comparable). Internet at home, still rare, rose from 2% to 17%. Monetary poverty in the group of departments that includes Cusco fell from about 57% in 2007 to about 24% in 2019, jumped to 33% in the pandemic year and was back near 21% by 2025.",
+        rows: { census_water_in: "Piped water inside", census_sewer_in: "Sewer connection inside", census_electric: "Grid electricity", census_cook_biomass: "Cooks with firewood or dung (2017: any use)", census_internet: "Internet at home" },
         poverty: "Monetary poverty (%), group of departments including Cusco", band: "Confidence interval",
       },
       {
@@ -69,14 +69,14 @@ export const STORY = {
       {
         title: "Dónde cae el dinero",
         chart: "Canon por habitante por distrito, promedio 2020–2024 (soles constantes de 2024), y los diez mayores receptores",
-        text: "El dinero está muy desigualmente repartido. Los diez distritos con más canon por habitante están en La Convención, la provincia del gas, encabezados por Megantoni, sede de Camisea, con unos S/ 44 000 por habitante al año. El distrito mediano recibe unos S/ 1 300. El canon minero cuenta una historia distinta y más pequeña, concentrada en los distritos altoandinos de Espinar como Ocoruro, Condoroma y Suyckutambo.",
+        text: "El dinero está muy desigualmente repartido. Los diez distritos con más canon por habitante están en La Convención, la provincia del gas, encabezados por Megantoni, sede de Camisea, con unos S/ 44 000 por habitante al año (según la proyección de población del INEI). El distrito mediano recibe unos S/ 1 300. El canon minero cuenta una historia distinta y más pequeña, concentrada en los distritos altoandinos de Espinar como Ocoruro, Condoroma y Suyckutambo.",
         median: (v) => `Mediana distrital: ${v}`,
         mapHint: "Haz clic en un distrito para abrirlo en el explorador.",
       },
       {
         title: "Presupuestos que crecen más rápido que el gasto",
         chart: "Presupuesto Institucional Modificado (PIM) y gasto devengado por habitante, 2010–2025 (soles constantes de 2024), y el avance de ejecución presupuestal (%)",
-        text: "Cuando el canon crece, los presupuestos saltan: el PIM pasó de S/ 2 661 por habitante en 2010 a S/ 4 727 en 2013. El gasto lo sigue, pero con rezago, de modo que la parte del presupuesto que realmente se ejecuta tiende a caer en los años de bonanza (64% en 2011, 65% en 2023) y a recuperarse después (88% en 2024). Alrededor de siete de cada diez soles del gasto municipal se destinan a proyectos de inversión, una proporción que bajó sobre todo durante la pandemia de 2020 (56%).",
+        text: "Cuando el canon crece, los presupuestos saltan: el PIM pasó de S/ 2 661 por habitante en 2010 a S/ 4 727 en 2013. El gasto lo sigue, pero con rezago: la parte del presupuesto que realmente se ejecuta es menor cuando los presupuestos saltan o acaban de saltar (64% en 2011, y 65% en 2023, el año siguiente al salto de 2022) y mayor cuando se reducen (87% en 2014, 88% en 2024). Alrededor de siete de cada diez soles del gasto municipal se destinan a proyectos de inversión, una proporción que bajó sobre todo durante la pandemia de 2020 (56%).",
         pim: "Presupuesto Institucional Modificado (PIM)", accrued: "Gasto devengado", exec: "Avance de ejecución presupuestal (%)",
       },
       {
@@ -88,8 +88,8 @@ export const STORY = {
       {
         title: "Los hogares entre dos censos, y la pobreza",
         chart: "Cusco, censos de 2007 y 2017 (% de viviendas u hogares), y pobreza monetaria 2007–2025 con su intervalo de confianza",
-        text: "Entre ambos censos, las viviendas con agua de red pública en su interior pasaron de 61% a 80%; las conectadas al desagüe, de 31% a 47%, y las que tienen electricidad, de 64% a 82%. Los hogares que cocinan principalmente con leña o bosta bajaron de 62% a 27%, mientras que el internet en casa, todavía escaso, subió de 2% a 15%. La pobreza monetaria en el grupo de departamentos que incluye a Cusco bajó de alrededor de 57% en 2007 a cerca de 24% en 2019, saltó a 33% en el año de la pandemia y volvió a cerca de 21% en 2025.",
-        rows: { census_water_in: "Agua de red dentro de la vivienda", census_sewer_in: "Desagüe de red dentro de la vivienda", census_electric: "Electricidad de red pública", census_cook_biomass: "Cocina principalmente con leña o bosta", census_internet: "Internet en casa" },
+        text: "Entre ambos censos, las viviendas con agua de red pública en su interior pasaron de 61% a 80%; las conectadas al desagüe, de 31% a 47%, y las que tienen electricidad, de 64% a 82%. En 2007 el 62% de los hogares cocinaba principalmente con leña o bosta; en 2017, como máximo el 31% (el censo de 2017 cuenta cualquier uso de estos combustibles, así que las dos cifras no son estrictamente comparables). El internet en casa, todavía escaso, subió de 2% a 17%. La pobreza monetaria en el grupo de departamentos que incluye a Cusco bajó de alrededor de 57% en 2007 a cerca de 24% en 2019, saltó a 33% en el año de la pandemia y volvió a cerca de 21% en 2025.",
+        rows: { census_water_in: "Agua de red dentro de la vivienda", census_sewer_in: "Desagüe de red dentro de la vivienda", census_electric: "Electricidad de red pública", census_cook_biomass: "Cocina con leña o bosta (2017: cualquier uso)", census_internet: "Internet en casa" },
         poverty: "Pobreza monetaria (%), grupo de departamentos que incluye a Cusco", band: "Intervalo de confianza",
       },
       {

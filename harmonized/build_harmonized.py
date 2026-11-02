@@ -395,7 +395,9 @@ CENSUS_CAVEAT = ("Instantánea censal. Los valores de provincia y de Cusco se ca
                  "hogares no coinciden con la suma de sus distritos (a nivel departamental, agua y electricidad 14% por debajo, internet 27%, "
                  "celular 17% y el total de viviendas 9%), y con ellos las provincias de Cusco y Paruro tendrían 5,8 y 6,4 personas por "
                  "vivienda, frente a 3,7-4,3 en todas las provincias con los conteos distritales; por eso aquí se construyen a partir de los "
-                 "conteos distritales y difieren de los valores que implican los totales departamentales de SIRTOD hasta en 7 puntos.",
+                 "conteos distritales y difieren de los valores que implican los totales departamentales de SIRTOD hasta en 7 puntos. "
+                 "En 2017 la pregunta sobre el combustible para cocinar admite varios combustibles, por lo que la cocina con leña o bosta "
+                 "no es comparable entre ambos censos; en 2017, los indicadores de hogares usan como denominador el total de hogares de SIRTOD (516818).",
                  "Census snapshot. Province and Cusco values are ratios of the sums of the district counts. Districts created after 2007 have "
                  "no 2007 value, and those created in 2021 have no 2017 value either. Echarate, Vilcabamba and Kimbiri lost territory between "
                  "the two censuses (to Megantoni, Inkawasi, Villa Virgen and Villa Kintiarina), so their 2007 and 2017 values are not comparable. "
@@ -403,7 +405,9 @@ CENSUS_CAVEAT = ("Instantánea censal. Los valores de provincia y de Cusco se ca
                  "(at department level, water and electricity 14% short, internet 27%, mobile phones 17% and total dwellings 9%), and "
                  "with them the provinces of Cusco and Paruro would have 5.8 and 6.4 persons per dwelling, against 3.7-4.3 in every "
                  "province from the district counts; the values here are therefore built from the district counts and differ from those "
-                 "implied by SIRTOD's department totals by up to 7 points.")
+                 "implied by SIRTOD's department totals by up to 7 points. In 2017 the cooking-fuel question allows several fuels, so cooking "
+                 "with firewood or dung is not comparable between the two censuses; household items in 2017 use SIRTOD's total of households "
+                 "(516818) as denominator.")
 # (id stem in the baseline columns, label es/en, description es/en, codes)
 CENSUS_VARS = [
     ("water_in", ("Viviendas con agua de red pública dentro de la vivienda", "Dwellings with piped water inside the dwelling"),
@@ -418,13 +422,20 @@ CENSUS_VARS = [
     ("earth_floor", ("Viviendas con piso de tierra", "Dwellings with earth floors"),
      ("Porcentaje de viviendas con ocupantes presentes cuyo material predominante en el piso es tierra.",
       "Percentage of private dwellings with occupants present whose predominant floor material is earth."), "407201 / (407243 + 407244)"),
-    ("cook_biomass", ("Hogares que cocinan principalmente con leña o bosta", "Households cooking mainly with firewood or dung"),
-     ("Porcentaje de hogares cuyo combustible principal para cocinar es leña o bosta (estiércol).",
-      "Percentage of households whose main cooking fuel is firewood or dung."), "(407239 + 407240) / (407235–407242)"),
+    ("cook_biomass", ("Hogares que cocinan con leña o bosta", "Households cooking with firewood or dung"),
+     ("2007: porcentaje de hogares cuyo combustible principal para cocinar es leña o bosta (estiércol). "
+      "2017: porcentaje de hogares que usan leña o bosta para cocinar; el Censo 2017 permitía declarar varios combustibles por hogar "
+      "y un hogar que usa ambos se cuenta dos veces, por lo que la cifra de 2017 es una cota superior y no es comparable con la de 2007.",
+      "2007: percentage of households whose main cooking fuel is firewood or dung. "
+      "2017: percentage of households that use firewood or dung for cooking; the 2017 Census allowed several fuels per household "
+      "and a household using both is counted twice, so the 2017 figure is an upper bound and is not comparable with 2007."),
+     "2007: (407239 + 407240) / (407235–407242); 2017: (407239 + 407240) / 516818"),
     ("internet", ("Hogares con conexión a internet", "Households with an internet connection"),
-     ("Porcentaje de hogares con conexión a internet.", "Percentage of households with an internet connection."), "516775 / (407235–407242)"),
+     ("Porcentaje de hogares con conexión a internet.", "Percentage of households with an internet connection."),
+     "2007: 516775 / (407235–407242); 2017: 516775 / 516818"),
     ("mobile", ("Hogares con teléfono celular", "Households with a mobile phone"),
-     ("Porcentaje de hogares con al menos un teléfono celular.", "Percentage of households with at least one mobile phone."), "516777 / (407235–407242)"),
+     ("Porcentaje de hogares con al menos un teléfono celular.", "Percentage of households with at least one mobile phone."),
+     "2007: 516777 / (407235–407242); 2017: 516777 / 516818"),
     ("quechua", ("Población con el quechua como lengua materna", "Population with Quechua as mother tongue"),
      ("Porcentaje de la población de 3 años a más que declara como lengua materna el castellano, el quechua, el aimara u otra lengua, "
       "cuya lengua materna es el quechua.",

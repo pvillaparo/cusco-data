@@ -147552,749 +147552,749 @@ district,081306,OLLANTAYTAMBO,URUBAMBA,2017,census_earth_floor,pct,68.6611,1,1,1
 district,081307,YUCAY,URUBAMBA,2007,census_earth_floor,pct,50.4644,1,1,1.0,1.0,1
 district,081307,YUCAY,URUBAMBA,2017,census_earth_floor,pct,27.8581,1,1,1.0,1.0,1
 department,08,CUSCO,,2007,census_cook_biomass,pct,61.6605,108,108,1.0,1.0,1
-department,08,CUSCO,,2017,census_cook_biomass,pct,27.0566,112,112,1.0,1.0,1
+department,08,CUSCO,,2017,census_cook_biomass,pct,31.0918,112,112,1.0,1.0,1
 province,0801,CUSCO,CUSCO,2007,census_cook_biomass,pct,16.2332,8,8,1.0,1.0,1
-province,0801,CUSCO,CUSCO,2017,census_cook_biomass,pct,4.039,8,8,1.0,1.0,1
+province,0801,CUSCO,CUSCO,2017,census_cook_biomass,pct,4.5179,8,8,1.0,1.0,1
 province,0802,ACOMAYO,ACOMAYO,2007,census_cook_biomass,pct,93.9632,7,7,1.0,1.0,1
-province,0802,ACOMAYO,ACOMAYO,2017,census_cook_biomass,pct,37.8721,7,7,1.0,1.0,1
+province,0802,ACOMAYO,ACOMAYO,2017,census_cook_biomass,pct,43.3823,7,7,1.0,1.0,1
 province,0803,ANTA,ANTA,2007,census_cook_biomass,pct,91.1923,9,9,1.0,1.0,1
-province,0803,ANTA,ANTA,2017,census_cook_biomass,pct,37.5738,9,9,1.0,1.0,1
+province,0803,ANTA,ANTA,2017,census_cook_biomass,pct,47.1164,9,9,1.0,1.0,1
 province,0804,CALCA,CALCA,2007,census_cook_biomass,pct,82.4541,8,8,1.0,1.0,1
-province,0804,CALCA,CALCA,2017,census_cook_biomass,pct,41.7359,8,8,1.0,1.0,1
+province,0804,CALCA,CALCA,2017,census_cook_biomass,pct,47.1536,8,8,1.0,1.0,1
 province,0805,CANAS,CANAS,2007,census_cook_biomass,pct,93.6753,8,8,1.0,1.0,1
-province,0805,CANAS,CANAS,2017,census_cook_biomass,pct,66.6576,8,8,1.0,1.0,1
+province,0805,CANAS,CANAS,2017,census_cook_biomass,pct,68.844,8,8,1.0,1.0,1
 province,0806,CANCHIS,CANCHIS,2007,census_cook_biomass,pct,69.9165,8,8,1.0,1.0,1
-province,0806,CANCHIS,CANCHIS,2017,census_cook_biomass,pct,22.4088,8,8,1.0,1.0,1
+province,0806,CANCHIS,CANCHIS,2017,census_cook_biomass,pct,26.2448,8,8,1.0,1.0,1
 province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2007,census_cook_biomass,pct,92.6341,8,8,1.0,1.0,1
-province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2017,census_cook_biomass,pct,51.7786,8,8,1.0,1.0,1
+province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2017,census_cook_biomass,pct,53.7944,8,8,1.0,1.0,1
 province,0808,ESPINAR,ESPINAR,2007,census_cook_biomass,pct,75.5479,8,8,1.0,1.0,1
-province,0808,ESPINAR,ESPINAR,2017,census_cook_biomass,pct,36.0114,8,8,1.0,1.0,1
+province,0808,ESPINAR,ESPINAR,2017,census_cook_biomass,pct,41.4085,8,8,1.0,1.0,1
 province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2007,census_cook_biomass,pct,76.949,10,10,1.0,1.0,1
-province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2017,census_cook_biomass,pct,38.0689,14,14,1.0,1.0,1
+province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2017,census_cook_biomass,pct,46.9126,14,14,1.0,1.0,1
 province,0810,PARURO,PARURO,2007,census_cook_biomass,pct,96.5583,9,9,1.0,1.0,1
-province,0810,PARURO,PARURO,2017,census_cook_biomass,pct,51.6783,9,9,1.0,1.0,1
+province,0810,PARURO,PARURO,2017,census_cook_biomass,pct,61.5854,9,9,1.0,1.0,1
 province,0811,PAUCARTAMBO,PAUCARTAMBO,2007,census_cook_biomass,pct,93.2901,6,6,1.0,1.0,1
-province,0811,PAUCARTAMBO,PAUCARTAMBO,2017,census_cook_biomass,pct,55.175,6,6,1.0,1.0,1
+province,0811,PAUCARTAMBO,PAUCARTAMBO,2017,census_cook_biomass,pct,60.5548,6,6,1.0,1.0,1
 province,0812,QUISPICANCHI,QUISPICANCHI,2007,census_cook_biomass,pct,86.2167,12,12,1.0,1.0,1
-province,0812,QUISPICANCHI,QUISPICANCHI,2017,census_cook_biomass,pct,38.5886,12,12,1.0,1.0,1
+province,0812,QUISPICANCHI,QUISPICANCHI,2017,census_cook_biomass,pct,46.4195,12,12,1.0,1.0,1
 province,0813,URUBAMBA,URUBAMBA,2007,census_cook_biomass,pct,71.4894,7,7,1.0,1.0,1
-province,0813,URUBAMBA,URUBAMBA,2017,census_cook_biomass,pct,30.6231,7,7,1.0,1.0,1
+province,0813,URUBAMBA,URUBAMBA,2017,census_cook_biomass,pct,36.6873,7,7,1.0,1.0,1
 district,080101,CUSCO,CUSCO,2007,census_cook_biomass,pct,13.3293,1,1,1.0,1.0,1
-district,080101,CUSCO,CUSCO,2017,census_cook_biomass,pct,3.4861,1,1,1.0,1.0,1
+district,080101,CUSCO,CUSCO,2017,census_cook_biomass,pct,3.9324,1,1,1.0,1.0,1
 district,080102,CCORCA,CUSCO,2007,census_cook_biomass,pct,97.9532,1,1,1.0,1.0,1
-district,080102,CCORCA,CUSCO,2017,census_cook_biomass,pct,90.027,1,1,1.0,1.0,1
+district,080102,CCORCA,CUSCO,2017,census_cook_biomass,pct,90.3924,1,1,1.0,1.0,1
 district,080103,POROY,CUSCO,2007,census_cook_biomass,pct,70.6306,1,1,1.0,1.0,1
-district,080103,POROY,CUSCO,2017,census_cook_biomass,pct,17.1706,1,1,1.0,1.0,1
+district,080103,POROY,CUSCO,2017,census_cook_biomass,pct,23.5207,1,1,1.0,1.0,1
 district,080104,SAN JERONIMO,CUSCO,2007,census_cook_biomass,pct,29.0231,1,1,1.0,1.0,1
-district,080104,SAN JERONIMO,CUSCO,2017,census_cook_biomass,pct,5.0401,1,1,1.0,1.0,1
+district,080104,SAN JERONIMO,CUSCO,2017,census_cook_biomass,pct,5.9783,1,1,1.0,1.0,1
 district,080105,SAN SEBASTIAN,CUSCO,2007,census_cook_biomass,pct,17.7145,1,1,1.0,1.0,1
-district,080105,SAN SEBASTIAN,CUSCO,2017,census_cook_biomass,pct,3.6367,1,1,1.0,1.0,1
+district,080105,SAN SEBASTIAN,CUSCO,2017,census_cook_biomass,pct,4.0399,1,1,1.0,1.0,1
 district,080106,SANTIAGO,CUSCO,2007,census_cook_biomass,pct,17.8189,1,1,1.0,1.0,1
-district,080106,SANTIAGO,CUSCO,2017,census_cook_biomass,pct,3.5679,1,1,1.0,1.0,1
+district,080106,SANTIAGO,CUSCO,2017,census_cook_biomass,pct,3.9945,1,1,1.0,1.0,1
 district,080107,SAYLLA,CUSCO,2007,census_cook_biomass,pct,54.8991,1,1,1.0,1.0,1
-district,080107,SAYLLA,CUSCO,2017,census_cook_biomass,pct,19.3855,1,1,1.0,1.0,1
+district,080107,SAYLLA,CUSCO,2017,census_cook_biomass,pct,23.4618,1,1,1.0,1.0,1
 district,080108,WANCHAQ,CUSCO,2007,census_cook_biomass,pct,1.5656,1,1,1.0,1.0,1
-district,080108,WANCHAQ,CUSCO,2017,census_cook_biomass,pct,0.0757,1,1,1.0,1.0,1
+district,080108,WANCHAQ,CUSCO,2017,census_cook_biomass,pct,0.0791,1,1,1.0,1.0,1
 district,080201,ACOMAYO,ACOMAYO,2007,census_cook_biomass,pct,91.2057,1,1,1.0,1.0,1
-district,080201,ACOMAYO,ACOMAYO,2017,census_cook_biomass,pct,39.7306,1,1,1.0,1.0,1
+district,080201,ACOMAYO,ACOMAYO,2017,census_cook_biomass,pct,45.701,1,1,1.0,1.0,1
 district,080202,ACOPIA,ACOMAYO,2007,census_cook_biomass,pct,95.2055,1,1,1.0,1.0,1
-district,080202,ACOPIA,ACOMAYO,2017,census_cook_biomass,pct,38.0519,1,1,1.0,1.0,1
+district,080202,ACOPIA,ACOMAYO,2017,census_cook_biomass,pct,36.2176,1,1,1.0,1.0,1
 district,080203,ACOS,ACOMAYO,2007,census_cook_biomass,pct,97.9566,1,1,1.0,1.0,1
-district,080203,ACOS,ACOMAYO,2017,census_cook_biomass,pct,43.2609,1,1,1.0,1.0,1
+district,080203,ACOS,ACOMAYO,2017,census_cook_biomass,pct,55.5091,1,1,1.0,1.0,1
 district,080204,MOSOC LLACTA,ACOMAYO,2007,census_cook_biomass,pct,95.8984,1,1,1.0,1.0,1
-district,080204,MOSOC LLACTA,ACOMAYO,2017,census_cook_biomass,pct,85.8974,1,1,1.0,1.0,1
+district,080204,MOSOC LLACTA,ACOMAYO,2017,census_cook_biomass,pct,45.1685,1,1,1.0,1.0,1
 district,080205,POMACANCHI,ACOMAYO,2007,census_cook_biomass,pct,93.3333,1,1,1.0,1.0,1
-district,080205,POMACANCHI,ACOMAYO,2017,census_cook_biomass,pct,33.9794,1,1,1.0,1.0,1
+district,080205,POMACANCHI,ACOMAYO,2017,census_cook_biomass,pct,40.3855,1,1,1.0,1.0,1
 district,080206,RONDOCAN,ACOMAYO,2007,census_cook_biomass,pct,98.0233,1,1,1.0,1.0,1
-district,080206,RONDOCAN,ACOMAYO,2017,census_cook_biomass,pct,44.5946,1,1,1.0,1.0,1
+district,080206,RONDOCAN,ACOMAYO,2017,census_cook_biomass,pct,56.1518,1,1,1.0,1.0,1
 district,080207,SANGARARA,ACOMAYO,2007,census_cook_biomass,pct,90.9506,1,1,1.0,1.0,1
-district,080207,SANGARARA,ACOMAYO,2017,census_cook_biomass,pct,25.7517,1,1,1.0,1.0,1
+district,080207,SANGARARA,ACOMAYO,2017,census_cook_biomass,pct,33.3333,1,1,1.0,1.0,1
 district,080301,ANTA,ANTA,2007,census_cook_biomass,pct,84.9963,1,1,1.0,1.0,1
-district,080301,ANTA,ANTA,2017,census_cook_biomass,pct,28.2236,1,1,1.0,1.0,1
+district,080301,ANTA,ANTA,2017,census_cook_biomass,pct,35.1122,1,1,1.0,1.0,1
 district,080302,ANCAHUASI,ANTA,2007,census_cook_biomass,pct,97.5316,1,1,1.0,1.0,1
-district,080302,ANCAHUASI,ANTA,2017,census_cook_biomass,pct,54.6102,1,1,1.0,1.0,1
+district,080302,ANCAHUASI,ANTA,2017,census_cook_biomass,pct,67.8466,1,1,1.0,1.0,1
 district,080303,CACHIMAYO,ANTA,2007,census_cook_biomass,pct,77.1484,1,1,1.0,1.0,1
-district,080303,CACHIMAYO,ANTA,2017,census_cook_biomass,pct,26.4312,1,1,1.0,1.0,1
+district,080303,CACHIMAYO,ANTA,2017,census_cook_biomass,pct,32.829,1,1,1.0,1.0,1
 district,080304,CHINCHAYPUJIO,ANTA,2007,census_cook_biomass,pct,97.9691,1,1,1.0,1.0,1
-district,080304,CHINCHAYPUJIO,ANTA,2017,census_cook_biomass,pct,48.1668,1,1,1.0,1.0,1
+district,080304,CHINCHAYPUJIO,ANTA,2017,census_cook_biomass,pct,52.2621,1,1,1.0,1.0,1
 district,080305,HUAROCONDO,ANTA,2007,census_cook_biomass,pct,96.3036,1,1,1.0,1.0,1
-district,080305,HUAROCONDO,ANTA,2017,census_cook_biomass,pct,47.7671,1,1,1.0,1.0,1
+district,080305,HUAROCONDO,ANTA,2017,census_cook_biomass,pct,59.2567,1,1,1.0,1.0,1
 district,080306,LIMATAMBO,ANTA,2007,census_cook_biomass,pct,93.8776,1,1,1.0,1.0,1
-district,080306,LIMATAMBO,ANTA,2017,census_cook_biomass,pct,45.495,1,1,1.0,1.0,1
+district,080306,LIMATAMBO,ANTA,2017,census_cook_biomass,pct,58.528,1,1,1.0,1.0,1
 district,080307,MOLLEPATA,ANTA,2007,census_cook_biomass,pct,90.1895,1,1,1.0,1.0,1
-district,080307,MOLLEPATA,ANTA,2017,census_cook_biomass,pct,32.7858,1,1,1.0,1.0,1
+district,080307,MOLLEPATA,ANTA,2017,census_cook_biomass,pct,44.9343,1,1,1.0,1.0,1
 district,080308,PUCYURA,ANTA,2007,census_cook_biomass,pct,88.2966,1,1,1.0,1.0,1
-district,080308,PUCYURA,ANTA,2017,census_cook_biomass,pct,37.0079,1,1,1.0,1.0,1
+district,080308,PUCYURA,ANTA,2017,census_cook_biomass,pct,48.7047,1,1,1.0,1.0,1
 district,080309,ZURITE,ANTA,2007,census_cook_biomass,pct,94.2516,1,1,1.0,1.0,1
-district,080309,ZURITE,ANTA,2017,census_cook_biomass,pct,30.3665,1,1,1.0,1.0,1
+district,080309,ZURITE,ANTA,2017,census_cook_biomass,pct,40.6,1,1,1.0,1.0,1
 district,080401,CALCA,CALCA,2007,census_cook_biomass,pct,66.569,1,1,1.0,1.0,1
-district,080401,CALCA,CALCA,2017,census_cook_biomass,pct,25.7233,1,1,1.0,1.0,1
+district,080401,CALCA,CALCA,2017,census_cook_biomass,pct,28.569,1,1,1.0,1.0,1
 district,080402,COYA,CALCA,2007,census_cook_biomass,pct,93.2866,1,1,1.0,1.0,1
-district,080402,COYA,CALCA,2017,census_cook_biomass,pct,41.6102,1,1,1.0,1.0,1
+district,080402,COYA,CALCA,2017,census_cook_biomass,pct,50.7339,1,1,1.0,1.0,1
 district,080403,LAMAY,CALCA,2007,census_cook_biomass,pct,91.6667,1,1,1.0,1.0,1
-district,080403,LAMAY,CALCA,2017,census_cook_biomass,pct,52.349,1,1,1.0,1.0,1
+district,080403,LAMAY,CALCA,2017,census_cook_biomass,pct,57.8557,1,1,1.0,1.0,1
 district,080404,LARES,CALCA,2007,census_cook_biomass,pct,96.6111,1,1,1.0,1.0,1
-district,080404,LARES,CALCA,2017,census_cook_biomass,pct,38.6182,1,1,1.0,1.0,1
+district,080404,LARES,CALCA,2017,census_cook_biomass,pct,47.1097,1,1,1.0,1.0,1
 district,080405,PISAC,CALCA,2007,census_cook_biomass,pct,73.8397,1,1,1.0,1.0,1
-district,080405,PISAC,CALCA,2017,census_cook_biomass,pct,49.4466,1,1,1.0,1.0,1
+district,080405,PISAC,CALCA,2017,census_cook_biomass,pct,47.5618,1,1,1.0,1.0,1
 district,080406,SAN SALVADOR,CALCA,2007,census_cook_biomass,pct,93.5659,1,1,1.0,1.0,1
-district,080406,SAN SALVADOR,CALCA,2017,census_cook_biomass,pct,29.0446,1,1,1.0,1.0,1
+district,080406,SAN SALVADOR,CALCA,2017,census_cook_biomass,pct,40.0397,1,1,1.0,1.0,1
 district,080407,TARAY,CALCA,2007,census_cook_biomass,pct,93.9713,1,1,1.0,1.0,1
-district,080407,TARAY,CALCA,2017,census_cook_biomass,pct,75.8594,1,1,1.0,1.0,1
+district,080407,TARAY,CALCA,2017,census_cook_biomass,pct,79.3301,1,1,1.0,1.0,1
 district,080408,YANATILE,CALCA,2007,census_cook_biomass,pct,89.4462,1,1,1.0,1.0,1
-district,080408,YANATILE,CALCA,2017,census_cook_biomass,pct,58.0553,1,1,1.0,1.0,1
+district,080408,YANATILE,CALCA,2017,census_cook_biomass,pct,67.5738,1,1,1.0,1.0,1
 district,080501,YANAOCA,CANAS,2007,census_cook_biomass,pct,86.9599,1,1,1.0,1.0,1
-district,080501,YANAOCA,CANAS,2017,census_cook_biomass,pct,53.096,1,1,1.0,1.0,1
+district,080501,YANAOCA,CANAS,2017,census_cook_biomass,pct,52.2056,1,1,1.0,1.0,1
 district,080502,CHECCA,CANAS,2007,census_cook_biomass,pct,98.5205,1,1,1.0,1.0,1
-district,080502,CHECCA,CANAS,2017,census_cook_biomass,pct,72.5051,1,1,1.0,1.0,1
+district,080502,CHECCA,CANAS,2017,census_cook_biomass,pct,81.9804,1,1,1.0,1.0,1
 district,080503,KUNTURKANKI,CANAS,2007,census_cook_biomass,pct,93.2249,1,1,1.0,1.0,1
-district,080503,KUNTURKANKI,CANAS,2017,census_cook_biomass,pct,71.4451,1,1,1.0,1.0,1
+district,080503,KUNTURKANKI,CANAS,2017,census_cook_biomass,pct,76.4851,1,1,1.0,1.0,1
 district,080504,LANGUI,CANAS,2007,census_cook_biomass,pct,94.0054,1,1,1.0,1.0,1
-district,080504,LANGUI,CANAS,2017,census_cook_biomass,pct,58.0103,1,1,1.0,1.0,1
+district,080504,LANGUI,CANAS,2017,census_cook_biomass,pct,66.6172,1,1,1.0,1.0,1
 district,080505,LAYO,CANAS,2007,census_cook_biomass,pct,97.426,1,1,1.0,1.0,1
-district,080505,LAYO,CANAS,2017,census_cook_biomass,pct,82.0513,1,1,1.0,1.0,1
+district,080505,LAYO,CANAS,2017,census_cook_biomass,pct,81.2279,1,1,1.0,1.0,1
 district,080506,PAMPAMARCA,CANAS,2007,census_cook_biomass,pct,91.9021,1,1,1.0,1.0,1
-district,080506,PAMPAMARCA,CANAS,2017,census_cook_biomass,pct,46.678,1,1,1.0,1.0,1
+district,080506,PAMPAMARCA,CANAS,2017,census_cook_biomass,pct,50.0914,1,1,1.0,1.0,1
 district,080507,QUEHUE,CANAS,2007,census_cook_biomass,pct,96.5011,1,1,1.0,1.0,1
-district,080507,QUEHUE,CANAS,2017,census_cook_biomass,pct,89.549,1,1,1.0,1.0,1
+district,080507,QUEHUE,CANAS,2017,census_cook_biomass,pct,91.358,1,1,1.0,1.0,1
 district,080508,TUPAC AMARU,CANAS,2007,census_cook_biomass,pct,97.5093,1,1,1.0,1.0,1
-district,080508,TUPAC AMARU,CANAS,2017,census_cook_biomass,pct,50.7003,1,1,1.0,1.0,1
+district,080508,TUPAC AMARU,CANAS,2017,census_cook_biomass,pct,45.3066,1,1,1.0,1.0,1
 district,080601,SICUANI,CANCHIS,2007,census_cook_biomass,pct,53.2562,1,1,1.0,1.0,1
-district,080601,SICUANI,CANCHIS,2017,census_cook_biomass,pct,16.0292,1,1,1.0,1.0,1
+district,080601,SICUANI,CANCHIS,2017,census_cook_biomass,pct,18.8509,1,1,1.0,1.0,1
 district,080602,CHECACUPE,CANCHIS,2007,census_cook_biomass,pct,91.9794,1,1,1.0,1.0,1
-district,080602,CHECACUPE,CANCHIS,2017,census_cook_biomass,pct,46.4147,1,1,1.0,1.0,1
+district,080602,CHECACUPE,CANCHIS,2017,census_cook_biomass,pct,54.0803,1,1,1.0,1.0,1
 district,080603,COMBAPATA,CANCHIS,2007,census_cook_biomass,pct,87.1016,1,1,1.0,1.0,1
-district,080603,COMBAPATA,CANCHIS,2017,census_cook_biomass,pct,34.5319,1,1,1.0,1.0,1
+district,080603,COMBAPATA,CANCHIS,2017,census_cook_biomass,pct,38.6269,1,1,1.0,1.0,1
 district,080604,MARANGANI,CANCHIS,2007,census_cook_biomass,pct,93.064,1,1,1.0,1.0,1
-district,080604,MARANGANI,CANCHIS,2017,census_cook_biomass,pct,29.0816,1,1,1.0,1.0,1
+district,080604,MARANGANI,CANCHIS,2017,census_cook_biomass,pct,31.7289,1,1,1.0,1.0,1
 district,080605,PITUMARCA,CANCHIS,2007,census_cook_biomass,pct,94.4726,1,1,1.0,1.0,1
-district,080605,PITUMARCA,CANCHIS,2017,census_cook_biomass,pct,32.4273,1,1,1.0,1.0,1
+district,080605,PITUMARCA,CANCHIS,2017,census_cook_biomass,pct,42.2918,1,1,1.0,1.0,1
 district,080606,SAN PABLO,CANCHIS,2007,census_cook_biomass,pct,93.3244,1,1,1.0,1.0,1
-district,080606,SAN PABLO,CANCHIS,2017,census_cook_biomass,pct,35.8343,1,1,1.0,1.0,1
+district,080606,SAN PABLO,CANCHIS,2017,census_cook_biomass,pct,42.4403,1,1,1.0,1.0,1
 district,080607,SAN PEDRO,CANCHIS,2007,census_cook_biomass,pct,91.4352,1,1,1.0,1.0,1
-district,080607,SAN PEDRO,CANCHIS,2017,census_cook_biomass,pct,11.4108,1,1,1.0,1.0,1
+district,080607,SAN PEDRO,CANCHIS,2017,census_cook_biomass,pct,12.2494,1,1,1.0,1.0,1
 district,080608,TINTA,CANCHIS,2007,census_cook_biomass,pct,85.8491,1,1,1.0,1.0,1
-district,080608,TINTA,CANCHIS,2017,census_cook_biomass,pct,22.9409,1,1,1.0,1.0,1
+district,080608,TINTA,CANCHIS,2017,census_cook_biomass,pct,26.7373,1,1,1.0,1.0,1
 district,080701,SANTO TOMAS,CHUMBIVILCAS,2007,census_cook_biomass,pct,88.2162,1,1,1.0,1.0,1
-district,080701,SANTO TOMAS,CHUMBIVILCAS,2017,census_cook_biomass,pct,43.287,1,1,1.0,1.0,1
+district,080701,SANTO TOMAS,CHUMBIVILCAS,2017,census_cook_biomass,pct,47.182,1,1,1.0,1.0,1
 district,080702,CAPACMARCA,CHUMBIVILCAS,2007,census_cook_biomass,pct,96.5517,1,1,1.0,1.0,1
-district,080702,CAPACMARCA,CHUMBIVILCAS,2017,census_cook_biomass,pct,70.0628,1,1,1.0,1.0,1
+district,080702,CAPACMARCA,CHUMBIVILCAS,2017,census_cook_biomass,pct,79.4933,1,1,1.0,1.0,1
 district,080703,CHAMACA,CHUMBIVILCAS,2007,census_cook_biomass,pct,91.1299,1,1,1.0,1.0,1
-district,080703,CHAMACA,CHUMBIVILCAS,2017,census_cook_biomass,pct,45.7836,1,1,1.0,1.0,1
+district,080703,CHAMACA,CHUMBIVILCAS,2017,census_cook_biomass,pct,52.6703,1,1,1.0,1.0,1
 district,080704,COLQUEMARCA,CHUMBIVILCAS,2007,census_cook_biomass,pct,95.1058,1,1,1.0,1.0,1
-district,080704,COLQUEMARCA,CHUMBIVILCAS,2017,census_cook_biomass,pct,54.6535,1,1,1.0,1.0,1
+district,080704,COLQUEMARCA,CHUMBIVILCAS,2017,census_cook_biomass,pct,47.1191,1,1,1.0,1.0,1
 district,080705,LIVITACA,CHUMBIVILCAS,2007,census_cook_biomass,pct,97.0381,1,1,1.0,1.0,1
-district,080705,LIVITACA,CHUMBIVILCAS,2017,census_cook_biomass,pct,76.0274,1,1,1.0,1.0,1
+district,080705,LIVITACA,CHUMBIVILCAS,2017,census_cook_biomass,pct,82.1208,1,1,1.0,1.0,1
 district,080706,LLUSCO,CHUMBIVILCAS,2007,census_cook_biomass,pct,98.2489,1,1,1.0,1.0,1
-district,080706,LLUSCO,CHUMBIVILCAS,2017,census_cook_biomass,pct,38.1369,1,1,1.0,1.0,1
+district,080706,LLUSCO,CHUMBIVILCAS,2017,census_cook_biomass,pct,35.3767,1,1,1.0,1.0,1
 district,080707,QUIÑOTA,CHUMBIVILCAS,2007,census_cook_biomass,pct,96.2825,1,1,1.0,1.0,1
-district,080707,QUIÑOTA,CHUMBIVILCAS,2017,census_cook_biomass,pct,50.9197,1,1,1.0,1.0,1
+district,080707,QUIÑOTA,CHUMBIVILCAS,2017,census_cook_biomass,pct,47.8182,1,1,1.0,1.0,1
 district,080708,VELILLE,CHUMBIVILCAS,2007,census_cook_biomass,pct,90.5468,1,1,1.0,1.0,1
-district,080708,VELILLE,CHUMBIVILCAS,2017,census_cook_biomass,pct,44.946,1,1,1.0,1.0,1
+district,080708,VELILLE,CHUMBIVILCAS,2017,census_cook_biomass,pct,43.6984,1,1,1.0,1.0,1
 district,080801,ESPINAR,ESPINAR,2007,census_cook_biomass,pct,52.4923,1,1,1.0,1.0,1
-district,080801,ESPINAR,ESPINAR,2017,census_cook_biomass,pct,17.3134,1,1,1.0,1.0,1
+district,080801,ESPINAR,ESPINAR,2017,census_cook_biomass,pct,19.8561,1,1,1.0,1.0,1
 district,080802,CONDOROMA,ESPINAR,2007,census_cook_biomass,pct,82.8042,1,1,1.0,1.0,1
-district,080802,CONDOROMA,ESPINAR,2017,census_cook_biomass,pct,10.0703,1,1,1.0,1.0,1
+district,080802,CONDOROMA,ESPINAR,2017,census_cook_biomass,pct,12.2857,1,1,1.0,1.0,1
 district,080803,COPORAQUE,ESPINAR,2007,census_cook_biomass,pct,98.975,1,1,1.0,1.0,1
-district,080803,COPORAQUE,ESPINAR,2017,census_cook_biomass,pct,78.9567,1,1,1.0,1.0,1
+district,080803,COPORAQUE,ESPINAR,2017,census_cook_biomass,pct,85.0137,1,1,1.0,1.0,1
 district,080804,OCORURO,ESPINAR,2007,census_cook_biomass,pct,96.6403,1,1,1.0,1.0,1
-district,080804,OCORURO,ESPINAR,2017,census_cook_biomass,pct,66.6667,1,1,1.0,1.0,1
+district,080804,OCORURO,ESPINAR,2017,census_cook_biomass,pct,76.1506,1,1,1.0,1.0,1
 district,080805,PALLPATA,ESPINAR,2007,census_cook_biomass,pct,89.5449,1,1,1.0,1.0,1
-district,080805,PALLPATA,ESPINAR,2017,census_cook_biomass,pct,45.2525,1,1,1.0,1.0,1
+district,080805,PALLPATA,ESPINAR,2017,census_cook_biomass,pct,52.2754,1,1,1.0,1.0,1
 district,080806,PICHIGUA,ESPINAR,2007,census_cook_biomass,pct,92.5676,1,1,1.0,1.0,1
-district,080806,PICHIGUA,ESPINAR,2017,census_cook_biomass,pct,36.4939,1,1,1.0,1.0,1
+district,080806,PICHIGUA,ESPINAR,2017,census_cook_biomass,pct,51.9417,1,1,1.0,1.0,1
 district,080807,SUYCKUTAMBO,ESPINAR,2007,census_cook_biomass,pct,96.7742,1,1,1.0,1.0,1
-district,080807,SUYCKUTAMBO,ESPINAR,2017,census_cook_biomass,pct,46.6759,1,1,1.0,1.0,1
+district,080807,SUYCKUTAMBO,ESPINAR,2017,census_cook_biomass,pct,51.5291,1,1,1.0,1.0,1
 district,080808,ALTO PICHIGUA,ESPINAR,2007,census_cook_biomass,pct,98.0501,1,1,1.0,1.0,1
-district,080808,ALTO PICHIGUA,ESPINAR,2017,census_cook_biomass,pct,65.4651,1,1,1.0,1.0,1
+district,080808,ALTO PICHIGUA,ESPINAR,2017,census_cook_biomass,pct,76.8076,1,1,1.0,1.0,1
 district,080901,SANTA ANA,LA CONVENCIÓN,2007,census_cook_biomass,pct,35.832,1,1,1.0,1.0,1
-district,080901,SANTA ANA,LA CONVENCIÓN,2017,census_cook_biomass,pct,11.5249,1,1,1.0,1.0,1
+district,080901,SANTA ANA,LA CONVENCIÓN,2017,census_cook_biomass,pct,13.4404,1,1,1.0,1.0,1
 district,080902,ECHARATE,LA CONVENCIÓN,2007,census_cook_biomass,pct,91.7763,1,1,1.0,1.0,1
-district,080902,ECHARATE,LA CONVENCIÓN,2017,census_cook_biomass,pct,60.6211,1,1,1.0,1.0,1
+district,080902,ECHARATE,LA CONVENCIÓN,2017,census_cook_biomass,pct,70.1079,1,1,1.0,1.0,1
 district,080903,HUAYOPATA,LA CONVENCIÓN,2007,census_cook_biomass,pct,88.2596,1,1,1.0,1.0,1
-district,080903,HUAYOPATA,LA CONVENCIÓN,2017,census_cook_biomass,pct,36.2796,1,1,1.0,1.0,1
+district,080903,HUAYOPATA,LA CONVENCIÓN,2017,census_cook_biomass,pct,48.9962,1,1,1.0,1.0,1
 district,080904,MARANURA,LA CONVENCIÓN,2007,census_cook_biomass,pct,91.4271,1,1,1.0,1.0,1
-district,080904,MARANURA,LA CONVENCIÓN,2017,census_cook_biomass,pct,44.9522,1,1,1.0,1.0,1
+district,080904,MARANURA,LA CONVENCIÓN,2017,census_cook_biomass,pct,57.7869,1,1,1.0,1.0,1
 district,080905,OCOBAMBA,LA CONVENCIÓN,2007,census_cook_biomass,pct,94.8029,1,1,1.0,1.0,1
-district,080905,OCOBAMBA,LA CONVENCIÓN,2017,census_cook_biomass,pct,24.9174,1,1,1.0,1.0,1
+district,080905,OCOBAMBA,LA CONVENCIÓN,2017,census_cook_biomass,pct,37.782,1,1,1.0,1.0,1
 district,080906,QUELLOUNO,LA CONVENCIÓN,2007,census_cook_biomass,pct,92.1236,1,1,1.0,1.0,1
-district,080906,QUELLOUNO,LA CONVENCIÓN,2017,census_cook_biomass,pct,56.8447,1,1,1.0,1.0,1
+district,080906,QUELLOUNO,LA CONVENCIÓN,2017,census_cook_biomass,pct,66.5011,1,1,1.0,1.0,1
 district,080907,KIMBIRI,LA CONVENCIÓN,2007,census_cook_biomass,pct,80.7529,1,1,1.0,1.0,1
-district,080907,KIMBIRI,LA CONVENCIÓN,2017,census_cook_biomass,pct,29.0234,1,1,1.0,1.0,1
+district,080907,KIMBIRI,LA CONVENCIÓN,2017,census_cook_biomass,pct,36.5526,1,1,1.0,1.0,1
 district,080908,SANTA TERESA,LA CONVENCIÓN,2007,census_cook_biomass,pct,88.2202,1,1,1.0,1.0,1
-district,080908,SANTA TERESA,LA CONVENCIÓN,2017,census_cook_biomass,pct,24.6077,1,1,1.0,1.0,1
+district,080908,SANTA TERESA,LA CONVENCIÓN,2017,census_cook_biomass,pct,35.4157,1,1,1.0,1.0,1
 district,080909,VILCABAMBA,LA CONVENCIÓN,2007,census_cook_biomass,pct,94.9057,1,1,1.0,1.0,1
-district,080909,VILCABAMBA,LA CONVENCIÓN,2017,census_cook_biomass,pct,44.2467,1,1,1.0,1.0,1
+district,080909,VILCABAMBA,LA CONVENCIÓN,2017,census_cook_biomass,pct,58.8903,1,1,1.0,1.0,1
 district,080910,PICHARI,LA CONVENCIÓN,2007,census_cook_biomass,pct,74.3873,1,1,1.0,1.0,1
-district,080910,PICHARI,LA CONVENCIÓN,2017,census_cook_biomass,pct,19.0719,1,1,1.0,1.0,1
-district,080911,INKAWASI,LA CONVENCIÓN,2017,census_cook_biomass,pct,89.8368,1,1,1.0,1.0,1
-district,080912,VILLA VIRGEN,LA CONVENCIÓN,2017,census_cook_biomass,pct,40.2516,1,1,1.0,1.0,1
-district,080913,VILLA KINTIARINA,LA CONVENCIÓN,2017,census_cook_biomass,pct,65.9898,1,1,1.0,1.0,1
-district,080914,MEGANTONI,LA CONVENCIÓN,2017,census_cook_biomass,pct,71.2453,1,1,1.0,1.0,1
+district,080910,PICHARI,LA CONVENCIÓN,2017,census_cook_biomass,pct,23.78,1,1,1.0,1.0,1
+district,080911,INKAWASI,LA CONVENCIÓN,2017,census_cook_biomass,pct,92.1613,1,1,1.0,1.0,1
+district,080912,VILLA VIRGEN,LA CONVENCIÓN,2017,census_cook_biomass,pct,51.0978,1,1,1.0,1.0,1
+district,080913,VILLA KINTIARINA,LA CONVENCIÓN,2017,census_cook_biomass,pct,72.8972,1,1,1.0,1.0,1
+district,080914,MEGANTONI,LA CONVENCIÓN,2017,census_cook_biomass,pct,80.5461,1,1,1.0,1.0,1
 district,081001,PARURO,PARURO,2007,census_cook_biomass,pct,91.0678,1,1,1.0,1.0,1
-district,081001,PARURO,PARURO,2017,census_cook_biomass,pct,35.8065,1,1,1.0,1.0,1
+district,081001,PARURO,PARURO,2017,census_cook_biomass,pct,45.0304,1,1,1.0,1.0,1
 district,081002,ACCHA,PARURO,2007,census_cook_biomass,pct,95.7831,1,1,1.0,1.0,1
-district,081002,ACCHA,PARURO,2017,census_cook_biomass,pct,83.9577,1,1,1.0,1.0,1
+district,081002,ACCHA,PARURO,2017,census_cook_biomass,pct,87.5752,1,1,1.0,1.0,1
 district,081003,CCAPI,PARURO,2007,census_cook_biomass,pct,97.2719,1,1,1.0,1.0,1
-district,081003,CCAPI,PARURO,2017,census_cook_biomass,pct,34.9965,1,1,1.0,1.0,1
+district,081003,CCAPI,PARURO,2017,census_cook_biomass,pct,49.9498,1,1,1.0,1.0,1
 district,081004,COLCHA,PARURO,2007,census_cook_biomass,pct,95.3535,1,1,1.0,1.0,1
-district,081004,COLCHA,PARURO,2017,census_cook_biomass,pct,34.4231,1,1,1.0,1.0,1
+district,081004,COLCHA,PARURO,2017,census_cook_biomass,pct,44.9749,1,1,1.0,1.0,1
 district,081005,HUANOQUITE,PARURO,2007,census_cook_biomass,pct,98.0596,1,1,1.0,1.0,1
-district,081005,HUANOQUITE,PARURO,2017,census_cook_biomass,pct,61.0738,1,1,1.0,1.0,1
+district,081005,HUANOQUITE,PARURO,2017,census_cook_biomass,pct,73.6842,1,1,1.0,1.0,1
 district,081006,OMACHA,PARURO,2007,census_cook_biomass,pct,97.6553,1,1,1.0,1.0,1
-district,081006,OMACHA,PARURO,2017,census_cook_biomass,pct,61.0964,1,1,1.0,1.0,1
+district,081006,OMACHA,PARURO,2017,census_cook_biomass,pct,57.7403,1,1,1.0,1.0,1
 district,081007,PACCARITAMBO,PARURO,2007,census_cook_biomass,pct,96.817,1,1,1.0,1.0,1
-district,081007,PACCARITAMBO,PARURO,2017,census_cook_biomass,pct,45.3811,1,1,1.0,1.0,1
+district,081007,PACCARITAMBO,PARURO,2017,census_cook_biomass,pct,59.6358,1,1,1.0,1.0,1
 district,081008,PILLPINTO,PARURO,2007,census_cook_biomass,pct,96.9484,1,1,1.0,1.0,1
-district,081008,PILLPINTO,PARURO,2017,census_cook_biomass,pct,25.4111,1,1,1.0,1.0,1
+district,081008,PILLPINTO,PARURO,2017,census_cook_biomass,pct,38.1166,1,1,1.0,1.0,1
 district,081009,YAURISQUE,PARURO,2007,census_cook_biomass,pct,99.1018,1,1,1.0,1.0,1
-district,081009,YAURISQUE,PARURO,2017,census_cook_biomass,pct,66.8073,1,1,1.0,1.0,1
+district,081009,YAURISQUE,PARURO,2017,census_cook_biomass,pct,75.1582,1,1,1.0,1.0,1
 district,081101,PAUCARTAMBO,PAUCARTAMBO,2007,census_cook_biomass,pct,90.0901,1,1,1.0,1.0,1
-district,081101,PAUCARTAMBO,PAUCARTAMBO,2017,census_cook_biomass,pct,56.2917,1,1,1.0,1.0,1
+district,081101,PAUCARTAMBO,PAUCARTAMBO,2017,census_cook_biomass,pct,61.0902,1,1,1.0,1.0,1
 district,081102,CAICAY,PAUCARTAMBO,2007,census_cook_biomass,pct,97.3254,1,1,1.0,1.0,1
-district,081102,CAICAY,PAUCARTAMBO,2017,census_cook_biomass,pct,45.5381,1,1,1.0,1.0,1
+district,081102,CAICAY,PAUCARTAMBO,2017,census_cook_biomass,pct,47.4044,1,1,1.0,1.0,1
 district,081103,CHALLABAMBA,PAUCARTAMBO,2007,census_cook_biomass,pct,97.7385,1,1,1.0,1.0,1
-district,081103,CHALLABAMBA,PAUCARTAMBO,2017,census_cook_biomass,pct,77.1897,1,1,1.0,1.0,1
+district,081103,CHALLABAMBA,PAUCARTAMBO,2017,census_cook_biomass,pct,82.2152,1,1,1.0,1.0,1
 district,081104,COLQUEPATA,PAUCARTAMBO,2007,census_cook_biomass,pct,98.2931,1,1,1.0,1.0,1
-district,081104,COLQUEPATA,PAUCARTAMBO,2017,census_cook_biomass,pct,41.4425,1,1,1.0,1.0,1
+district,081104,COLQUEPATA,PAUCARTAMBO,2017,census_cook_biomass,pct,47.6989,1,1,1.0,1.0,1
 district,081105,HUANCARANI,PAUCARTAMBO,2007,census_cook_biomass,pct,96.197,1,1,1.0,1.0,1
-district,081105,HUANCARANI,PAUCARTAMBO,2017,census_cook_biomass,pct,33.2243,1,1,1.0,1.0,1
+district,081105,HUANCARANI,PAUCARTAMBO,2017,census_cook_biomass,pct,38.7466,1,1,1.0,1.0,1
 district,081106,KOSÑIPATA,PAUCARTAMBO,2007,census_cook_biomass,pct,77.5229,1,1,1.0,1.0,1
-district,081106,KOSÑIPATA,PAUCARTAMBO,2017,census_cook_biomass,pct,75.5117,1,1,1.0,1.0,1
+district,081106,KOSÑIPATA,PAUCARTAMBO,2017,census_cook_biomass,pct,78.0211,1,1,1.0,1.0,1
 district,081201,URCOS,QUISPICANCHI,2007,census_cook_biomass,pct,71.4,1,1,1.0,1.0,1
-district,081201,URCOS,QUISPICANCHI,2017,census_cook_biomass,pct,27.7524,1,1,1.0,1.0,1
+district,081201,URCOS,QUISPICANCHI,2017,census_cook_biomass,pct,35.3473,1,1,1.0,1.0,1
 district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2007,census_cook_biomass,pct,79.9665,1,1,1.0,1.0,1
-district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2017,census_cook_biomass,pct,32.4025,1,1,1.0,1.0,1
+district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2017,census_cook_biomass,pct,42.1151,1,1,1.0,1.0,1
 district,081203,CAMANTI,QUISPICANCHI,2007,census_cook_biomass,pct,73.7475,1,1,1.0,1.0,1
-district,081203,CAMANTI,QUISPICANCHI,2017,census_cook_biomass,pct,39.006,1,1,1.0,1.0,1
+district,081203,CAMANTI,QUISPICANCHI,2017,census_cook_biomass,pct,43.4564,1,1,1.0,1.0,1
 district,081204,CCARHUAYO,QUISPICANCHI,2007,census_cook_biomass,pct,98.3434,1,1,1.0,1.0,1
-district,081204,CCARHUAYO,QUISPICANCHI,2017,census_cook_biomass,pct,56.8134,1,1,1.0,1.0,1
+district,081204,CCARHUAYO,QUISPICANCHI,2017,census_cook_biomass,pct,66.9136,1,1,1.0,1.0,1
 district,081205,CCATCA,QUISPICANCHI,2007,census_cook_biomass,pct,95.757,1,1,1.0,1.0,1
-district,081205,CCATCA,QUISPICANCHI,2017,census_cook_biomass,pct,64.9365,1,1,1.0,1.0,1
+district,081205,CCATCA,QUISPICANCHI,2017,census_cook_biomass,pct,64.6448,1,1,1.0,1.0,1
 district,081206,CUSIPATA,QUISPICANCHI,2007,census_cook_biomass,pct,96.4228,1,1,1.0,1.0,1
-district,081206,CUSIPATA,QUISPICANCHI,2017,census_cook_biomass,pct,39.1279,1,1,1.0,1.0,1
+district,081206,CUSIPATA,QUISPICANCHI,2017,census_cook_biomass,pct,51.3932,1,1,1.0,1.0,1
 district,081207,HUARO,QUISPICANCHI,2007,census_cook_biomass,pct,80.8795,1,1,1.0,1.0,1
-district,081207,HUARO,QUISPICANCHI,2017,census_cook_biomass,pct,36.7787,1,1,1.0,1.0,1
+district,081207,HUARO,QUISPICANCHI,2017,census_cook_biomass,pct,45.1362,1,1,1.0,1.0,1
 district,081208,LUCRE,QUISPICANCHI,2007,census_cook_biomass,pct,80.5474,1,1,1.0,1.0,1
-district,081208,LUCRE,QUISPICANCHI,2017,census_cook_biomass,pct,19.9472,1,1,1.0,1.0,1
+district,081208,LUCRE,QUISPICANCHI,2017,census_cook_biomass,pct,28.23,1,1,1.0,1.0,1
 district,081209,MARCAPATA,QUISPICANCHI,2007,census_cook_biomass,pct,94.5813,1,1,1.0,1.0,1
-district,081209,MARCAPATA,QUISPICANCHI,2017,census_cook_biomass,pct,47.4351,1,1,1.0,1.0,1
+district,081209,MARCAPATA,QUISPICANCHI,2017,census_cook_biomass,pct,54.5521,1,1,1.0,1.0,1
 district,081210,OCONGATE,QUISPICANCHI,2007,census_cook_biomass,pct,93.2148,1,1,1.0,1.0,1
-district,081210,OCONGATE,QUISPICANCHI,2017,census_cook_biomass,pct,45.5653,1,1,1.0,1.0,1
+district,081210,OCONGATE,QUISPICANCHI,2017,census_cook_biomass,pct,52.2823,1,1,1.0,1.0,1
 district,081211,OROPESA,QUISPICANCHI,2007,census_cook_biomass,pct,57.941,1,1,1.0,1.0,1
-district,081211,OROPESA,QUISPICANCHI,2017,census_cook_biomass,pct,13.3703,1,1,1.0,1.0,1
+district,081211,OROPESA,QUISPICANCHI,2017,census_cook_biomass,pct,17.2633,1,1,1.0,1.0,1
 district,081212,QUIQUIJANA,QUISPICANCHI,2007,census_cook_biomass,pct,95.1138,1,1,1.0,1.0,1
-district,081212,QUIQUIJANA,QUISPICANCHI,2017,census_cook_biomass,pct,42.8176,1,1,1.0,1.0,1
+district,081212,QUIQUIJANA,QUISPICANCHI,2017,census_cook_biomass,pct,52.5119,1,1,1.0,1.0,1
 district,081301,URUBAMBA,URUBAMBA,2007,census_cook_biomass,pct,55.6435,1,1,1.0,1.0,1
-district,081301,URUBAMBA,URUBAMBA,2017,census_cook_biomass,pct,22.6746,1,1,1.0,1.0,1
+district,081301,URUBAMBA,URUBAMBA,2017,census_cook_biomass,pct,25.8249,1,1,1.0,1.0,1
 district,081302,CHINCHERO,URUBAMBA,2007,census_cook_biomass,pct,94.591,1,1,1.0,1.0,1
-district,081302,CHINCHERO,URUBAMBA,2017,census_cook_biomass,pct,39.3237,1,1,1.0,1.0,1
+district,081302,CHINCHERO,URUBAMBA,2017,census_cook_biomass,pct,49.2655,1,1,1.0,1.0,1
 district,081303,HUAYLLABAMBA,URUBAMBA,2007,census_cook_biomass,pct,88.317,1,1,1.0,1.0,1
-district,081303,HUAYLLABAMBA,URUBAMBA,2017,census_cook_biomass,pct,34.1134,1,1,1.0,1.0,1
+district,081303,HUAYLLABAMBA,URUBAMBA,2017,census_cook_biomass,pct,42.5974,1,1,1.0,1.0,1
 district,081304,MACHUPICCHU,URUBAMBA,2007,census_cook_biomass,pct,17.8423,1,1,1.0,1.0,1
-district,081304,MACHUPICCHU,URUBAMBA,2017,census_cook_biomass,pct,13.9336,1,1,1.0,1.0,1
+district,081304,MACHUPICCHU,URUBAMBA,2017,census_cook_biomass,pct,14.8185,1,1,1.0,1.0,1
 district,081305,MARAS,URUBAMBA,2007,census_cook_biomass,pct,94.0361,1,1,1.0,1.0,1
-district,081305,MARAS,URUBAMBA,2017,census_cook_biomass,pct,33.6585,1,1,1.0,1.0,1
+district,081305,MARAS,URUBAMBA,2017,census_cook_biomass,pct,44.1129,1,1,1.0,1.0,1
 district,081306,OLLANTAYTAMBO,URUBAMBA,2007,census_cook_biomass,pct,82.327,1,1,1.0,1.0,1
-district,081306,OLLANTAYTAMBO,URUBAMBA,2017,census_cook_biomass,pct,39.1945,1,1,1.0,1.0,1
+district,081306,OLLANTAYTAMBO,URUBAMBA,2017,census_cook_biomass,pct,46.5714,1,1,1.0,1.0,1
 district,081307,YUCAY,URUBAMBA,2007,census_cook_biomass,pct,69.357,1,1,1.0,1.0,1
-district,081307,YUCAY,URUBAMBA,2017,census_cook_biomass,pct,24.2019,1,1,1.0,1.0,1
+district,081307,YUCAY,URUBAMBA,2017,census_cook_biomass,pct,30.3226,1,1,1.0,1.0,1
 department,08,CUSCO,,2007,census_internet,pct,2.2354,108,108,1.0,1.0,1
-department,08,CUSCO,,2017,census_internet,pct,14.7231,112,112,1.0,1.0,1
+department,08,CUSCO,,2017,census_internet,pct,16.9189,112,112,1.0,1.0,1
 province,0801,CUSCO,CUSCO,2007,census_internet,pct,6.544,8,8,1.0,1.0,1
-province,0801,CUSCO,CUSCO,2017,census_internet,pct,33.0298,8,8,1.0,1.0,1
+province,0801,CUSCO,CUSCO,2017,census_internet,pct,36.9467,8,8,1.0,1.0,1
 province,0802,ACOMAYO,ACOMAYO,2007,census_internet,pct,0.04,7,7,1.0,1.0,1
-province,0802,ACOMAYO,ACOMAYO,2017,census_internet,pct,0.7931,7,7,1.0,1.0,1
+province,0802,ACOMAYO,ACOMAYO,2017,census_internet,pct,0.9085,7,7,1.0,1.0,1
 province,0803,ANTA,ANTA,2007,census_internet,pct,0.2303,9,9,1.0,1.0,1
-province,0803,ANTA,ANTA,2017,census_internet,pct,4.5325,9,9,1.0,1.0,1
+province,0803,ANTA,ANTA,2017,census_internet,pct,5.6836,9,9,1.0,1.0,1
 province,0804,CALCA,CALCA,2007,census_internet,pct,0.3501,8,8,1.0,1.0,1
-province,0804,CALCA,CALCA,2017,census_internet,pct,4.8437,8,8,1.0,1.0,1
+province,0804,CALCA,CALCA,2017,census_internet,pct,5.4725,8,8,1.0,1.0,1
 province,0805,CANAS,CANAS,2007,census_internet,pct,0.0299,8,8,1.0,1.0,1
-province,0805,CANAS,CANAS,2017,census_internet,pct,0.4976,8,8,1.0,1.0,1
+province,0805,CANAS,CANAS,2017,census_internet,pct,0.514,8,8,1.0,1.0,1
 province,0806,CANCHIS,CANCHIS,2007,census_internet,pct,0.5577,8,8,1.0,1.0,1
-province,0806,CANCHIS,CANCHIS,2017,census_internet,pct,12.84,8,8,1.0,1.0,1
+province,0806,CANCHIS,CANCHIS,2017,census_internet,pct,15.0379,8,8,1.0,1.0,1
 province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2007,census_internet,pct,0.041,8,8,1.0,1.0,1
-province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2017,census_internet,pct,1.0364,8,8,1.0,1.0,1
+province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2017,census_internet,pct,1.0767,8,8,1.0,1.0,1
 province,0808,ESPINAR,ESPINAR,2007,census_internet,pct,0.3692,8,8,1.0,1.0,1
-province,0808,ESPINAR,ESPINAR,2017,census_internet,pct,3.9241,8,8,1.0,1.0,1
+province,0808,ESPINAR,ESPINAR,2017,census_internet,pct,4.5123,8,8,1.0,1.0,1
 province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2007,census_internet,pct,0.1663,10,10,1.0,1.0,1
-province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2017,census_internet,pct,3.6879,14,14,1.0,1.0,1
+province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2017,census_internet,pct,4.5446,14,14,1.0,1.0,1
 province,0810,PARURO,PARURO,2007,census_internet,pct,0.0476,9,9,1.0,1.0,1
-province,0810,PARURO,PARURO,2017,census_internet,pct,0.8698,9,9,1.0,1.0,1
+province,0810,PARURO,PARURO,2017,census_internet,pct,1.0366,9,9,1.0,1.0,1
 province,0811,PAUCARTAMBO,PAUCARTAMBO,2007,census_internet,pct,0.035,6,6,1.0,1.0,1
-province,0811,PAUCARTAMBO,PAUCARTAMBO,2017,census_internet,pct,1.391,6,6,1.0,1.0,1
+province,0811,PAUCARTAMBO,PAUCARTAMBO,2017,census_internet,pct,1.5266,6,6,1.0,1.0,1
 province,0812,QUISPICANCHI,QUISPICANCHI,2007,census_internet,pct,0.1102,12,12,1.0,1.0,1
-province,0812,QUISPICANCHI,QUISPICANCHI,2017,census_internet,pct,4.3916,12,12,1.0,1.0,1
+province,0812,QUISPICANCHI,QUISPICANCHI,2017,census_internet,pct,5.2828,12,12,1.0,1.0,1
 province,0813,URUBAMBA,URUBAMBA,2007,census_internet,pct,0.9983,7,7,1.0,1.0,1
-province,0813,URUBAMBA,URUBAMBA,2017,census_internet,pct,10.6473,7,7,1.0,1.0,1
+province,0813,URUBAMBA,URUBAMBA,2017,census_internet,pct,12.7558,7,7,1.0,1.0,1
 district,080101,CUSCO,CUSCO,2007,census_internet,pct,7.4313,1,1,1.0,1.0,1
-district,080101,CUSCO,CUSCO,2017,census_internet,pct,30.9201,1,1,1.0,1.0,1
+district,080101,CUSCO,CUSCO,2017,census_internet,pct,34.8788,1,1,1.0,1.0,1
 district,080102,CCORCA,CUSCO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080102,CCORCA,CUSCO,2017,census_internet,pct,0.1348,1,1,1.0,1.0,1
+district,080102,CCORCA,CUSCO,2017,census_internet,pct,0.1353,1,1,1.0,1.0,1
 district,080103,POROY,CUSCO,2007,census_internet,pct,0.1802,1,1,1.0,1.0,1
-district,080103,POROY,CUSCO,2017,census_internet,pct,8.3153,1,1,1.0,1.0,1
+district,080103,POROY,CUSCO,2017,census_internet,pct,11.3905,1,1,1.0,1.0,1
 district,080104,SAN JERONIMO,CUSCO,2007,census_internet,pct,6.3484,1,1,1.0,1.0,1
-district,080104,SAN JERONIMO,CUSCO,2017,census_internet,pct,28.1744,1,1,1.0,1.0,1
+district,080104,SAN JERONIMO,CUSCO,2017,census_internet,pct,33.4192,1,1,1.0,1.0,1
 district,080105,SAN SEBASTIAN,CUSCO,2007,census_internet,pct,4.6281,1,1,1.0,1.0,1
-district,080105,SAN SEBASTIAN,CUSCO,2017,census_internet,pct,33.2025,1,1,1.0,1.0,1
+district,080105,SAN SEBASTIAN,CUSCO,2017,census_internet,pct,36.8833,1,1,1.0,1.0,1
 district,080106,SANTIAGO,CUSCO,2007,census_internet,pct,3.9422,1,1,1.0,1.0,1
-district,080106,SANTIAGO,CUSCO,2017,census_internet,pct,25.1637,1,1,1.0,1.0,1
+district,080106,SANTIAGO,CUSCO,2017,census_internet,pct,28.1727,1,1,1.0,1.0,1
 district,080107,SAYLLA,CUSCO,2007,census_internet,pct,1.2968,1,1,1.0,1.0,1
-district,080107,SAYLLA,CUSCO,2017,census_internet,pct,6.3687,1,1,1.0,1.0,1
+district,080107,SAYLLA,CUSCO,2017,census_internet,pct,7.7079,1,1,1.0,1.0,1
 district,080108,WANCHAQ,CUSCO,2007,census_internet,pct,12.0436,1,1,1.0,1.0,1
-district,080108,WANCHAQ,CUSCO,2017,census_internet,pct,59.3748,1,1,1.0,1.0,1
+district,080108,WANCHAQ,CUSCO,2017,census_internet,pct,62.0282,1,1,1.0,1.0,1
 district,080201,ACOMAYO,ACOMAYO,2007,census_internet,pct,0.0709,1,1,1.0,1.0,1
-district,080201,ACOMAYO,ACOMAYO,2017,census_internet,pct,1.8182,1,1,1.0,1.0,1
+district,080201,ACOMAYO,ACOMAYO,2017,census_internet,pct,2.0914,1,1,1.0,1.0,1
 district,080202,ACOPIA,ACOMAYO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080202,ACOPIA,ACOMAYO,2017,census_internet,pct,0.1299,1,1,1.0,1.0,1
+district,080202,ACOPIA,ACOMAYO,2017,census_internet,pct,0.1236,1,1,1.0,1.0,1
 district,080203,ACOS,ACOMAYO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080203,ACOS,ACOMAYO,2017,census_internet,pct,1.6304,1,1,1.0,1.0,1
+district,080203,ACOS,ACOMAYO,2017,census_internet,pct,2.0921,1,1,1.0,1.0,1
 district,080204,MOSOC LLACTA,ACOMAYO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080204,MOSOC LLACTA,ACOMAYO,2017,census_internet,pct,0.8547,1,1,1.0,1.0,1
+district,080204,MOSOC LLACTA,ACOMAYO,2017,census_internet,pct,0.4494,1,1,1.0,1.0,1
 district,080205,POMACANCHI,ACOMAYO,2007,census_internet,pct,0.0473,1,1,1.0,1.0,1
-district,080205,POMACANCHI,ACOMAYO,2017,census_internet,pct,0.3165,1,1,1.0,1.0,1
+district,080205,POMACANCHI,ACOMAYO,2017,census_internet,pct,0.3761,1,1,1.0,1.0,1
 district,080206,RONDOCAN,ACOMAYO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080206,RONDOCAN,ACOMAYO,2017,census_internet,pct,0.3119,1,1,1.0,1.0,1
+district,080206,RONDOCAN,ACOMAYO,2017,census_internet,pct,0.3927,1,1,1.0,1.0,1
 district,080207,SANGARARA,ACOMAYO,2007,census_internet,pct,0.0914,1,1,1.0,1.0,1
-district,080207,SANGARARA,ACOMAYO,2017,census_internet,pct,0.6939,1,1,1.0,1.0,1
+district,080207,SANGARARA,ACOMAYO,2017,census_internet,pct,0.8982,1,1,1.0,1.0,1
 district,080301,ANTA,ANTA,2007,census_internet,pct,0.4681,1,1,1.0,1.0,1
-district,080301,ANTA,ANTA,2017,census_internet,pct,7.7547,1,1,1.0,1.0,1
+district,080301,ANTA,ANTA,2017,census_internet,pct,9.6474,1,1,1.0,1.0,1
 district,080302,ANCAHUASI,ANTA,2007,census_internet,pct,0.1148,1,1,1.0,1.0,1
-district,080302,ANCAHUASI,ANTA,2017,census_internet,pct,0.9497,1,1,1.0,1.0,1
+district,080302,ANCAHUASI,ANTA,2017,census_internet,pct,1.1799,1,1,1.0,1.0,1
 district,080303,CACHIMAYO,ANTA,2007,census_internet,pct,0.3906,1,1,1.0,1.0,1
-district,080303,CACHIMAYO,ANTA,2017,census_internet,pct,13.6419,1,1,1.0,1.0,1
+district,080303,CACHIMAYO,ANTA,2017,census_internet,pct,16.944,1,1,1.0,1.0,1
 district,080304,CHINCHAYPUJIO,ANTA,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080304,CHINCHAYPUJIO,ANTA,2017,census_internet,pct,0.0719,1,1,1.0,1.0,1
+district,080304,CHINCHAYPUJIO,ANTA,2017,census_internet,pct,0.078,1,1,1.0,1.0,1
 district,080305,HUAROCONDO,ANTA,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080305,HUAROCONDO,ANTA,2017,census_internet,pct,0.8479,1,1,1.0,1.0,1
+district,080305,HUAROCONDO,ANTA,2017,census_internet,pct,1.0519,1,1,1.0,1.0,1
 district,080306,LIMATAMBO,ANTA,2007,census_internet,pct,0.0464,1,1,1.0,1.0,1
-district,080306,LIMATAMBO,ANTA,2017,census_internet,pct,1.6787,1,1,1.0,1.0,1
+district,080306,LIMATAMBO,ANTA,2017,census_internet,pct,2.1595,1,1,1.0,1.0,1
 district,080307,MOLLEPATA,ANTA,2007,census_internet,pct,0.1115,1,1,1.0,1.0,1
-district,080307,MOLLEPATA,ANTA,2017,census_internet,pct,1.3689,1,1,1.0,1.0,1
+district,080307,MOLLEPATA,ANTA,2017,census_internet,pct,1.8762,1,1,1.0,1.0,1
 district,080308,PUCYURA,ANTA,2007,census_internet,pct,0.2317,1,1,1.0,1.0,1
-district,080308,PUCYURA,ANTA,2017,census_internet,pct,5.2165,1,1,1.0,1.0,1
+district,080308,PUCYURA,ANTA,2017,census_internet,pct,6.8653,1,1,1.0,1.0,1
 district,080309,ZURITE,ANTA,2007,census_internet,pct,0.5423,1,1,1.0,1.0,1
-district,080309,ZURITE,ANTA,2017,census_internet,pct,5.6844,1,1,1.0,1.0,1
+district,080309,ZURITE,ANTA,2017,census_internet,pct,7.6,1,1,1.0,1.0,1
 district,080401,CALCA,CALCA,2007,census_internet,pct,0.8787,1,1,1.0,1.0,1
-district,080401,CALCA,CALCA,2017,census_internet,pct,10.8047,1,1,1.0,1.0,1
+district,080401,CALCA,CALCA,2017,census_internet,pct,12.0,1,1,1.0,1.0,1
 district,080402,COYA,CALCA,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080402,COYA,CALCA,2017,census_internet,pct,1.9564,1,1,1.0,1.0,1
+district,080402,COYA,CALCA,2017,census_internet,pct,2.3853,1,1,1.0,1.0,1
 district,080403,LAMAY,CALCA,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080403,LAMAY,CALCA,2017,census_internet,pct,1.4033,1,1,1.0,1.0,1
+district,080403,LAMAY,CALCA,2017,census_internet,pct,1.5509,1,1,1.0,1.0,1
 district,080404,LARES,CALCA,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080404,LARES,CALCA,2017,census_internet,pct,0.3543,1,1,1.0,1.0,1
+district,080404,LARES,CALCA,2017,census_internet,pct,0.4322,1,1,1.0,1.0,1
 district,080405,PISAC,CALCA,2007,census_internet,pct,0.4641,1,1,1.0,1.0,1
-district,080405,PISAC,CALCA,2017,census_internet,pct,5.5337,1,1,1.0,1.0,1
+district,080405,PISAC,CALCA,2017,census_internet,pct,5.3228,1,1,1.0,1.0,1
 district,080406,SAN SALVADOR,CALCA,2007,census_internet,pct,0.0775,1,1,1.0,1.0,1
-district,080406,SAN SALVADOR,CALCA,2017,census_internet,pct,2.1603,1,1,1.0,1.0,1
+district,080406,SAN SALVADOR,CALCA,2017,census_internet,pct,2.9782,1,1,1.0,1.0,1
 district,080407,TARAY,CALCA,2007,census_internet,pct,0.0957,1,1,1.0,1.0,1
-district,080407,TARAY,CALCA,2017,census_internet,pct,1.3281,1,1,1.0,1.0,1
+district,080407,TARAY,CALCA,2017,census_internet,pct,1.3889,1,1,1.0,1.0,1
 district,080408,YANATILE,CALCA,2007,census_internet,pct,0.1045,1,1,1.0,1.0,1
-district,080408,YANATILE,CALCA,2017,census_internet,pct,1.4827,1,1,1.0,1.0,1
+district,080408,YANATILE,CALCA,2017,census_internet,pct,1.7259,1,1,1.0,1.0,1
 district,080501,YANAOCA,CANAS,2007,census_internet,pct,0.0389,1,1,1.0,1.0,1
-district,080501,YANAOCA,CANAS,2017,census_internet,pct,1.0753,1,1,1.0,1.0,1
+district,080501,YANAOCA,CANAS,2017,census_internet,pct,1.0572,1,1,1.0,1.0,1
 district,080502,CHECCA,CANAS,2007,census_internet,pct,0.0672,1,1,1.0,1.0,1
-district,080502,CHECCA,CANAS,2017,census_internet,pct,0.3055,1,1,1.0,1.0,1
+district,080502,CHECCA,CANAS,2017,census_internet,pct,0.3454,1,1,1.0,1.0,1
 district,080503,KUNTURKANKI,CANAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080503,KUNTURKANKI,CANAS,2017,census_internet,pct,0.3468,1,1,1.0,1.0,1
+district,080503,KUNTURKANKI,CANAS,2017,census_internet,pct,0.3713,1,1,1.0,1.0,1
 district,080504,LANGUI,CANAS,2007,census_internet,pct,0.1362,1,1,1.0,1.0,1
-district,080504,LANGUI,CANAS,2017,census_internet,pct,0.7752,1,1,1.0,1.0,1
+district,080504,LANGUI,CANAS,2017,census_internet,pct,0.8902,1,1,1.0,1.0,1
 district,080505,LAYO,CANAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080505,LAYO,CANAS,2017,census_internet,pct,0.1193,1,1,1.0,1.0,1
+district,080505,LAYO,CANAS,2017,census_internet,pct,0.1181,1,1,1.0,1.0,1
 district,080506,PAMPAMARCA,CANAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080506,PAMPAMARCA,CANAS,2017,census_internet,pct,0.8518,1,1,1.0,1.0,1
+district,080506,PAMPAMARCA,CANAS,2017,census_internet,pct,0.9141,1,1,1.0,1.0,1
 district,080507,QUEHUE,CANAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080507,QUEHUE,CANAS,2017,census_internet,pct,0.11,1,1,1.0,1.0,1
+district,080507,QUEHUE,CANAS,2017,census_internet,pct,0.1122,1,1,1.0,1.0,1
 district,080508,TUPAC AMARU,CANAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
 district,080508,TUPAC AMARU,CANAS,2017,census_internet,pct,0.0,1,1,1.0,1.0,1
 district,080601,SICUANI,CANCHIS,2007,census_internet,pct,0.9351,1,1,1.0,1.0,1
-district,080601,SICUANI,CANCHIS,2017,census_internet,pct,15.8637,1,1,1.0,1.0,1
+district,080601,SICUANI,CANCHIS,2017,census_internet,pct,18.6563,1,1,1.0,1.0,1
 district,080602,CHECACUPE,CANCHIS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080602,CHECACUPE,CANCHIS,2017,census_internet,pct,8.2824,1,1,1.0,1.0,1
+district,080602,CHECACUPE,CANCHIS,2017,census_internet,pct,9.6503,1,1,1.0,1.0,1
 district,080603,COMBAPATA,CANCHIS,2007,census_internet,pct,0.1483,1,1,1.0,1.0,1
-district,080603,COMBAPATA,CANCHIS,2017,census_internet,pct,3.3478,1,1,1.0,1.0,1
+district,080603,COMBAPATA,CANCHIS,2017,census_internet,pct,3.7448,1,1,1.0,1.0,1
 district,080604,MARANGANI,CANCHIS,2007,census_internet,pct,0.101,1,1,1.0,1.0,1
-district,080604,MARANGANI,CANCHIS,2017,census_internet,pct,4.5918,1,1,1.0,1.0,1
+district,080604,MARANGANI,CANCHIS,2017,census_internet,pct,5.0098,1,1,1.0,1.0,1
 district,080605,PITUMARCA,CANCHIS,2007,census_internet,pct,0.0507,1,1,1.0,1.0,1
-district,080605,PITUMARCA,CANCHIS,2017,census_internet,pct,23.6094,1,1,1.0,1.0,1
+district,080605,PITUMARCA,CANCHIS,2017,census_internet,pct,30.7914,1,1,1.0,1.0,1
 district,080606,SAN PABLO,CANCHIS,2007,census_internet,pct,0.0668,1,1,1.0,1.0,1
-district,080606,SAN PABLO,CANCHIS,2017,census_internet,pct,2.0157,1,1,1.0,1.0,1
+district,080606,SAN PABLO,CANCHIS,2017,census_internet,pct,2.3873,1,1,1.0,1.0,1
 district,080607,SAN PEDRO,CANCHIS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080607,SAN PEDRO,CANCHIS,2017,census_internet,pct,8.0913,1,1,1.0,1.0,1
+district,080607,SAN PEDRO,CANCHIS,2017,census_internet,pct,8.686,1,1,1.0,1.0,1
 district,080608,TINTA,CANCHIS,2007,census_internet,pct,0.0674,1,1,1.0,1.0,1
-district,080608,TINTA,CANCHIS,2017,census_internet,pct,2.0718,1,1,1.0,1.0,1
+district,080608,TINTA,CANCHIS,2017,census_internet,pct,2.4146,1,1,1.0,1.0,1
 district,080701,SANTO TOMAS,CHUMBIVILCAS,2007,census_internet,pct,0.0774,1,1,1.0,1.0,1
-district,080701,SANTO TOMAS,CHUMBIVILCAS,2017,census_internet,pct,1.8078,1,1,1.0,1.0,1
+district,080701,SANTO TOMAS,CHUMBIVILCAS,2017,census_internet,pct,1.9705,1,1,1.0,1.0,1
 district,080702,CAPACMARCA,CHUMBIVILCAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080702,CAPACMARCA,CHUMBIVILCAS,2017,census_internet,pct,0.0698,1,1,1.0,1.0,1
+district,080702,CAPACMARCA,CHUMBIVILCAS,2017,census_internet,pct,0.0792,1,1,1.0,1.0,1
 district,080703,CHAMACA,CHUMBIVILCAS,2007,census_internet,pct,0.0528,1,1,1.0,1.0,1
-district,080703,CHAMACA,CHUMBIVILCAS,2017,census_internet,pct,0.724,1,1,1.0,1.0,1
+district,080703,CHAMACA,CHUMBIVILCAS,2017,census_internet,pct,0.8329,1,1,1.0,1.0,1
 district,080704,COLQUEMARCA,CHUMBIVILCAS,2007,census_internet,pct,0.0441,1,1,1.0,1.0,1
-district,080704,COLQUEMARCA,CHUMBIVILCAS,2017,census_internet,pct,1.3861,1,1,1.0,1.0,1
+district,080704,COLQUEMARCA,CHUMBIVILCAS,2017,census_internet,pct,1.195,1,1,1.0,1.0,1
 district,080705,LIVITACA,CHUMBIVILCAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080705,LIVITACA,CHUMBIVILCAS,2017,census_internet,pct,0.1142,1,1,1.0,1.0,1
+district,080705,LIVITACA,CHUMBIVILCAS,2017,census_internet,pct,0.1233,1,1,1.0,1.0,1
 district,080706,LLUSCO,CHUMBIVILCAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080706,LLUSCO,CHUMBIVILCAS,2017,census_internet,pct,0.0796,1,1,1.0,1.0,1
+district,080706,LLUSCO,CHUMBIVILCAS,2017,census_internet,pct,0.0739,1,1,1.0,1.0,1
 district,080707,QUIÑOTA,CHUMBIVILCAS,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080707,QUIÑOTA,CHUMBIVILCAS,2017,census_internet,pct,0.484,1,1,1.0,1.0,1
+district,080707,QUIÑOTA,CHUMBIVILCAS,2017,census_internet,pct,0.4545,1,1,1.0,1.0,1
 district,080708,VELILLE,CHUMBIVILCAS,2007,census_internet,pct,0.0463,1,1,1.0,1.0,1
-district,080708,VELILLE,CHUMBIVILCAS,2017,census_internet,pct,1.1574,1,1,1.0,1.0,1
+district,080708,VELILLE,CHUMBIVILCAS,2017,census_internet,pct,1.1253,1,1,1.0,1.0,1
 district,080801,ESPINAR,ESPINAR,2007,census_internet,pct,0.7708,1,1,1.0,1.0,1
-district,080801,ESPINAR,ESPINAR,2017,census_internet,pct,5.9032,1,1,1.0,1.0,1
+district,080801,ESPINAR,ESPINAR,2017,census_internet,pct,6.7702,1,1,1.0,1.0,1
 district,080802,CONDOROMA,ESPINAR,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080802,CONDOROMA,ESPINAR,2017,census_internet,pct,2.1077,1,1,1.0,1.0,1
+district,080802,CONDOROMA,ESPINAR,2017,census_internet,pct,2.5714,1,1,1.0,1.0,1
 district,080803,COPORAQUE,ESPINAR,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080803,COPORAQUE,ESPINAR,2017,census_internet,pct,0.2036,1,1,1.0,1.0,1
+district,080803,COPORAQUE,ESPINAR,2017,census_internet,pct,0.2192,1,1,1.0,1.0,1
 district,080804,OCORURO,ESPINAR,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
 district,080804,OCORURO,ESPINAR,2017,census_internet,pct,0.0,1,1,1.0,1.0,1
 district,080805,PALLPATA,ESPINAR,2007,census_internet,pct,0.0615,1,1,1.0,1.0,1
-district,080805,PALLPATA,ESPINAR,2017,census_internet,pct,6.4646,1,1,1.0,1.0,1
+district,080805,PALLPATA,ESPINAR,2017,census_internet,pct,7.4679,1,1,1.0,1.0,1
 district,080806,PICHIGUA,ESPINAR,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080806,PICHIGUA,ESPINAR,2017,census_internet,pct,0.1364,1,1,1.0,1.0,1
+district,080806,PICHIGUA,ESPINAR,2017,census_internet,pct,0.1942,1,1,1.0,1.0,1
 district,080807,SUYCKUTAMBO,ESPINAR,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080807,SUYCKUTAMBO,ESPINAR,2017,census_internet,pct,0.4155,1,1,1.0,1.0,1
+district,080807,SUYCKUTAMBO,ESPINAR,2017,census_internet,pct,0.4587,1,1,1.0,1.0,1
 district,080808,ALTO PICHIGUA,ESPINAR,2007,census_internet,pct,0.1393,1,1,1.0,1.0,1
 district,080808,ALTO PICHIGUA,ESPINAR,2017,census_internet,pct,0.0,1,1,1.0,1.0,1
 district,080901,SANTA ANA,LA CONVENCIÓN,2007,census_internet,pct,0.5594,1,1,1.0,1.0,1
-district,080901,SANTA ANA,LA CONVENCIÓN,2017,census_internet,pct,10.6395,1,1,1.0,1.0,1
+district,080901,SANTA ANA,LA CONVENCIÓN,2017,census_internet,pct,12.4078,1,1,1.0,1.0,1
 district,080902,ECHARATE,LA CONVENCIÓN,2007,census_internet,pct,0.0093,1,1,1.0,1.0,1
-district,080902,ECHARATE,LA CONVENCIÓN,2017,census_internet,pct,0.8856,1,1,1.0,1.0,1
+district,080902,ECHARATE,LA CONVENCIÓN,2017,census_internet,pct,1.0242,1,1,1.0,1.0,1
 district,080903,HUAYOPATA,LA CONVENCIÓN,2007,census_internet,pct,0.059,1,1,1.0,1.0,1
-district,080903,HUAYOPATA,LA CONVENCIÓN,2017,census_internet,pct,0.6027,1,1,1.0,1.0,1
+district,080903,HUAYOPATA,LA CONVENCIÓN,2017,census_internet,pct,0.8139,1,1,1.0,1.0,1
 district,080904,MARANURA,LA CONVENCIÓN,2007,census_internet,pct,0.0523,1,1,1.0,1.0,1
-district,080904,MARANURA,LA CONVENCIÓN,2017,census_internet,pct,1.6472,1,1,1.0,1.0,1
+district,080904,MARANURA,LA CONVENCIÓN,2017,census_internet,pct,2.1175,1,1,1.0,1.0,1
 district,080905,OCOBAMBA,LA CONVENCIÓN,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080905,OCOBAMBA,LA CONVENCIÓN,2017,census_internet,pct,0.124,1,1,1.0,1.0,1
+district,080905,OCOBAMBA,LA CONVENCIÓN,2017,census_internet,pct,0.188,1,1,1.0,1.0,1
 district,080906,QUELLOUNO,LA CONVENCIÓN,2007,census_internet,pct,0.0249,1,1,1.0,1.0,1
-district,080906,QUELLOUNO,LA CONVENCIÓN,2017,census_internet,pct,0.4775,1,1,1.0,1.0,1
+district,080906,QUELLOUNO,LA CONVENCIÓN,2017,census_internet,pct,0.5587,1,1,1.0,1.0,1
 district,080907,KIMBIRI,LA CONVENCIÓN,2007,census_internet,pct,0.1995,1,1,1.0,1.0,1
-district,080907,KIMBIRI,LA CONVENCIÓN,2017,census_internet,pct,7.2387,1,1,1.0,1.0,1
+district,080907,KIMBIRI,LA CONVENCIÓN,2017,census_internet,pct,9.1165,1,1,1.0,1.0,1
 district,080908,SANTA TERESA,LA CONVENCIÓN,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080908,SANTA TERESA,LA CONVENCIÓN,2017,census_internet,pct,3.606,1,1,1.0,1.0,1
+district,080908,SANTA TERESA,LA CONVENCIÓN,2017,census_internet,pct,5.1898,1,1,1.0,1.0,1
 district,080909,VILCABAMBA,LA CONVENCIÓN,2007,census_internet,pct,0.0673,1,1,1.0,1.0,1
-district,080909,VILCABAMBA,LA CONVENCIÓN,2017,census_internet,pct,0.3413,1,1,1.0,1.0,1
+district,080909,VILCABAMBA,LA CONVENCIÓN,2017,census_internet,pct,0.4543,1,1,1.0,1.0,1
 district,080910,PICHARI,LA CONVENCIÓN,2007,census_internet,pct,0.0961,1,1,1.0,1.0,1
-district,080910,PICHARI,LA CONVENCIÓN,2017,census_internet,pct,6.1703,1,1,1.0,1.0,1
+district,080910,PICHARI,LA CONVENCIÓN,2017,census_internet,pct,7.6935,1,1,1.0,1.0,1
 district,080911,INKAWASI,LA CONVENCIÓN,2017,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,080912,VILLA VIRGEN,LA CONVENCIÓN,2017,census_internet,pct,0.7862,1,1,1.0,1.0,1
-district,080913,VILLA KINTIARINA,LA CONVENCIÓN,2017,census_internet,pct,0.1692,1,1,1.0,1.0,1
-district,080914,MEGANTONI,LA CONVENCIÓN,2017,census_internet,pct,0.1509,1,1,1.0,1.0,1
+district,080912,VILLA VIRGEN,LA CONVENCIÓN,2017,census_internet,pct,0.998,1,1,1.0,1.0,1
+district,080913,VILLA KINTIARINA,LA CONVENCIÓN,2017,census_internet,pct,0.1869,1,1,1.0,1.0,1
+district,080914,MEGANTONI,LA CONVENCIÓN,2017,census_internet,pct,0.1706,1,1,1.0,1.0,1
 district,081001,PARURO,PARURO,2007,census_internet,pct,0.308,1,1,1.0,1.0,1
-district,081001,PARURO,PARURO,2017,census_internet,pct,3.7097,1,1,1.0,1.0,1
+district,081001,PARURO,PARURO,2017,census_internet,pct,4.6653,1,1,1.0,1.0,1
 district,081002,ACCHA,PARURO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081002,ACCHA,PARURO,2017,census_internet,pct,0.2882,1,1,1.0,1.0,1
+district,081002,ACCHA,PARURO,2017,census_internet,pct,0.3006,1,1,1.0,1.0,1
 district,081003,CCAPI,PARURO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081003,CCAPI,PARURO,2017,census_internet,pct,0.0703,1,1,1.0,1.0,1
+district,081003,CCAPI,PARURO,2017,census_internet,pct,0.1003,1,1,1.0,1.0,1
 district,081004,COLCHA,PARURO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
 district,081004,COLCHA,PARURO,2017,census_internet,pct,0.0,1,1,1.0,1.0,1
 district,081005,HUANOQUITE,PARURO,2007,census_internet,pct,0.0693,1,1,1.0,1.0,1
-district,081005,HUANOQUITE,PARURO,2017,census_internet,pct,0.6711,1,1,1.0,1.0,1
+district,081005,HUANOQUITE,PARURO,2017,census_internet,pct,0.8097,1,1,1.0,1.0,1
 district,081006,OMACHA,PARURO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081006,OMACHA,PARURO,2017,census_internet,pct,0.0661,1,1,1.0,1.0,1
+district,081006,OMACHA,PARURO,2017,census_internet,pct,0.0624,1,1,1.0,1.0,1
 district,081007,PACCARITAMBO,PARURO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081007,PACCARITAMBO,PARURO,2017,census_internet,pct,0.5774,1,1,1.0,1.0,1
+district,081007,PACCARITAMBO,PARURO,2017,census_internet,pct,0.7587,1,1,1.0,1.0,1
 district,081008,PILLPINTO,PARURO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081008,PILLPINTO,PARURO,2017,census_internet,pct,2.2422,1,1,1.0,1.0,1
+district,081008,PILLPINTO,PARURO,2017,census_internet,pct,3.3632,1,1,1.0,1.0,1
 district,081009,YAURISQUE,PARURO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081009,YAURISQUE,PARURO,2017,census_internet,pct,0.2813,1,1,1.0,1.0,1
+district,081009,YAURISQUE,PARURO,2017,census_internet,pct,0.3165,1,1,1.0,1.0,1
 district,081101,PAUCARTAMBO,PAUCARTAMBO,2007,census_internet,pct,0.0667,1,1,1.0,1.0,1
-district,081101,PAUCARTAMBO,PAUCARTAMBO,2017,census_internet,pct,3.2861,1,1,1.0,1.0,1
+district,081101,PAUCARTAMBO,PAUCARTAMBO,2017,census_internet,pct,3.5663,1,1,1.0,1.0,1
 district,081102,CAICAY,PAUCARTAMBO,2007,census_internet,pct,0.1486,1,1,1.0,1.0,1
-district,081102,CAICAY,PAUCARTAMBO,2017,census_internet,pct,2.3622,1,1,1.0,1.0,1
+district,081102,CAICAY,PAUCARTAMBO,2017,census_internet,pct,2.459,1,1,1.0,1.0,1
 district,081103,CHALLABAMBA,PAUCARTAMBO,2007,census_internet,pct,0.0411,1,1,1.0,1.0,1
-district,081103,CHALLABAMBA,PAUCARTAMBO,2017,census_internet,pct,0.3354,1,1,1.0,1.0,1
+district,081103,CHALLABAMBA,PAUCARTAMBO,2017,census_internet,pct,0.3573,1,1,1.0,1.0,1
 district,081104,COLQUEPATA,PAUCARTAMBO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081104,COLQUEPATA,PAUCARTAMBO,2017,census_internet,pct,0.1121,1,1,1.0,1.0,1
+district,081104,COLQUEPATA,PAUCARTAMBO,2017,census_internet,pct,0.129,1,1,1.0,1.0,1
 district,081105,HUANCARANI,PAUCARTAMBO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081105,HUANCARANI,PAUCARTAMBO,2017,census_internet,pct,1.4953,1,1,1.0,1.0,1
+district,081105,HUANCARANI,PAUCARTAMBO,2017,census_internet,pct,1.7439,1,1,1.0,1.0,1
 district,081106,KOSÑIPATA,PAUCARTAMBO,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081106,KOSÑIPATA,PAUCARTAMBO,2017,census_internet,pct,0.0731,1,1,1.0,1.0,1
+district,081106,KOSÑIPATA,PAUCARTAMBO,2017,census_internet,pct,0.0755,1,1,1.0,1.0,1
 district,081201,URCOS,QUISPICANCHI,2007,census_internet,pct,0.44,1,1,1.0,1.0,1
-district,081201,URCOS,QUISPICANCHI,2017,census_internet,pct,10.5784,1,1,1.0,1.0,1
+district,081201,URCOS,QUISPICANCHI,2017,census_internet,pct,13.4733,1,1,1.0,1.0,1
 district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2017,census_internet,pct,2.7925,1,1,1.0,1.0,1
+district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2017,census_internet,pct,3.6295,1,1,1.0,1.0,1
 district,081203,CAMANTI,QUISPICANCHI,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081203,CAMANTI,QUISPICANCHI,2017,census_internet,pct,3.6145,1,1,1.0,1.0,1
+district,081203,CAMANTI,QUISPICANCHI,2017,census_internet,pct,4.0268,1,1,1.0,1.0,1
 district,081204,CCARHUAYO,QUISPICANCHI,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081204,CCARHUAYO,QUISPICANCHI,2017,census_internet,pct,1.9916,1,1,1.0,1.0,1
+district,081204,CCARHUAYO,QUISPICANCHI,2017,census_internet,pct,2.3457,1,1,1.0,1.0,1
 district,081205,CCATCA,QUISPICANCHI,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081205,CCATCA,QUISPICANCHI,2017,census_internet,pct,0.3103,1,1,1.0,1.0,1
+district,081205,CCATCA,QUISPICANCHI,2017,census_internet,pct,0.3089,1,1,1.0,1.0,1
 district,081206,CUSIPATA,QUISPICANCHI,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081206,CUSIPATA,QUISPICANCHI,2017,census_internet,pct,2.9464,1,1,1.0,1.0,1
+district,081206,CUSIPATA,QUISPICANCHI,2017,census_internet,pct,3.87,1,1,1.0,1.0,1
 district,081207,HUARO,QUISPICANCHI,2007,census_internet,pct,0.1912,1,1,1.0,1.0,1
-district,081207,HUARO,QUISPICANCHI,2017,census_internet,pct,4.1218,1,1,1.0,1.0,1
+district,081207,HUARO,QUISPICANCHI,2017,census_internet,pct,5.0584,1,1,1.0,1.0,1
 district,081208,LUCRE,QUISPICANCHI,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081208,LUCRE,QUISPICANCHI,2017,census_internet,pct,10.8179,1,1,1.0,1.0,1
+district,081208,LUCRE,QUISPICANCHI,2017,census_internet,pct,15.3099,1,1,1.0,1.0,1
 district,081209,MARCAPATA,QUISPICANCHI,2007,census_internet,pct,0.0821,1,1,1.0,1.0,1
-district,081209,MARCAPATA,QUISPICANCHI,2017,census_internet,pct,1.0766,1,1,1.0,1.0,1
+district,081209,MARCAPATA,QUISPICANCHI,2017,census_internet,pct,1.2382,1,1,1.0,1.0,1
 district,081210,OCONGATE,QUISPICANCHI,2007,census_internet,pct,0.0,1,1,1.0,1.0,1
-district,081210,OCONGATE,QUISPICANCHI,2017,census_internet,pct,1.1772,1,1,1.0,1.0,1
+district,081210,OCONGATE,QUISPICANCHI,2017,census_internet,pct,1.3507,1,1,1.0,1.0,1
 district,081211,OROPESA,QUISPICANCHI,2007,census_internet,pct,0.4394,1,1,1.0,1.0,1
-district,081211,OROPESA,QUISPICANCHI,2017,census_internet,pct,8.4412,1,1,1.0,1.0,1
+district,081211,OROPESA,QUISPICANCHI,2017,census_internet,pct,10.899,1,1,1.0,1.0,1
 district,081212,QUIQUIJANA,QUISPICANCHI,2007,census_internet,pct,0.0373,1,1,1.0,1.0,1
-district,081212,QUIQUIJANA,QUISPICANCHI,2017,census_internet,pct,2.9615,1,1,1.0,1.0,1
+district,081212,QUIQUIJANA,QUISPICANCHI,2017,census_internet,pct,3.632,1,1,1.0,1.0,1
 district,081301,URUBAMBA,URUBAMBA,2007,census_internet,pct,2.0479,1,1,1.0,1.0,1
-district,081301,URUBAMBA,URUBAMBA,2017,census_internet,pct,16.7867,1,1,1.0,1.0,1
+district,081301,URUBAMBA,URUBAMBA,2017,census_internet,pct,19.119,1,1,1.0,1.0,1
 district,081302,CHINCHERO,URUBAMBA,2007,census_internet,pct,0.1341,1,1,1.0,1.0,1
-district,081302,CHINCHERO,URUBAMBA,2017,census_internet,pct,6.4903,1,1,1.0,1.0,1
+district,081302,CHINCHERO,URUBAMBA,2017,census_internet,pct,8.1312,1,1,1.0,1.0,1
 district,081303,HUAYLLABAMBA,URUBAMBA,2007,census_internet,pct,0.2451,1,1,1.0,1.0,1
-district,081303,HUAYLLABAMBA,URUBAMBA,2017,census_internet,pct,4.6802,1,1,1.0,1.0,1
+district,081303,HUAYLLABAMBA,URUBAMBA,2017,census_internet,pct,5.8442,1,1,1.0,1.0,1
 district,081304,MACHUPICCHU,URUBAMBA,2007,census_internet,pct,2.1577,1,1,1.0,1.0,1
-district,081304,MACHUPICCHU,URUBAMBA,2017,census_internet,pct,27.109,1,1,1.0,1.0,1
+district,081304,MACHUPICCHU,URUBAMBA,2017,census_internet,pct,28.8306,1,1,1.0,1.0,1
 district,081305,MARAS,URUBAMBA,2007,census_internet,pct,0.0602,1,1,1.0,1.0,1
-district,081305,MARAS,URUBAMBA,2017,census_internet,pct,1.3415,1,1,1.0,1.0,1
+district,081305,MARAS,URUBAMBA,2017,census_internet,pct,1.7581,1,1,1.0,1.0,1
 district,081306,OLLANTAYTAMBO,URUBAMBA,2007,census_internet,pct,0.3085,1,1,1.0,1.0,1
-district,081306,OLLANTAYTAMBO,URUBAMBA,2017,census_internet,pct,6.853,1,1,1.0,1.0,1
+district,081306,OLLANTAYTAMBO,URUBAMBA,2017,census_internet,pct,8.1429,1,1,1.0,1.0,1
 district,081307,YUCAY,URUBAMBA,2007,census_internet,pct,1.0944,1,1,1.0,1.0,1
-district,081307,YUCAY,URUBAMBA,2017,census_internet,pct,16.4779,1,1,1.0,1.0,1
+district,081307,YUCAY,URUBAMBA,2017,census_internet,pct,20.6452,1,1,1.0,1.0,1
 department,08,CUSCO,,2007,census_mobile,pct,29.2101,108,108,1.0,1.0,1
-department,08,CUSCO,,2017,census_mobile,pct,67.2555,112,112,1.0,1.0,1
+department,08,CUSCO,,2017,census_mobile,pct,77.286,112,112,1.0,1.0,1
 province,0801,CUSCO,CUSCO,2007,census_mobile,pct,59.1246,8,8,1.0,1.0,1
-province,0801,CUSCO,CUSCO,2017,census_mobile,pct,84.3889,8,8,1.0,1.0,1
+province,0801,CUSCO,CUSCO,2017,census_mobile,pct,94.3963,8,8,1.0,1.0,1
 province,0802,ACOMAYO,ACOMAYO,2007,census_mobile,pct,1.7058,7,7,1.0,1.0,1
-province,0802,ACOMAYO,ACOMAYO,2017,census_mobile,pct,52.8795,7,7,1.0,1.0,1
+province,0802,ACOMAYO,ACOMAYO,2017,census_mobile,pct,60.573,7,7,1.0,1.0,1
 province,0803,ANTA,ANTA,2007,census_mobile,pct,18.0902,9,9,1.0,1.0,1
-province,0803,ANTA,ANTA,2017,census_mobile,pct,58.9031,9,9,1.0,1.0,1
+province,0803,ANTA,ANTA,2017,census_mobile,pct,73.8627,9,9,1.0,1.0,1
 province,0804,CALCA,CALCA,2007,census_mobile,pct,11.7878,8,8,1.0,1.0,1
-province,0804,CALCA,CALCA,2017,census_mobile,pct,57.7671,8,8,1.0,1.0,1
+province,0804,CALCA,CALCA,2017,census_mobile,pct,65.2658,8,8,1.0,1.0,1
 province,0805,CANAS,CANAS,2007,census_mobile,pct,9.1235,8,8,1.0,1.0,1
-province,0805,CANAS,CANAS,2017,census_mobile,pct,51.7553,8,8,1.0,1.0,1
+province,0805,CANAS,CANAS,2017,census_mobile,pct,53.4529,8,8,1.0,1.0,1
 province,0806,CANCHIS,CANCHIS,2007,census_mobile,pct,28.5357,8,8,1.0,1.0,1
-province,0806,CANCHIS,CANCHIS,2017,census_mobile,pct,64.9899,8,8,1.0,1.0,1
+province,0806,CANCHIS,CANCHIS,2017,census_mobile,pct,76.115,8,8,1.0,1.0,1
 province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2007,census_mobile,pct,5.2979,8,8,1.0,1.0,1
-province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2017,census_mobile,pct,54.7565,8,8,1.0,1.0,1
+province,0807,CHUMBIVILCAS,CHUMBIVILCAS,2017,census_mobile,pct,56.8883,8,8,1.0,1.0,1
 province,0808,ESPINAR,ESPINAR,2007,census_mobile,pct,21.2363,8,8,1.0,1.0,1
-province,0808,ESPINAR,ESPINAR,2017,census_mobile,pct,63.2219,8,8,1.0,1.0,1
+province,0808,ESPINAR,ESPINAR,2017,census_mobile,pct,72.6969,8,8,1.0,1.0,1
 province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2007,census_mobile,pct,15.8483,10,10,1.0,1.0,1
-province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2017,census_mobile,pct,56.9962,14,14,1.0,1.0,1
+province,0809,LA CONVENCIÓN,LA CONVENCIÓN,2017,census_mobile,pct,70.2367,14,14,1.0,1.0,1
 province,0810,PARURO,PARURO,2007,census_mobile,pct,2.3818,9,9,1.0,1.0,1
-province,0810,PARURO,PARURO,2017,census_mobile,pct,39.0094,9,9,1.0,1.0,1
+province,0810,PARURO,PARURO,2017,census_mobile,pct,46.4878,9,9,1.0,1.0,1
 province,0811,PAUCARTAMBO,PAUCARTAMBO,2007,census_mobile,pct,1.7519,6,6,1.0,1.0,1
-province,0811,PAUCARTAMBO,PAUCARTAMBO,2017,census_mobile,pct,53.956,6,6,1.0,1.0,1
+province,0811,PAUCARTAMBO,PAUCARTAMBO,2017,census_mobile,pct,59.217,6,6,1.0,1.0,1
 province,0812,QUISPICANCHI,QUISPICANCHI,2007,census_mobile,pct,13.5578,12,12,1.0,1.0,1
-province,0812,QUISPICANCHI,QUISPICANCHI,2017,census_mobile,pct,58.1202,12,12,1.0,1.0,1
+province,0812,QUISPICANCHI,QUISPICANCHI,2017,census_mobile,pct,69.9146,12,12,1.0,1.0,1
 province,0813,URUBAMBA,URUBAMBA,2007,census_mobile,pct,33.7884,7,7,1.0,1.0,1
-province,0813,URUBAMBA,URUBAMBA,2017,census_mobile,pct,65.122,7,7,1.0,1.0,1
+province,0813,URUBAMBA,URUBAMBA,2017,census_mobile,pct,78.0179,7,7,1.0,1.0,1
 district,080101,CUSCO,CUSCO,2007,census_mobile,pct,65.9991,1,1,1.0,1.0,1
-district,080101,CUSCO,CUSCO,2017,census_mobile,pct,83.5908,1,1,1.0,1.0,1
+district,080101,CUSCO,CUSCO,2017,census_mobile,pct,94.2929,1,1,1.0,1.0,1
 district,080102,CCORCA,CUSCO,2007,census_mobile,pct,0.5848,1,1,1.0,1.0,1
-district,080102,CCORCA,CUSCO,2017,census_mobile,pct,53.0997,1,1,1.0,1.0,1
+district,080102,CCORCA,CUSCO,2017,census_mobile,pct,53.3153,1,1,1.0,1.0,1
 district,080103,POROY,CUSCO,2007,census_mobile,pct,40.0,1,1,1.0,1.0,1
-district,080103,POROY,CUSCO,2017,census_mobile,pct,63.2829,1,1,1.0,1.0,1
+district,080103,POROY,CUSCO,2017,census_mobile,pct,86.6864,1,1,1.0,1.0,1
 district,080104,SAN JERONIMO,CUSCO,2007,census_mobile,pct,61.5527,1,1,1.0,1.0,1
-district,080104,SAN JERONIMO,CUSCO,2017,census_mobile,pct,79.7115,1,1,1.0,1.0,1
+district,080104,SAN JERONIMO,CUSCO,2017,census_mobile,pct,94.5501,1,1,1.0,1.0,1
 district,080105,SAN SEBASTIAN,CUSCO,2007,census_mobile,pct,62.2253,1,1,1.0,1.0,1
-district,080105,SAN SEBASTIAN,CUSCO,2017,census_mobile,pct,85.7715,1,1,1.0,1.0,1
+district,080105,SAN SEBASTIAN,CUSCO,2017,census_mobile,pct,95.2802,1,1,1.0,1.0,1
 district,080106,SANTIAGO,CUSCO,2007,census_mobile,pct,58.4647,1,1,1.0,1.0,1
-district,080106,SANTIAGO,CUSCO,2017,census_mobile,pct,83.2749,1,1,1.0,1.0,1
+district,080106,SANTIAGO,CUSCO,2017,census_mobile,pct,93.2326,1,1,1.0,1.0,1
 district,080107,SAYLLA,CUSCO,2007,census_mobile,pct,50.8646,1,1,1.0,1.0,1
-district,080107,SAYLLA,CUSCO,2017,census_mobile,pct,74.581,1,1,1.0,1.0,1
+district,080107,SAYLLA,CUSCO,2017,census_mobile,pct,90.2637,1,1,1.0,1.0,1
 district,080108,WANCHAQ,CUSCO,2007,census_mobile,pct,46.9297,1,1,1.0,1.0,1
-district,080108,WANCHAQ,CUSCO,2017,census_mobile,pct,92.7911,1,1,1.0,1.0,1
+district,080108,WANCHAQ,CUSCO,2017,census_mobile,pct,96.9379,1,1,1.0,1.0,1
 district,080201,ACOMAYO,ACOMAYO,2007,census_mobile,pct,0.8511,1,1,1.0,1.0,1
-district,080201,ACOMAYO,ACOMAYO,2017,census_mobile,pct,59.7306,1,1,1.0,1.0,1
+district,080201,ACOMAYO,ACOMAYO,2017,census_mobile,pct,68.7064,1,1,1.0,1.0,1
 district,080202,ACOPIA,ACOMAYO,2007,census_mobile,pct,1.3699,1,1,1.0,1.0,1
-district,080202,ACOPIA,ACOMAYO,2017,census_mobile,pct,56.2338,1,1,1.0,1.0,1
+district,080202,ACOPIA,ACOMAYO,2017,census_mobile,pct,53.5229,1,1,1.0,1.0,1
 district,080203,ACOS,ACOMAYO,2007,census_mobile,pct,0.3831,1,1,1.0,1.0,1
-district,080203,ACOS,ACOMAYO,2017,census_mobile,pct,54.5652,1,1,1.0,1.0,1
+district,080203,ACOS,ACOMAYO,2017,census_mobile,pct,70.0139,1,1,1.0,1.0,1
 district,080204,MOSOC LLACTA,ACOMAYO,2007,census_mobile,pct,8.2031,1,1,1.0,1.0,1
-district,080204,MOSOC LLACTA,ACOMAYO,2017,census_mobile,pct,24.7863,1,1,1.0,1.0,1
+district,080204,MOSOC LLACTA,ACOMAYO,2017,census_mobile,pct,13.0337,1,1,1.0,1.0,1
 district,080205,POMACANCHI,ACOMAYO,2007,census_mobile,pct,0.6147,1,1,1.0,1.0,1
-district,080205,POMACANCHI,ACOMAYO,2017,census_mobile,pct,51.6218,1,1,1.0,1.0,1
+district,080205,POMACANCHI,ACOMAYO,2017,census_mobile,pct,61.354,1,1,1.0,1.0,1
 district,080206,RONDOCAN,ACOMAYO,2007,census_mobile,pct,0.9302,1,1,1.0,1.0,1
-district,080206,RONDOCAN,ACOMAYO,2017,census_mobile,pct,45.4262,1,1,1.0,1.0,1
+district,080206,RONDOCAN,ACOMAYO,2017,census_mobile,pct,57.199,1,1,1.0,1.0,1
 district,080207,SANGARARA,ACOMAYO,2007,census_mobile,pct,3.6563,1,1,1.0,1.0,1
-district,080207,SANGARARA,ACOMAYO,2017,census_mobile,pct,54.8959,1,1,1.0,1.0,1
+district,080207,SANGARARA,ACOMAYO,2017,census_mobile,pct,71.0579,1,1,1.0,1.0,1
 district,080301,ANTA,ANTA,2007,census_mobile,pct,26.7554,1,1,1.0,1.0,1
-district,080301,ANTA,ANTA,2017,census_mobile,pct,65.1939,1,1,1.0,1.0,1
+district,080301,ANTA,ANTA,2017,census_mobile,pct,81.1058,1,1,1.0,1.0,1
 district,080302,ANCAHUASI,ANTA,2007,census_mobile,pct,13.7773,1,1,1.0,1.0,1
-district,080302,ANCAHUASI,ANTA,2017,census_mobile,pct,57.222,1,1,1.0,1.0,1
+district,080302,ANCAHUASI,ANTA,2017,census_mobile,pct,71.0914,1,1,1.0,1.0,1
 district,080303,CACHIMAYO,ANTA,2007,census_mobile,pct,48.8281,1,1,1.0,1.0,1
-district,080303,CACHIMAYO,ANTA,2017,census_mobile,pct,70.2801,1,1,1.0,1.0,1
+district,080303,CACHIMAYO,ANTA,2017,census_mobile,pct,87.292,1,1,1.0,1.0,1
 district,080304,CHINCHAYPUJIO,ANTA,2007,census_mobile,pct,0.4062,1,1,1.0,1.0,1
-district,080304,CHINCHAYPUJIO,ANTA,2017,census_mobile,pct,42.0561,1,1,1.0,1.0,1
+district,080304,CHINCHAYPUJIO,ANTA,2017,census_mobile,pct,45.6318,1,1,1.0,1.0,1
 district,080305,HUAROCONDO,ANTA,2007,census_mobile,pct,12.1452,1,1,1.0,1.0,1
-district,080305,HUAROCONDO,ANTA,2017,census_mobile,pct,53.5331,1,1,1.0,1.0,1
+district,080305,HUAROCONDO,ANTA,2017,census_mobile,pct,66.4095,1,1,1.0,1.0,1
 district,080306,LIMATAMBO,ANTA,2007,census_mobile,pct,1.6234,1,1,1.0,1.0,1
-district,080306,LIMATAMBO,ANTA,2017,census_mobile,pct,54.4022,1,1,1.0,1.0,1
+district,080306,LIMATAMBO,ANTA,2017,census_mobile,pct,69.9868,1,1,1.0,1.0,1
 district,080307,MOLLEPATA,ANTA,2007,census_mobile,pct,31.1037,1,1,1.0,1.0,1
-district,080307,MOLLEPATA,ANTA,2017,census_mobile,pct,57.7687,1,1,1.0,1.0,1
+district,080307,MOLLEPATA,ANTA,2017,census_mobile,pct,79.1745,1,1,1.0,1.0,1
 district,080308,PUCYURA,ANTA,2007,census_mobile,pct,15.8749,1,1,1.0,1.0,1
-district,080308,PUCYURA,ANTA,2017,census_mobile,pct,57.874,1,1,1.0,1.0,1
+district,080308,PUCYURA,ANTA,2017,census_mobile,pct,76.1658,1,1,1.0,1.0,1
 district,080309,ZURITE,ANTA,2007,census_mobile,pct,32.321,1,1,1.0,1.0,1
-district,080309,ZURITE,ANTA,2017,census_mobile,pct,55.0486,1,1,1.0,1.0,1
+district,080309,ZURITE,ANTA,2017,census_mobile,pct,73.6,1,1,1.0,1.0,1
 district,080401,CALCA,CALCA,2007,census_mobile,pct,23.4937,1,1,1.0,1.0,1
-district,080401,CALCA,CALCA,2017,census_mobile,pct,72.2122,1,1,1.0,1.0,1
+district,080401,CALCA,CALCA,2017,census_mobile,pct,80.2008,1,1,1.0,1.0,1
 district,080402,COYA,CALCA,2007,census_mobile,pct,13.0261,1,1,1.0,1.0,1
-district,080402,COYA,CALCA,2017,census_mobile,pct,56.5839,1,1,1.0,1.0,1
+district,080402,COYA,CALCA,2017,census_mobile,pct,68.9908,1,1,1.0,1.0,1
 district,080403,LAMAY,CALCA,2007,census_mobile,pct,9.1049,1,1,1.0,1.0,1
-district,080403,LAMAY,CALCA,2017,census_mobile,pct,53.1422,1,1,1.0,1.0,1
+district,080403,LAMAY,CALCA,2017,census_mobile,pct,58.7323,1,1,1.0,1.0,1
 district,080404,LARES,CALCA,2007,census_mobile,pct,0.1564,1,1,1.0,1.0,1
-district,080404,LARES,CALCA,2017,census_mobile,pct,41.3198,1,1,1.0,1.0,1
+district,080404,LARES,CALCA,2017,census_mobile,pct,50.4052,1,1,1.0,1.0,1
 district,080405,PISAC,CALCA,2007,census_mobile,pct,16.8354,1,1,1.0,1.0,1
-district,080405,PISAC,CALCA,2017,census_mobile,pct,66.3335,1,1,1.0,1.0,1
+district,080405,PISAC,CALCA,2017,census_mobile,pct,63.8049,1,1,1.0,1.0,1
 district,080406,SAN SALVADOR,CALCA,2007,census_mobile,pct,0.0775,1,1,1.0,1.0,1
-district,080406,SAN SALVADOR,CALCA,2017,census_mobile,pct,52.0403,1,1,1.0,1.0,1
+district,080406,SAN SALVADOR,CALCA,2017,census_mobile,pct,71.7406,1,1,1.0,1.0,1
 district,080407,TARAY,CALCA,2007,census_mobile,pct,16.7464,1,1,1.0,1.0,1
-district,080407,TARAY,CALCA,2017,census_mobile,pct,33.125,1,1,1.0,1.0,1
+district,080407,TARAY,CALCA,2017,census_mobile,pct,34.6405,1,1,1.0,1.0,1
 district,080408,YANATILE,CALCA,2007,census_mobile,pct,0.1393,1,1,1.0,1.0,1
-district,080408,YANATILE,CALCA,2017,census_mobile,pct,49.1873,1,1,1.0,1.0,1
+district,080408,YANATILE,CALCA,2017,census_mobile,pct,57.2519,1,1,1.0,1.0,1
 district,080501,YANAOCA,CANAS,2007,census_mobile,pct,15.9595,1,1,1.0,1.0,1
-district,080501,YANAOCA,CANAS,2017,census_mobile,pct,56.0252,1,1,1.0,1.0,1
+district,080501,YANAOCA,CANAS,2017,census_mobile,pct,55.0857,1,1,1.0,1.0,1
 district,080502,CHECCA,CANAS,2007,census_mobile,pct,0.8742,1,1,1.0,1.0,1
-district,080502,CHECCA,CANAS,2017,census_mobile,pct,50.8656,1,1,1.0,1.0,1
+district,080502,CHECCA,CANAS,2017,census_mobile,pct,57.513,1,1,1.0,1.0,1
 district,080503,KUNTURKANKI,CANAS,2007,census_mobile,pct,0.7453,1,1,1.0,1.0,1
-district,080503,KUNTURKANKI,CANAS,2017,census_mobile,pct,59.1908,1,1,1.0,1.0,1
+district,080503,KUNTURKANKI,CANAS,2017,census_mobile,pct,63.3663,1,1,1.0,1.0,1
 district,080504,LANGUI,CANAS,2007,census_mobile,pct,17.4387,1,1,1.0,1.0,1
-district,080504,LANGUI,CANAS,2017,census_mobile,pct,57.8811,1,1,1.0,1.0,1
+district,080504,LANGUI,CANAS,2017,census_mobile,pct,66.4688,1,1,1.0,1.0,1
 district,080505,LAYO,CANAS,2007,census_mobile,pct,17.5676,1,1,1.0,1.0,1
-district,080505,LAYO,CANAS,2017,census_mobile,pct,45.5575,1,1,1.0,1.0,1
+district,080505,LAYO,CANAS,2017,census_mobile,pct,45.1004,1,1,1.0,1.0,1
 district,080506,PAMPAMARCA,CANAS,2007,census_mobile,pct,4.5198,1,1,1.0,1.0,1
-district,080506,PAMPAMARCA,CANAS,2017,census_mobile,pct,47.8705,1,1,1.0,1.0,1
+district,080506,PAMPAMARCA,CANAS,2017,census_mobile,pct,51.3711,1,1,1.0,1.0,1
 district,080507,QUEHUE,CANAS,2007,census_mobile,pct,2.8217,1,1,1.0,1.0,1
-district,080507,QUEHUE,CANAS,2017,census_mobile,pct,33.8834,1,1,1.0,1.0,1
+district,080507,QUEHUE,CANAS,2017,census_mobile,pct,34.5679,1,1,1.0,1.0,1
 district,080508,TUPAC AMARU,CANAS,2007,census_mobile,pct,3.9851,1,1,1.0,1.0,1
-district,080508,TUPAC AMARU,CANAS,2017,census_mobile,pct,53.9216,1,1,1.0,1.0,1
+district,080508,TUPAC AMARU,CANAS,2017,census_mobile,pct,48.1852,1,1,1.0,1.0,1
 district,080601,SICUANI,CANCHIS,2007,census_mobile,pct,39.7672,1,1,1.0,1.0,1
-district,080601,SICUANI,CANCHIS,2017,census_mobile,pct,71.8978,1,1,1.0,1.0,1
+district,080601,SICUANI,CANCHIS,2017,census_mobile,pct,84.5542,1,1,1.0,1.0,1
 district,080602,CHECACUPE,CANCHIS,2007,census_mobile,pct,3.8263,1,1,1.0,1.0,1
-district,080602,CHECACUPE,CANCHIS,2017,census_mobile,pct,43.413,1,1,1.0,1.0,1
+district,080602,CHECACUPE,CANCHIS,2017,census_mobile,pct,50.5829,1,1,1.0,1.0,1
 district,080603,COMBAPATA,CANCHIS,2007,census_mobile,pct,2.6686,1,1,1.0,1.0,1
-district,080603,COMBAPATA,CANCHIS,2017,census_mobile,pct,62.1203,1,1,1.0,1.0,1
+district,080603,COMBAPATA,CANCHIS,2017,census_mobile,pct,69.4868,1,1,1.0,1.0,1
 district,080604,MARANGANI,CANCHIS,2007,census_mobile,pct,16.0269,1,1,1.0,1.0,1
-district,080604,MARANGANI,CANCHIS,2017,census_mobile,pct,63.9856,1,1,1.0,1.0,1
+district,080604,MARANGANI,CANCHIS,2017,census_mobile,pct,69.8101,1,1,1.0,1.0,1
 district,080605,PITUMARCA,CANCHIS,2007,census_mobile,pct,0.4057,1,1,1.0,1.0,1
-district,080605,PITUMARCA,CANCHIS,2017,census_mobile,pct,38.6536,1,1,1.0,1.0,1
+district,080605,PITUMARCA,CANCHIS,2017,census_mobile,pct,50.4122,1,1,1.0,1.0,1
 district,080606,SAN PABLO,CANCHIS,2007,census_mobile,pct,16.9559,1,1,1.0,1.0,1
-district,080606,SAN PABLO,CANCHIS,2017,census_mobile,pct,54.7592,1,1,1.0,1.0,1
+district,080606,SAN PABLO,CANCHIS,2017,census_mobile,pct,64.8541,1,1,1.0,1.0,1
 district,080607,SAN PEDRO,CANCHIS,2007,census_mobile,pct,39.2361,1,1,1.0,1.0,1
-district,080607,SAN PEDRO,CANCHIS,2017,census_mobile,pct,68.0498,1,1,1.0,1.0,1
+district,080607,SAN PEDRO,CANCHIS,2017,census_mobile,pct,73.0512,1,1,1.0,1.0,1
 district,080608,TINTA,CANCHIS,2007,census_mobile,pct,30.0539,1,1,1.0,1.0,1
-district,080608,TINTA,CANCHIS,2017,census_mobile,pct,66.7509,1,1,1.0,1.0,1
+district,080608,TINTA,CANCHIS,2017,census_mobile,pct,77.7974,1,1,1.0,1.0,1
 district,080701,SANTO TOMAS,CHUMBIVILCAS,2007,census_mobile,pct,11.9851,1,1,1.0,1.0,1
-district,080701,SANTO TOMAS,CHUMBIVILCAS,2017,census_mobile,pct,59.0139,1,1,1.0,1.0,1
+district,080701,SANTO TOMAS,CHUMBIVILCAS,2017,census_mobile,pct,64.3241,1,1,1.0,1.0,1
 district,080702,CAPACMARCA,CHUMBIVILCAS,2007,census_mobile,pct,0.0802,1,1,1.0,1.0,1
-district,080702,CAPACMARCA,CHUMBIVILCAS,2017,census_mobile,pct,50.8025,1,1,1.0,1.0,1
+district,080702,CAPACMARCA,CHUMBIVILCAS,2017,census_mobile,pct,57.6405,1,1,1.0,1.0,1
 district,080703,CHAMACA,CHUMBIVILCAS,2007,census_mobile,pct,6.1774,1,1,1.0,1.0,1
-district,080703,CHAMACA,CHUMBIVILCAS,2017,census_mobile,pct,47.8279,1,1,1.0,1.0,1
+district,080703,CHAMACA,CHUMBIVILCAS,2017,census_mobile,pct,55.022,1,1,1.0,1.0,1
 district,080704,COLQUEMARCA,CHUMBIVILCAS,2007,census_mobile,pct,1.0141,1,1,1.0,1.0,1
-district,080704,COLQUEMARCA,CHUMBIVILCAS,2017,census_mobile,pct,59.3564,1,1,1.0,1.0,1
+district,080704,COLQUEMARCA,CHUMBIVILCAS,2017,census_mobile,pct,51.1737,1,1,1.0,1.0,1
 district,080705,LIVITACA,CHUMBIVILCAS,2007,census_mobile,pct,0.8463,1,1,1.0,1.0,1
-district,080705,LIVITACA,CHUMBIVILCAS,2017,census_mobile,pct,36.9578,1,1,1.0,1.0,1
+district,080705,LIVITACA,CHUMBIVILCAS,2017,census_mobile,pct,39.9199,1,1,1.0,1.0,1
 district,080706,LLUSCO,CHUMBIVILCAS,2007,census_mobile,pct,2.7517,1,1,1.0,1.0,1
-district,080706,LLUSCO,CHUMBIVILCAS,2017,census_mobile,pct,56.2102,1,1,1.0,1.0,1
+district,080706,LLUSCO,CHUMBIVILCAS,2017,census_mobile,pct,52.1418,1,1,1.0,1.0,1
 district,080707,QUIÑOTA,CHUMBIVILCAS,2007,census_mobile,pct,1.7658,1,1,1.0,1.0,1
-district,080707,QUIÑOTA,CHUMBIVILCAS,2017,census_mobile,pct,48.1123,1,1,1.0,1.0,1
+district,080707,QUIÑOTA,CHUMBIVILCAS,2017,census_mobile,pct,45.1818,1,1,1.0,1.0,1
 district,080708,VELILLE,CHUMBIVILCAS,2007,census_mobile,pct,1.5292,1,1,1.0,1.0,1
-district,080708,VELILLE,CHUMBIVILCAS,2017,census_mobile,pct,72.6466,1,1,1.0,1.0,1
+district,080708,VELILLE,CHUMBIVILCAS,2017,census_mobile,pct,70.6302,1,1,1.0,1.0,1
 district,080801,ESPINAR,ESPINAR,2007,census_mobile,pct,41.1999,1,1,1.0,1.0,1
-district,080801,ESPINAR,ESPINAR,2017,census_mobile,pct,76.2384,1,1,1.0,1.0,1
+district,080801,ESPINAR,ESPINAR,2017,census_mobile,pct,87.4349,1,1,1.0,1.0,1
 district,080802,CONDOROMA,ESPINAR,2007,census_mobile,pct,0.2646,1,1,1.0,1.0,1
-district,080802,CONDOROMA,ESPINAR,2017,census_mobile,pct,65.3396,1,1,1.0,1.0,1
+district,080802,CONDOROMA,ESPINAR,2017,census_mobile,pct,79.7143,1,1,1.0,1.0,1
 district,080803,COPORAQUE,ESPINAR,2007,census_mobile,pct,4.1,1,1,1.0,1.0,1
-district,080803,COPORAQUE,ESPINAR,2017,census_mobile,pct,40.0509,1,1,1.0,1.0,1
+district,080803,COPORAQUE,ESPINAR,2017,census_mobile,pct,43.1233,1,1,1.0,1.0,1
 district,080804,OCORURO,ESPINAR,2007,census_mobile,pct,0.1976,1,1,1.0,1.0,1
-district,080804,OCORURO,ESPINAR,2017,census_mobile,pct,39.5604,1,1,1.0,1.0,1
+district,080804,OCORURO,ESPINAR,2017,census_mobile,pct,45.1883,1,1,1.0,1.0,1
 district,080805,PALLPATA,ESPINAR,2007,census_mobile,pct,4.305,1,1,1.0,1.0,1
-district,080805,PALLPATA,ESPINAR,2017,census_mobile,pct,63.6869,1,1,1.0,1.0,1
+district,080805,PALLPATA,ESPINAR,2017,census_mobile,pct,73.5706,1,1,1.0,1.0,1
 district,080806,PICHIGUA,ESPINAR,2007,census_mobile,pct,3.3784,1,1,1.0,1.0,1
-district,080806,PICHIGUA,ESPINAR,2017,census_mobile,pct,40.9277,1,1,1.0,1.0,1
+district,080806,PICHIGUA,ESPINAR,2017,census_mobile,pct,58.2524,1,1,1.0,1.0,1
 district,080807,SUYCKUTAMBO,ESPINAR,2007,census_mobile,pct,3.4946,1,1,1.0,1.0,1
-district,080807,SUYCKUTAMBO,ESPINAR,2017,census_mobile,pct,49.0305,1,1,1.0,1.0,1
+district,080807,SUYCKUTAMBO,ESPINAR,2017,census_mobile,pct,54.1284,1,1,1.0,1.0,1
 district,080808,ALTO PICHIGUA,ESPINAR,2007,census_mobile,pct,8.6351,1,1,1.0,1.0,1
-district,080808,ALTO PICHIGUA,ESPINAR,2017,census_mobile,pct,48.6047,1,1,1.0,1.0,1
+district,080808,ALTO PICHIGUA,ESPINAR,2017,census_mobile,pct,57.0259,1,1,1.0,1.0,1
 district,080901,SANTA ANA,LA CONVENCIÓN,2007,census_mobile,pct,39.4426,1,1,1.0,1.0,1
-district,080901,SANTA ANA,LA CONVENCIÓN,2017,census_mobile,pct,73.8862,1,1,1.0,1.0,1
+district,080901,SANTA ANA,LA CONVENCIÓN,2017,census_mobile,pct,86.1662,1,1,1.0,1.0,1
 district,080902,ECHARATE,LA CONVENCIÓN,2007,census_mobile,pct,4.5842,1,1,1.0,1.0,1
-district,080902,ECHARATE,LA CONVENCIÓN,2017,census_mobile,pct,52.4855,1,1,1.0,1.0,1
+district,080902,ECHARATE,LA CONVENCIÓN,2017,census_mobile,pct,60.6992,1,1,1.0,1.0,1
 district,080903,HUAYOPATA,LA CONVENCIÓN,2007,census_mobile,pct,0.059,1,1,1.0,1.0,1
-district,080903,HUAYOPATA,LA CONVENCIÓN,2017,census_mobile,pct,50.904,1,1,1.0,1.0,1
+district,080903,HUAYOPATA,LA CONVENCIÓN,2017,census_mobile,pct,68.7466,1,1,1.0,1.0,1
 district,080904,MARANURA,LA CONVENCIÓN,2007,census_mobile,pct,3.241,1,1,1.0,1.0,1
-district,080904,MARANURA,LA CONVENCIÓN,2017,census_mobile,pct,51.4878,1,1,1.0,1.0,1
+district,080904,MARANURA,LA CONVENCIÓN,2017,census_mobile,pct,66.1885,1,1,1.0,1.0,1
 district,080905,OCOBAMBA,LA CONVENCIÓN,2007,census_mobile,pct,0.0597,1,1,1.0,1.0,1
-district,080905,OCOBAMBA,LA CONVENCIÓN,2017,census_mobile,pct,42.9339,1,1,1.0,1.0,1
+district,080905,OCOBAMBA,LA CONVENCIÓN,2017,census_mobile,pct,65.1003,1,1,1.0,1.0,1
 district,080906,QUELLOUNO,LA CONVENCIÓN,2007,census_mobile,pct,0.673,1,1,1.0,1.0,1
-district,080906,QUELLOUNO,LA CONVENCIÓN,2017,census_mobile,pct,51.5564,1,1,1.0,1.0,1
+district,080906,QUELLOUNO,LA CONVENCIÓN,2017,census_mobile,pct,60.3145,1,1,1.0,1.0,1
 district,080907,KIMBIRI,LA CONVENCIÓN,2007,census_mobile,pct,30.915,1,1,1.0,1.0,1
-district,080907,KIMBIRI,LA CONVENCIÓN,2017,census_mobile,pct,66.0248,1,1,1.0,1.0,1
+district,080907,KIMBIRI,LA CONVENCIÓN,2017,census_mobile,pct,83.1529,1,1,1.0,1.0,1
 district,080908,SANTA TERESA,LA CONVENCIÓN,2007,census_mobile,pct,0.1543,1,1,1.0,1.0,1
-district,080908,SANTA TERESA,LA CONVENCIÓN,2017,census_mobile,pct,49.3823,1,1,1.0,1.0,1
+district,080908,SANTA TERESA,LA CONVENCIÓN,2017,census_mobile,pct,71.0716,1,1,1.0,1.0,1
 district,080909,VILCABAMBA,LA CONVENCIÓN,2007,census_mobile,pct,0.3142,1,1,1.0,1.0,1
-district,080909,VILCABAMBA,LA CONVENCIÓN,2017,census_mobile,pct,38.1034,1,1,1.0,1.0,1
+district,080909,VILCABAMBA,LA CONVENCIÓN,2017,census_mobile,pct,50.7138,1,1,1.0,1.0,1
 district,080910,PICHARI,LA CONVENCIÓN,2007,census_mobile,pct,31.9798,1,1,1.0,1.0,1
-district,080910,PICHARI,LA CONVENCIÓN,2017,census_mobile,pct,69.1484,1,1,1.0,1.0,1
-district,080911,INKAWASI,LA CONVENCIÓN,2017,census_mobile,pct,46.4392,1,1,1.0,1.0,1
-district,080912,VILLA VIRGEN,LA CONVENCIÓN,2017,census_mobile,pct,62.4214,1,1,1.0,1.0,1
-district,080913,VILLA KINTIARINA,LA CONVENCIÓN,2017,census_mobile,pct,64.9746,1,1,1.0,1.0,1
-district,080914,MEGANTONI,LA CONVENCIÓN,2017,census_mobile,pct,32.0,1,1,1.0,1.0,1
+district,080910,PICHARI,LA CONVENCIÓN,2017,census_mobile,pct,86.2184,1,1,1.0,1.0,1
+district,080911,INKAWASI,LA CONVENCIÓN,2017,census_mobile,pct,47.6408,1,1,1.0,1.0,1
+district,080912,VILLA VIRGEN,LA CONVENCIÓN,2017,census_mobile,pct,79.2415,1,1,1.0,1.0,1
+district,080913,VILLA KINTIARINA,LA CONVENCIÓN,2017,census_mobile,pct,71.7757,1,1,1.0,1.0,1
+district,080914,MEGANTONI,LA CONVENCIÓN,2017,census_mobile,pct,36.1775,1,1,1.0,1.0,1
 district,081001,PARURO,PARURO,2007,census_mobile,pct,16.4271,1,1,1.0,1.0,1
-district,081001,PARURO,PARURO,2017,census_mobile,pct,59.3548,1,1,1.0,1.0,1
+district,081001,PARURO,PARURO,2017,census_mobile,pct,74.645,1,1,1.0,1.0,1
 district,081002,ACCHA,PARURO,2007,census_mobile,pct,0.2008,1,1,1.0,1.0,1
-district,081002,ACCHA,PARURO,2017,census_mobile,pct,35.4467,1,1,1.0,1.0,1
+district,081002,ACCHA,PARURO,2017,census_mobile,pct,36.9739,1,1,1.0,1.0,1
 district,081003,CCAPI,PARURO,2007,census_mobile,pct,0.0941,1,1,1.0,1.0,1
-district,081003,CCAPI,PARURO,2017,census_mobile,pct,42.5158,1,1,1.0,1.0,1
+district,081003,CCAPI,PARURO,2017,census_mobile,pct,60.682,1,1,1.0,1.0,1
 district,081004,COLCHA,PARURO,2007,census_mobile,pct,1.8182,1,1,1.0,1.0,1
-district,081004,COLCHA,PARURO,2017,census_mobile,pct,22.3077,1,1,1.0,1.0,1
+district,081004,COLCHA,PARURO,2017,census_mobile,pct,29.1457,1,1,1.0,1.0,1
 district,081005,HUANOQUITE,PARURO,2007,census_mobile,pct,0.2079,1,1,1.0,1.0,1
-district,081005,HUANOQUITE,PARURO,2017,census_mobile,pct,43.3445,1,1,1.0,1.0,1
+district,081005,HUANOQUITE,PARURO,2017,census_mobile,pct,52.2942,1,1,1.0,1.0,1
 district,081006,OMACHA,PARURO,2007,census_mobile,pct,1.2674,1,1,1.0,1.0,1
-district,081006,OMACHA,PARURO,2017,census_mobile,pct,6.2748,1,1,1.0,1.0,1
+district,081006,OMACHA,PARURO,2017,census_mobile,pct,5.9301,1,1,1.0,1.0,1
 district,081007,PACCARITAMBO,PARURO,2007,census_mobile,pct,0.3979,1,1,1.0,1.0,1
-district,081007,PACCARITAMBO,PARURO,2017,census_mobile,pct,43.8799,1,1,1.0,1.0,1
+district,081007,PACCARITAMBO,PARURO,2017,census_mobile,pct,57.6631,1,1,1.0,1.0,1
 district,081008,PILLPINTO,PARURO,2007,census_mobile,pct,0.0,1,1,1.0,1.0,1
-district,081008,PILLPINTO,PARURO,2017,census_mobile,pct,50.6726,1,1,1.0,1.0,1
+district,081008,PILLPINTO,PARURO,2017,census_mobile,pct,76.009,1,1,1.0,1.0,1
 district,081009,YAURISQUE,PARURO,2007,census_mobile,pct,0.2994,1,1,1.0,1.0,1
-district,081009,YAURISQUE,PARURO,2017,census_mobile,pct,55.8368,1,1,1.0,1.0,1
+district,081009,YAURISQUE,PARURO,2017,census_mobile,pct,62.8165,1,1,1.0,1.0,1
 district,081101,PAUCARTAMBO,PAUCARTAMBO,2007,census_mobile,pct,5.005,1,1,1.0,1.0,1
-district,081101,PAUCARTAMBO,PAUCARTAMBO,2017,census_mobile,pct,55.5971,1,1,1.0,1.0,1
+district,081101,PAUCARTAMBO,PAUCARTAMBO,2017,census_mobile,pct,60.3363,1,1,1.0,1.0,1
 district,081102,CAICAY,PAUCARTAMBO,2007,census_mobile,pct,2.0802,1,1,1.0,1.0,1
-district,081102,CAICAY,PAUCARTAMBO,2017,census_mobile,pct,60.8924,1,1,1.0,1.0,1
+district,081102,CAICAY,PAUCARTAMBO,2017,census_mobile,pct,63.388,1,1,1.0,1.0,1
 district,081103,CHALLABAMBA,PAUCARTAMBO,2007,census_mobile,pct,0.9868,1,1,1.0,1.0,1
-district,081103,CHALLABAMBA,PAUCARTAMBO,2017,census_mobile,pct,48.7141,1,1,1.0,1.0,1
+district,081103,CHALLABAMBA,PAUCARTAMBO,2017,census_mobile,pct,51.8857,1,1,1.0,1.0,1
 district,081104,COLQUEPATA,PAUCARTAMBO,2007,census_mobile,pct,0.3331,1,1,1.0,1.0,1
-district,081104,COLQUEPATA,PAUCARTAMBO,2017,census_mobile,pct,53.8117,1,1,1.0,1.0,1
+district,081104,COLQUEPATA,PAUCARTAMBO,2017,census_mobile,pct,61.9355,1,1,1.0,1.0,1
 district,081105,HUANCARANI,PAUCARTAMBO,2007,census_mobile,pct,0.1247,1,1,1.0,1.0,1
-district,081105,HUANCARANI,PAUCARTAMBO,2017,census_mobile,pct,61.4486,1,1,1.0,1.0,1
+district,081105,HUANCARANI,PAUCARTAMBO,2017,census_mobile,pct,71.6621,1,1,1.0,1.0,1
 district,081106,KOSÑIPATA,PAUCARTAMBO,2007,census_mobile,pct,0.1529,1,1,1.0,1.0,1
-district,081106,KOSÑIPATA,PAUCARTAMBO,2017,census_mobile,pct,44.4444,1,1,1.0,1.0,1
+district,081106,KOSÑIPATA,PAUCARTAMBO,2017,census_mobile,pct,45.9215,1,1,1.0,1.0,1
 district,081201,URCOS,QUISPICANCHI,2007,census_mobile,pct,34.2,1,1,1.0,1.0,1
-district,081201,URCOS,QUISPICANCHI,2017,census_mobile,pct,65.3729,1,1,1.0,1.0,1
+district,081201,URCOS,QUISPICANCHI,2017,census_mobile,pct,83.2633,1,1,1.0,1.0,1
 district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2007,census_mobile,pct,39.3965,1,1,1.0,1.0,1
-district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2017,census_mobile,pct,61.6755,1,1,1.0,1.0,1
+district,081202,ANDAHUAYLILLAS,QUISPICANCHI,2017,census_mobile,pct,80.1627,1,1,1.0,1.0,1
 district,081203,CAMANTI,QUISPICANCHI,2007,census_mobile,pct,0.0,1,1,1.0,1.0,1
-district,081203,CAMANTI,QUISPICANCHI,2017,census_mobile,pct,66.5663,1,1,1.0,1.0,1
+district,081203,CAMANTI,QUISPICANCHI,2017,census_mobile,pct,74.1611,1,1,1.0,1.0,1
 district,081204,CCARHUAYO,QUISPICANCHI,2007,census_mobile,pct,0.1506,1,1,1.0,1.0,1
-district,081204,CCARHUAYO,QUISPICANCHI,2017,census_mobile,pct,51.9916,1,1,1.0,1.0,1
+district,081204,CCARHUAYO,QUISPICANCHI,2017,census_mobile,pct,61.2346,1,1,1.0,1.0,1
 district,081205,CCATCA,QUISPICANCHI,2007,census_mobile,pct,4.4872,1,1,1.0,1.0,1
-district,081205,CCATCA,QUISPICANCHI,2017,census_mobile,pct,57.6587,1,1,1.0,1.0,1
+district,081205,CCATCA,QUISPICANCHI,2017,census_mobile,pct,57.3996,1,1,1.0,1.0,1
 district,081206,CUSIPATA,QUISPICANCHI,2007,census_mobile,pct,0.5691,1,1,1.0,1.0,1
-district,081206,CUSIPATA,QUISPICANCHI,2017,census_mobile,pct,47.9081,1,1,1.0,1.0,1
+district,081206,CUSIPATA,QUISPICANCHI,2017,census_mobile,pct,62.9257,1,1,1.0,1.0,1
 district,081207,HUARO,QUISPICANCHI,2007,census_mobile,pct,30.3059,1,1,1.0,1.0,1
-district,081207,HUARO,QUISPICANCHI,2017,census_mobile,pct,59.3532,1,1,1.0,1.0,1
+district,081207,HUARO,QUISPICANCHI,2017,census_mobile,pct,72.8405,1,1,1.0,1.0,1
 district,081208,LUCRE,QUISPICANCHI,2007,census_mobile,pct,6.5494,1,1,1.0,1.0,1
-district,081208,LUCRE,QUISPICANCHI,2017,census_mobile,pct,56.781,1,1,1.0,1.0,1
+district,081208,LUCRE,QUISPICANCHI,2017,census_mobile,pct,80.3585,1,1,1.0,1.0,1
 district,081209,MARCAPATA,QUISPICANCHI,2007,census_mobile,pct,0.0821,1,1,1.0,1.0,1
-district,081209,MARCAPATA,QUISPICANCHI,2017,census_mobile,pct,36.9221,1,1,1.0,1.0,1
+district,081209,MARCAPATA,QUISPICANCHI,2017,census_mobile,pct,42.4618,1,1,1.0,1.0,1
 district,081210,OCONGATE,QUISPICANCHI,2007,census_mobile,pct,0.6588,1,1,1.0,1.0,1
-district,081210,OCONGATE,QUISPICANCHI,2017,census_mobile,pct,60.9093,1,1,1.0,1.0,1
+district,081210,OCONGATE,QUISPICANCHI,2017,census_mobile,pct,69.8882,1,1,1.0,1.0,1
 district,081211,OROPESA,QUISPICANCHI,2007,census_mobile,pct,50.5336,1,1,1.0,1.0,1
-district,081211,OROPESA,QUISPICANCHI,2017,census_mobile,pct,69.9938,1,1,1.0,1.0,1
+district,081211,OROPESA,QUISPICANCHI,2017,census_mobile,pct,90.3739,1,1,1.0,1.0,1
 district,081212,QUIQUIJANA,QUISPICANCHI,2007,census_mobile,pct,0.5968,1,1,1.0,1.0,1
-district,081212,QUIQUIJANA,QUISPICANCHI,2017,census_mobile,pct,48.4362,1,1,1.0,1.0,1
+district,081212,QUIQUIJANA,QUISPICANCHI,2017,census_mobile,pct,59.4026,1,1,1.0,1.0,1
 district,081301,URUBAMBA,URUBAMBA,2007,census_mobile,pct,42.3551,1,1,1.0,1.0,1
-district,081301,URUBAMBA,URUBAMBA,2017,census_mobile,pct,73.2383,1,1,1.0,1.0,1
+district,081301,URUBAMBA,URUBAMBA,2017,census_mobile,pct,83.4136,1,1,1.0,1.0,1
 district,081302,CHINCHERO,URUBAMBA,2007,census_mobile,pct,31.3366,1,1,1.0,1.0,1
-district,081302,CHINCHERO,URUBAMBA,2017,census_mobile,pct,61.9853,1,1,1.0,1.0,1
+district,081302,CHINCHERO,URUBAMBA,2017,census_mobile,pct,77.6563,1,1,1.0,1.0,1
 district,081303,HUAYLLABAMBA,URUBAMBA,2007,census_mobile,pct,25.6536,1,1,1.0,1.0,1
-district,081303,HUAYLLABAMBA,URUBAMBA,2017,census_mobile,pct,65.5746,1,1,1.0,1.0,1
+district,081303,HUAYLLABAMBA,URUBAMBA,2017,census_mobile,pct,81.8831,1,1,1.0,1.0,1
 district,081304,MACHUPICCHU,URUBAMBA,2007,census_mobile,pct,60.249,1,1,1.0,1.0,1
-district,081304,MACHUPICCHU,URUBAMBA,2017,census_mobile,pct,80.2844,1,1,1.0,1.0,1
+district,081304,MACHUPICCHU,URUBAMBA,2017,census_mobile,pct,85.3831,1,1,1.0,1.0,1
 district,081305,MARAS,URUBAMBA,2007,census_mobile,pct,19.0964,1,1,1.0,1.0,1
-district,081305,MARAS,URUBAMBA,2017,census_mobile,pct,48.1301,1,1,1.0,1.0,1
+district,081305,MARAS,URUBAMBA,2017,census_mobile,pct,63.0794,1,1,1.0,1.0,1
 district,081306,OLLANTAYTAMBO,URUBAMBA,2007,census_mobile,pct,18.7748,1,1,1.0,1.0,1
-district,081306,OLLANTAYTAMBO,URUBAMBA,2017,census_mobile,pct,59.2726,1,1,1.0,1.0,1
+district,081306,OLLANTAYTAMBO,URUBAMBA,2017,census_mobile,pct,70.4286,1,1,1.0,1.0,1
 district,081307,YUCAY,URUBAMBA,2007,census_mobile,pct,40.9029,1,1,1.0,1.0,1
-district,081307,YUCAY,URUBAMBA,2017,census_mobile,pct,69.31,1,1,1.0,1.0,1
+district,081307,YUCAY,URUBAMBA,2017,census_mobile,pct,86.8387,1,1,1.0,1.0,1
 department,08,CUSCO,,2007,census_quechua,pct,51.4826,108,108,1.0,1.0,1
 department,08,CUSCO,,2017,census_quechua,pct,55.3533,112,112,1.0,1.0,1
 province,0801,CUSCO,CUSCO,2007,census_quechua,pct,18.2457,8,8,1.0,1.0,1

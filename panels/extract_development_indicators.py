@@ -217,20 +217,33 @@ DERIVED = {
 # Time-invariant baselines from the 2007 and 2017 Censuses and the 2013
 # poverty map. Census items are counts; each share is numerator/denominator.
 DWELL = ["407243", "407244"]                       # dwellings with occupants present
-HH = ["407235", "407236", "407237", "407238", "407239", "407240", "407241", "407242"]  # households (by cooking fuel)
+# Households. 2007: sum of the cooking-fuel categories (one main fuel per
+# household). 2017: SIRTOD's total of households (516818), because the 2017
+# fuel question allows several fuels and its categories overlap.
+HH = {
+    2007: ["407235", "407236", "407237", "407238", "407239", "407240", "407241", "407242"],
+    2017: ["516818"],
+}
 LANG = ["516749", "516750", "516751", "516752"]    # population by mother tongue
 BASELINE = {
-    # name: (numerator codes, denominator codes, label)
+    # name: (numerator codes, denominator codes, label); a dict means by census year
     "water_in": (["407209"], DWELL, "% dwellings with piped water inside"),
     "sewer_in": (["407217"], DWELL, "% dwellings with sewer connection inside"),
     "electric": (["407243"], DWELL, "% dwellings with public electricity"),
     "earth_floor": (["407201"], DWELL, "% dwellings with earthen floor"),
-    "cook_biomass": (["407239", "407240"], HH, "% households cooking with firewood or dung"),
+    "cook_biomass": (["407239", "407240"], HH,
+                     {2007: "% households cooking mainly with firewood or dung",
+                      2017: "% households using firewood or dung (several fuels possible)"}),
     "internet": (["516775"], HH, "% households with internet"),
     "mobile": (["516777"], HH, "% households with a mobile phone"),
     "quechua": (["516750"], LANG, "% population with Quechua mother tongue"),
     "rural": (["262221"], ["262215"], "% population rural"),
 }
+
+
+def by_year(x, year):
+    """BASELINE entries may be given per census year as a dict."""
+    return x[year] if isinstance(x, dict) else x
 CENSUS_POP = "262215"
 POVERTY_MAP = "427594"
 
@@ -347,6 +360,7 @@ def build_baseline(raw, names):
             continue
         vy = v.xs(year, level="Año")
         for name, (num, den, lab) in BASELINE.items():
+            den, lab = by_year(den, year), by_year(lab, year)
             n = vy.reindex(columns=num).sum(axis=1, min_count=1)
             d = vy.reindex(columns=den).sum(axis=1, min_count=1)
             # a category absent for a district with a denominator is a zero
@@ -417,7 +431,8 @@ def main():
     for c in filter(None, args.extra.split(",")):
         spec.setdefault(c.strip(), (f"v{c.strip()}", "extra", NONE, f"SIRTOD code {c.strip()}"))
 
-    baseline_codes = {c for num, den, _ in BASELINE.values() for c in num + den}
+    baseline_codes = {c for num, den, _ in BASELINE.values()
+                      for y in (2007, 2017) for c in num + by_year(den, y)}
     baseline_codes |= {CENSUS_POP, POVERTY_MAP}
     ece_all = {c for c, v in SHORTLIST.items() if v[2] == ECE}
     need = set(spec) | set(RENAMU_UNIVERSE_CODES) | ece_all
