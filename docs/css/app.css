@@ -38,8 +38,8 @@
     --ref-line: #f0efec; --band: rgba(240, 239, 236, 0.14);
     --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
     --series-4: #c98500; --series-5: #d55181; --series-6: #008300;
-    /* on a dark surface magnitude reads from dark (low) to light (high), in evenly spaced steps */
-    --seq-1: #184f95; --seq-2: #256abf; --seq-3: #3987e5; --seq-4: #6da7ec; --seq-5: #9ec5f4; --seq-6: #cde2fb;
+    /* darker means more in both modes, as maps usually show intensity; evenly spaced steps */
+    --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #6da7ec; --seq-4: #3987e5; --seq-5: #256abf; --seq-6: #184f95;
     --nodata: #3a3a37;
     --shadow: none;
   }
@@ -53,7 +53,7 @@
   --ref-line: #f0efec; --band: rgba(240, 239, 236, 0.14);
   --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
   --series-4: #c98500; --series-5: #d55181; --series-6: #008300;
-  --seq-1: #184f95; --seq-2: #256abf; --seq-3: #3987e5; --seq-4: #6da7ec; --seq-5: #9ec5f4; --seq-6: #cde2fb;
+  --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #6da7ec; --seq-4: #3987e5; --seq-5: #256abf; --seq-6: #184f95;
   --nodata: #3a3a37;
   --shadow: none;
 }
