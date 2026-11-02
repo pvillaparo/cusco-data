@@ -1,6 +1,6 @@
 # Website data for Cusco-stats (/cusco-data/)
 
-This folder turns the harmonized dataset into the files the Cusco-stats app reads. The app lives in this same repository, in `docs/`, and GitHub Pages publishes that folder at `pvillaparo.github.io/cusco-data/` once the repository is renamed `cusco-data`; the landing page will be at `/cusco-stats/` on the main site. The data files go to `docs/data/`. The full design is in `PLAN.md`; the first draft of the story text is in `story_draft.md`.
+This folder turns the harmonized dataset into the files the Cusco-stats app reads. The app lives in this same repository, in `docs/`, and GitHub Pages publishes that folder at `pvillaparo.github.io/cusco-data/` once the repository is renamed `cusco-data`; the landing page will be at `/cusco-stats/` on the main site. The data files go to `docs/data/`. The full design is in `PLAN.md`; the editing draft of the story text is in `story_draft.md`, and the text the page actually shows is in `docs/js/story-text.js`.
 
 Rebuild after any change to the harmonized data:
 

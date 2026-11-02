@@ -25,8 +25,8 @@
         </div>
       </div>
       <nav class="site-nav" aria-label="Sections" data-i18n-aria="ariaSections">
-        <span class="nav-link is-soon" aria-disabled="true" data-i18n="navStory">Story</span>
-        <a href="./" class="nav-link is-active" aria-current="page" data-i18n="navExplorer">Explorer</a>
+        <a href="#story" class="nav-link" data-nav="story" data-i18n="navStory">Story</a>
+        <a href="#explorer" class="nav-link" data-nav="explorer" data-i18n="navExplorer">Explorer</a>
         <span class="nav-link is-soon" aria-disabled="true" data-i18n="navMethods">Methods &amp; data</span>
       </nav>
       <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria="ariaLanguage">
@@ -36,9 +36,26 @@
     </div>
   </header>
 
-  <main id="explorer" class="wrap" tabindex="-1">
+  <main id="main">
+  <section id="story" class="story" aria-labelledby="story-title" tabindex="-1">
+    <div class="wrap">
+      <header class="story-head">
+        <p class="story-kicker" id="story-kicker">Story</p>
+        <h1 id="story-title">Cusco in six charts</h1>
+        <p class="story-intro" id="story-intro"></p>
+        <p class="story-note" id="story-note"></p>
+      </header>
+      <div id="story-steps"></div>
+      <div class="story-end">
+        <p id="story-outro"></p>
+        <a class="btn-explore is-primary" href="#explorer" id="story-go">Go to the explorer</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="explorer" class="wrap explorer" tabindex="-1" aria-labelledby="explorer-title">
     <section class="intro">
-      <h1 data-i18n="explorerTitle">Explorer</h1>
+      <h2 id="explorer-title" class="explorer-title" data-i18n="explorerTitle">Explorer</h2>
       <p data-i18n="explorerIntro">Choose an indicator, then add provinces or districts to compare them with Cusco as a whole. Click a district on the map to add it to the chart.</p>
     </section>
 
@@ -109,6 +126,7 @@
         <div id="notes" class="notes"></div>
       </section>
     </div>
+  </section>
   </main>
 
   <footer class="site-footer">

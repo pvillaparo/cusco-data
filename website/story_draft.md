@@ -1,5 +1,7 @@
 # Cusco-stats story: first draft
 
+> **Where the live text lives.** The app reads the story from `docs/js/story-text.js` (English and Spanish, plus chart captions and labels). This file is the editing draft; after changing it, copy the edits into `story-text.js` (or edit that file directly) so the page and the draft stay the same.
+
 *Draft for Paola to edit. Every figure was computed from the exported site data (`docs/data/`, built 2026-11-01) and should be rechecked whenever the data are rebuilt. Money is in constant 2024 soles unless stated otherwise. The English version comes first, then the Spanish one.*
 
 ---
@@ -20,14 +22,14 @@ The money is very unevenly spread. All ten districts with the most canon per per
 
 **3. Budgets that grow faster than spending**
 *Chart: modified budget (PIM) and accrued expenditure per person, 2010–2025, with the execution rate below.*
-When canon booms, budgets jump: the modified budget rose from S/ 2,661 per person in 2010 to S/ 4,727 in 2013. Spending follows, but with a lag, so the share of the budget actually spent tends to fall in boom years (64% in 2011, 65% in 2023) and recover afterwards (88% in 2024). About seven soles in ten of municipal spending go to capital projects, a share that dipped only during the 2020 pandemic (56%).
+When canon booms, budgets jump: the modified budget rose from S/ 2,661 per person in 2010 to S/ 4,727 in 2013. Spending follows, but with a lag, so the share of the budget actually spent tends to fall in boom years (64% in 2011, 65% in 2023) and recover afterwards (88% in 2024). About seven soles in ten of municipal spending go to capital projects, a share that dipped mainly during the 2020 pandemic (56%).
 
 **4. Schools: more teachers, better results**
 *Charts: pupils per teacher (2008–2025), public school premises on the electricity grid (2001–2022), and 2nd-grade pupils at the satisfactory level (2007–2016).*
 The number of pupils per teacher in public schools fell from 24.8 to 13.8, partly because there are more teachers and partly because there are fewer children. School premises connected to the grid went from 37% to 89%. Among second graders who sat the national test, the share reading at the expected level rose from 11% in 2007 to 49% in 2015, and in mathematics from 5% to 37% by 2016. The test does not cover bilingual schools, so these figures describe mainly Spanish-instruction schools.
 
 **5. Households between two censuses, and poverty**
-*Charts: change between the 2007 and 2017 censuses by province (piped water, sewerage, internet, cooking with firewood or dung), and monetary poverty 2007–2025 as a band.*
+*Charts: change between the 2007 and 2017 censuses for Cusco as a whole (piped water, sewerage, electricity, cooking with firewood or dung, internet), and monetary poverty 2007–2025 with its confidence interval as a band.*
 Between the two censuses the share of dwellings with piped water inside rose from 61% to 80%, sewerage from 31% to 47%, and electricity from 64% to 82%. Cooking mainly with firewood or dung fell from 62% to 27% of households, while internet at home, still rare, rose from 2% to 15%. Monetary poverty in the group of departments that includes Cusco fell from about 57% in 2007 to about 24% in 2019, jumped to 33% in the pandemic year and was back near 21% by 2025.
 
 **6. The reach of the state**
@@ -54,14 +56,14 @@ El dinero está muy desigualmente repartido. Los diez distritos con más canon p
 
 **3. Presupuestos que crecen más rápido que el gasto**
 *Gráfico: presupuesto modificado (PIM) y gasto devengado por habitante, 2010-2025, con el avance de ejecución debajo.*
-Cuando el canon crece, los presupuestos saltan: el PIM pasó de S/ 2 661 por habitante en 2010 a S/ 4 727 en 2013. El gasto lo sigue, pero con rezago, de modo que la parte del presupuesto que realmente se ejecuta tiende a caer en los años de bonanza (64% en 2011, 65% en 2023) y a recuperarse después (88% en 2024). Alrededor de siete de cada diez soles del gasto municipal se destinan a proyectos de inversión, una proporción que solo bajó durante la pandemia de 2020 (56%).
+Cuando el canon crece, los presupuestos saltan: el PIM pasó de S/ 2 661 por habitante en 2010 a S/ 4 727 en 2013. El gasto lo sigue, pero con rezago, de modo que la parte del presupuesto que realmente se ejecuta tiende a caer en los años de bonanza (64% en 2011, 65% en 2023) y a recuperarse después (88% en 2024). Alrededor de siete de cada diez soles del gasto municipal se destinan a proyectos de inversión, una proporción que bajó sobre todo durante la pandemia de 2020 (56%).
 
 **4. Escuelas: más docentes, mejores resultados**
 *Gráficos: alumnos por docente (2008-2025), locales escolares públicos conectados a la red eléctrica (2001-2022) y estudiantes de 2.º grado con nivel satisfactorio (2007-2016).*
 El número de alumnos por docente en las escuelas públicas bajó de 24,8 a 13,8, en parte porque hay más docentes y en parte porque hay menos niños. Los locales escolares conectados a la red eléctrica pasaron de 37% a 89%. Entre los estudiantes de segundo grado evaluados, la proporción con nivel satisfactorio en lectura subió de 11% en 2007 a 49% en 2015, y en matemática de 5% a 37% en 2016. La prueba no cubre las escuelas bilingües, por lo que estas cifras describen sobre todo escuelas de enseñanza en castellano.
 
 **5. Los hogares entre dos censos, y la pobreza**
-*Gráficos: cambio entre los censos de 2007 y 2017 por provincia (agua dentro de la vivienda, desagüe, internet, cocina con leña o bosta) y pobreza monetaria 2007-2025 como banda.*
+*Gráficos: cambio entre los censos de 2007 y 2017 para Cusco en conjunto (agua dentro de la vivienda, desagüe, electricidad, cocina con leña o bosta, internet) y pobreza monetaria 2007-2025 con su intervalo de confianza como banda.*
 Entre ambos censos, las viviendas con agua de red pública dentro de la vivienda pasaron de 61% a 80%, las conectadas al desagüe de 31% a 47% y las con electricidad de 64% a 82%. Los hogares que cocinan principalmente con leña o bosta bajaron de 62% a 27%, mientras que el internet en casa, todavía escaso, subió de 2% a 15%. La pobreza monetaria en el grupo de departamentos que incluye a Cusco bajó de alrededor de 57% en 2007 a cerca de 24% en 2019, saltó a 33% en el año de la pandemia y volvió a cerca de 21% en 2025.
 
 **6. El alcance del Estado**

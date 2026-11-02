@@ -5,12 +5,12 @@
 const MARGIN = { top: 26, right: 112, bottom: 30, left: 56 };
 
 export function drawLineChart(container, opts) {
-  const { series, band, unit, fmt, tickFormat, ariaLabel, yearLabel, tooltip, coverageText, intervalText, connect, summary } = opts;
+  const { series, band, unit, fmt, tickFormat, ariaLabel, yearLabel, tooltip, coverageText, intervalText, connect, summary, compact } = opts;
   container.textContent = "";
   const width = Math.max(260, container.clientWidth || 640);
-  const narrow = width < 520;
-  const m = { ...MARGIN, right: narrow ? 16 : MARGIN.right, top: narrow ? 12 : MARGIN.top };
-  const height = narrow ? 280 : 340;
+  const narrow = width < 520 || compact;      // compact: small multiples in the story
+  const m = { ...MARGIN, right: narrow ? 16 : MARGIN.right, top: narrow ? 12 : MARGIN.top, left: compact ? 44 : MARGIN.left };
+  const height = opts.height || (narrow ? 280 : 340);
   const innerW = width - m.left - m.right;
   const innerH = height - m.top - m.bottom;
 

@@ -3,6 +3,7 @@
 import { STRINGS, makeFormatter } from "./i18n.js";
 import { drawLineChart } from "./linechart.js";
 import { drawMap, rewind } from "./map.js";
+import { initStory, redrawStory } from "./story.js";
 
 const SERIES_VARS = ["--series-1", "--series-2", "--series-3", "--series-4", "--series-5", "--series-6"];
 const MAX_PLACES = 6;
@@ -83,6 +84,7 @@ function readURL() {
   if (q.get("p")) state.places = q.get("p").split(",").map((s) => s.trim()).filter(Boolean);
   if (q.get("c")) state.slotHint = q.get("c");
   if (q.get("y")) state.year = +q.get("y");
+  state.fromLink = q.has("v");      // a shared explorer view: open the page at the explorer
 }
 function writeURL() {
   const q = new URLSearchParams();
@@ -559,9 +561,23 @@ function applyLanguage() {
   for (const el of document.querySelectorAll("[data-i18n-placeholder]")) el.placeholder = t[el.dataset.i18nPlaceholder];
   for (const el of document.querySelectorAll("[data-i18n-aria]")) el.setAttribute("aria-label", t[el.dataset.i18nAria]);
   for (const el of document.querySelectorAll(".nav-link.is-soon")) el.dataset.soon = t.soon;
+  const head = document.querySelector("#story-kicker");
+  if (head) document.querySelector("meta[name=description]")?.setAttribute("content", t.metaDescription || "");
   for (const b of document.querySelectorAll("[data-lang]")) b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));
   $("footer-data").textContent = t.dataVintage(vintageDate(), META.built);
   document.title = state.lang === "es" ? "Cusco-stats · Los distritos de Cusco en datos" : "Cusco-stats · Districts of Cusco in data";
+}
+
+// ---------- story -> explorer ----------
+function openExplorer({ v, m, real, places }) {
+  state.v = v; state.m = m; state.real = real; state.year = null;
+  state.places = []; slots.clear();
+  for (const c of places) { state.places.push(c); assignSlot(c); }
+  fillIndicatorSelect(); fillMeasureSelect();
+  render();
+  const ex = $("explorer");
+  ex.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  ex.focus({ preventScroll: true });
 }
 
 // ---------- init ----------
@@ -602,6 +618,10 @@ async function init() {
   fillIndicatorSelect();
   fillMeasureSelect();
   fillPlaceList();
+  initStory({
+    lang: () => state.lang, series, tooltip, GEO_D, GEO_P, PLACES, cssVar, openExplorer,
+    label: (v) => byId.get(v)?.label[state.lang] || v,
+  });
 
   $("sel-indicator").addEventListener("change", (e) => { state.v = e.target.value; state.year = null; fillMeasureSelect(); render(); });
   $("sel-measure").addEventListener("change", (e) => { state.m = e.target.value; fillMeasureSelect(); render(); });
@@ -628,7 +648,7 @@ async function init() {
   for (const b of document.querySelectorAll("[data-lang]")) {
     b.addEventListener("click", () => {
       state.lang = b.dataset.lang;
-      applyLanguage(); fillIndicatorSelect(); fillMeasureSelect(); fillPlaceList(); render();
+      applyLanguage(); fillIndicatorSelect(); fillMeasureSelect(); fillPlaceList(); render(); redrawStory();
     });
   }
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") tooltip.hide(); });
@@ -637,10 +657,32 @@ async function init() {
     if (!inside) tooltip.hide();
   });
   let timer;
-  window.addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(render, 150); });
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+  let lastWidth = window.innerWidth;
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      if (window.innerWidth === lastWidth) return;      // ignore height-only resizes (mobile address bar)
+      lastWidth = window.innerWidth;
+      render(); redrawStory();
+    }, 150);
+  });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { render(); redrawStory(); });
 
   await render();
+  if (state.fromLink) pinExplorer();
+}
+
+// A shared explorer link opens at the explorer. Story charts above it draw lazily and can grow the
+// page after the jump, so keep the explorer in place until those settle or the reader takes over.
+function pinExplorer() {
+  const ex = $("explorer");
+  ex.scrollIntoView({ block: "start" });
+  const ro = new ResizeObserver(() => ex.scrollIntoView({ block: "start" }));
+  ro.observe($("story"));
+  const events = ["wheel", "touchstart", "keydown", "pointerdown"];
+  const stop = () => { ro.disconnect(); for (const e of events) window.removeEventListener(e, stop); };
+  for (const e of events) window.addEventListener(e, stop, { passive: true });
+  setTimeout(stop, 4000);
 }
 
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
